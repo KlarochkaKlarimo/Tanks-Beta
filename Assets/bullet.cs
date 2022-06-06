@@ -5,18 +5,24 @@ using UnityEngine;
 public class bullet : MonoBehaviour
 {
     [SerializeField] private GameObject explosion;
-    // Start is called before the first frame update
-    void Start()
-    {
+    private float _damage;
+    private Vector3 _destination;
 
-        
+    public void SetVariables(Vector3 destination, float damage, float lifeTime)
+    {
+        _destination = destination;
+        _damage = damage;
+        Destroy(gameObject, lifeTime);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if (_destination != null)
+        {
+            transform.position += _destination * Time.deltaTime;
+        }
     }
+
 
     private void OnCollisionEnter(Collision collision)
     {
