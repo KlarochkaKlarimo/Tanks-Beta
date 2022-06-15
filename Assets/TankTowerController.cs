@@ -22,10 +22,29 @@ public class TankTowerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        var ray = new Ray(ShootPoint.position, ShootPoint.forward);
+        //RaycastHit hit;
+        //if (Physics.Raycast(ray, out hit, 100))
+        //{
+        //    _destination = hit.point;
+
+        //}
+        //else 
+        //{
+        //    
+        //}
+        _destination = ray.origin + ray.direction * 1000f;
+        Debug.DrawLine(ShootPoint.position, _destination, Color.red, 10f);
         if (Input.GetKey(KeyCode.Mouse0))
         {
             Shoot();
         }
+        //else
+        //{
+        //    _destination = ray.origin + ray.direction * 1000f;
+        //}
+        //_destination = (_destination - transform.position).normalized * 50f;
+
 
 
     }
@@ -38,18 +57,6 @@ public class TankTowerController : MonoBehaviour
         }
         //var shoot = Instantiate(bullet, ShootPoint.position, transform.rotation);
         //shoot.GetComponent<Rigidbody>().AddForce (bullet.transform.forward*5000f);
-        RaycastHit hit;
-        
-        var ray = camera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit))
-        {
-            _destination = hit.point;
-        }
-        else
-        {
-            _destination = ray.origin + ray.direction * 1000f;
-        }
-        _destination = (_destination - transform.position).normalized * 50f;
         
         SpawnBullet();
     }
