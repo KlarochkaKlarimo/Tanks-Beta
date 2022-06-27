@@ -31,7 +31,7 @@ public class bullet : MonoBehaviour
         
         Instantiate(explosion, transform.position,Quaternion.identity);
 
-        print("collision"+collision.gameObject.name);
-        print(transform.position);
+        Destroy(gameObject);
+        
     }
 }
