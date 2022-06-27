@@ -20,7 +20,8 @@ public class bullet : MonoBehaviour
     {
         if (_destination != null)
         {
-            transform.position += _destination * (Time.deltaTime * speed);
+            transform.position = Vector3.MoveTowards(transform.position, _destination, Time.deltaTime * speed);
+          //  transform.position += _destination * (Time.deltaTime * speed);
         }
     }
 
