@@ -9,6 +9,7 @@ public class TankTowerController : MonoBehaviour
     [SerializeField] private Transform ShootPoint;
     [SerializeField] private float reloadingTime;
     [SerializeField] private Camera camera;
+    [SerializeField] private GameObject flesh;
 
     private bool isReloading;
     private Vector3 _destination;
@@ -67,7 +68,7 @@ public class TankTowerController : MonoBehaviour
         Invoke("Reloading", reloadingTime);
         var _bullet = Instantiate(bullet, ShootPoint.position, transform.rotation);
         _bullet.GetComponent<bullet> ().SetVariables(_destination, 100, 40);
-        
+         Instantiate(flesh, ShootPoint.position, Quaternion.identity);
     }
     private void Reloading()
     {

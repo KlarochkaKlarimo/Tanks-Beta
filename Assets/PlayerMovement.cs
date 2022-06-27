@@ -10,6 +10,11 @@ public class PlayerMovement : MonoBehaviour
     public float rotationSpeed = 3f;
     private bool isOnGround;
     private Vector3 velocity;
+
+    public void setIsOnGround(bool flag)
+    {
+        isOnGround = flag;
+    }
     private void Start()
     {
         controller = gameObject.GetComponent<Rigidbody>();
@@ -19,16 +24,19 @@ public class PlayerMovement : MonoBehaviour
     {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
-        
-        if (z != 0)
+        if (isOnGround)
         {
-
-            controller.MovePosition(transform.position + (transform.forward * (z * speed * Time.deltaTime)));
-            if (x!=0)
+            if (z != 0)
             {
-                //transform.rotation = Quaternion.Euler(0f, transform.rotation.x +(Time.deltaTime * rotationSpeed * x), 0f);
-                transform.Rotate(Vector3.up * x * rotationSpeed);
+
+                controller.MovePosition(transform.position + (transform.forward * (z * speed * Time.deltaTime)));
+                if (x!=0)
+                {
+                    //transform.rotation = Quaternion.Euler(0f, transform.rotation.x +(Time.deltaTime * rotationSpeed * x), 0f);
+                    transform.Rotate(Vector3.up * x * rotationSpeed);
+                }
             }
         }
+        
     }  
 }

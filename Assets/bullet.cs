@@ -7,6 +7,7 @@ public class bullet : MonoBehaviour
     [SerializeField] private GameObject explosion;
     private float _damage;
     private Vector3 _destination;
+    [SerializeField] private float speed = 0.1f;
 
     public void SetVariables(Vector3 destination, float damage, float lifeTime)
     {
@@ -19,7 +20,7 @@ public class bullet : MonoBehaviour
     {
         if (_destination != null)
         {
-            transform.position += _destination * Time.deltaTime;
+            transform.position += _destination * (Time.deltaTime * speed);
         }
     }
 
