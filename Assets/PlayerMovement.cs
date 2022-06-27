@@ -28,9 +28,16 @@ public class PlayerMovement : MonoBehaviour
         {
             if (z != 0)
             {
-                controller.AddForce(transform.forward * speed);
-               // controller.MovePosition(transform.position + (transform.forward * (z * speed * Time.deltaTime)));
-                if (x!=0)
+                if (z > 0)
+                {
+                    controller.AddForce(transform.forward * speed);
+                }
+                else if (z < 0)
+                {
+                    controller.AddForce(-transform.forward * speed);
+                }
+                    // controller.MovePosition(transform.position + (transform.forward * (z * speed * Time.deltaTime)));
+                    if (x!=0)
                 {
                     //transform.rotation = Quaternion.Euler(0f, transform.rotation.x +(Time.deltaTime * rotationSpeed * x), 0f);
                     transform.Rotate(Vector3.up * x * rotationSpeed);
