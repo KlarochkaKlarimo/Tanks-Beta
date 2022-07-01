@@ -17,13 +17,22 @@ public class MoveColision : MonoBehaviour
     {
         
     }
-
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
-        print("hello");
         var isGround = collision.gameObject.layer == LayerMask.NameToLayer("ground");
         if (isGround)
         {
+            print("hello");
+            _playerMovement.setIsOnGround(true);
+        }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+
+        var isGround = collision.gameObject.layer == LayerMask.NameToLayer("ground");
+        if (isGround)
+        {
+            print("hello");
             _playerMovement.setIsOnGround(true);
         }
     }
@@ -33,6 +42,7 @@ public class MoveColision : MonoBehaviour
         var isGround = collision.gameObject.layer == LayerMask.NameToLayer("ground");
         if (isGround)
         {
+            print("bue");
             _playerMovement.setIsOnGround(false);
 
 
