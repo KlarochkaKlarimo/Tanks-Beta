@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
                     if (x!=0)
                 {
                     //transform.rotation = Quaternion.Euler(0f, transform.rotation.x +(Time.deltaTime * rotationSpeed * x), 0f);
-                    transform.Rotate(Vector3.up * x * rotationSpeed);
+                    transform.Rotate((Vector3.up * z) * x * rotationSpeed);
                 }
             }
         }

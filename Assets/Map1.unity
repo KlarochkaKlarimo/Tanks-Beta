@@ -1052,7 +1052,7 @@ TerrainCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 684265255}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 5ba242702107d674585dd017e13a4be5, type: 2}
   m_Enabled: 1
   m_TerrainData: {fileID: 15600000, guid: a33f41f17aefac04682f786f0df00a56, type: 2}
   m_EnableTreeColliders: 1
@@ -1713,13 +1713,17 @@ PrefabInstance:
       propertyPath: speed
       value: 10000
       objectReference: {fileID: 0}
+    - target: {fileID: 5299883653499586189, guid: 886c075d8139ea143a557e18e7ee471e, type: 3}
+      propertyPath: rotationSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5299883653499586191, guid: 886c075d8139ea143a557e18e7ee471e, type: 3}
       propertyPath: m_Drag
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5299883653499586191, guid: 886c075d8139ea143a557e18e7ee471e, type: 3}
       propertyPath: m_Mass
-      value: 300
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 5299883653499586191, guid: 886c075d8139ea143a557e18e7ee471e, type: 3}
       propertyPath: m_AngularDrag
@@ -1852,7 +1856,7 @@ MeshCollider:
   m_GameObject: {fileID: 993726855}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -1879,7 +1883,7 @@ BoxCollider:
   m_GameObject: {fileID: 993726855}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.0376968, y: 0.013546362, z: 0.07247331}
   m_Center: {x: 0.00020768493, y: 0.00708953, z: 0.0027080663}
@@ -3088,7 +3092,7 @@ TerrainCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1940017450}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 5ba242702107d674585dd017e13a4be5, type: 2}
   m_Enabled: 1
   m_TerrainData: {fileID: 15600000, guid: a33f41f17aefac04682f786f0df00a56, type: 2}
   m_EnableTreeColliders: 1
