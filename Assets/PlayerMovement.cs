@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Rigidbody controller;
+   [SerializeField] private Rigidbody controller;
 
     public float speed = 2;
     public float rotationSpeed = 3f;
@@ -15,10 +15,10 @@ public class PlayerMovement : MonoBehaviour
     {
         isOnGround = flag;
     }
-    private void Start()
-    {
-        controller = gameObject.GetComponent<Rigidbody>();
-    }
+    //private void Start()
+    //{
+    //    controller = gameObject.GetComponent<Rigidbody>();
+    //}
 
     void Update()
     {

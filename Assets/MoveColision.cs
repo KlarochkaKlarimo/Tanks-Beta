@@ -5,7 +5,7 @@ using UnityEngine;
 public class MoveColision : MonoBehaviour
 {
     [SerializeField] private PlayerMovement _playerMovement;
-
+    [SerializeField] private Collider collider ;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,8 +19,9 @@ public class MoveColision : MonoBehaviour
     }
     private void OnCollisionStay(Collision collision)
     {
+        Collider myCollider = collision.GetContact(0).thisCollider;
         var isGround = collision.gameObject.layer == LayerMask.NameToLayer("ground");
-        if (isGround)
+        if (isGround&& myCollider== collider)
         {
             print("hello");
             _playerMovement.setIsOnGround(true);
@@ -28,9 +29,9 @@ public class MoveColision : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-
+        Collider myCollider = collision.GetContact(0).thisCollider;
         var isGround = collision.gameObject.layer == LayerMask.NameToLayer("ground");
-        if (isGround)
+        if (isGround && myCollider == collider)
         {
             print("hello");
             _playerMovement.setIsOnGround(true);
@@ -40,7 +41,7 @@ public class MoveColision : MonoBehaviour
     private void OnCollisionExit(Collision collision)
     {
         var isGround = collision.gameObject.layer == LayerMask.NameToLayer("ground");
-        if (isGround)
+        if (isGround )
         {
             print("bue");
             _playerMovement.setIsOnGround(false);
