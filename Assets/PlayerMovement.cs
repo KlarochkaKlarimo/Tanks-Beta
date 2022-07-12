@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
    [SerializeField] private Rigidbody controller;
 
     public float speed = 2;
+    public float speedMax = 20;
     public float rotationSpeed = 3f;
     private bool isOnGround;
     private Vector3 velocity;
@@ -28,13 +29,17 @@ public class PlayerMovement : MonoBehaviour
         {
             if (z != 0)
             {
-                if (z > 0)
+                if (controller.velocity.magnitude < speedMax)
                 {
-                    controller.AddForce(transform.forward * speed);
-                }
-                else if (z < 0)
-                {
-                    controller.AddForce(-transform.forward * speed);
+                    print(controller.velocity.magnitude);
+                    if (z > 0)
+                    {
+                        controller.AddForce(transform.forward * speed);
+                    }
+                    else if (z < 0)
+                    {
+                        controller.AddForce(-transform.forward * speed);
+                    }
                 }
                     // controller.MovePosition(transform.position + (transform.forward * (z * speed * Time.deltaTime)));
                     if (x!=0)
