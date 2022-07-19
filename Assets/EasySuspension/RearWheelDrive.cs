@@ -42,8 +42,8 @@ public class RearWheelDrive : MonoBehaviour {
 		foreach (WheelCollider wheel in wheels)
 		{
 			// a simple car where front wheels steer while rear ones drive
-			if (wheel.transform.localPosition.z > 0)
-				wheel.steerAngle = angle;
+			//if (wheel.transform.localPosition.z > 0)
+			//	wheel.steerAngle = angle;
 
 			if (wheel.transform.localPosition.z < 0)
 				wheel.motorTorque = torque;
@@ -56,7 +56,7 @@ public class RearWheelDrive : MonoBehaviour {
 				wheel.GetWorldPose (out p, out q);
 
 				// assume that the only child of the wheelcollider is the wheel shape
-				Transform shapeTransform = wheel.transform.GetChild (0);
+				Transform shapeTransform = wheel.transform.GetChild(0);
 				shapeTransform.position = p;
 				shapeTransform.rotation = q;
 				shapeTransform.localScale = new Vector3(1, 1, 1);
