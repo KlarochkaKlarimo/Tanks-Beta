@@ -34,4 +34,13 @@ public class bullet : MonoBehaviour
         Destroy(gameObject);
         
     }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        Instantiate(explosion, transform.position, Quaternion.identity);
+
+        Destroy(gameObject);
+    }
+
+
 }
