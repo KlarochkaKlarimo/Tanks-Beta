@@ -8,13 +8,15 @@ public class RearWheelDrive : MonoBehaviour {
 
 	public float maxAngle = 30;
 	public float maxTorque = 300;
+	public float velocity ;
 	public Transform wheelShape;
+	public Rigidbody body;
+	private float moveTortuge;
 
 	// here we find all the WheelColliders down in the hierarchy
 	public void Start()
 	{
 		wheelsColliders = GetComponentsInChildren<WheelCollider>();
-
 		for (int i = 0; i < wheelsColliders.Length; ++i) 
 		{
 			var wheel = wheelsColliders [i];
@@ -34,8 +36,12 @@ public class RearWheelDrive : MonoBehaviour {
 	public void Update()
 	{
 		float angle = maxAngle * Input.GetAxis("Horizontal");
+		velocity = body.velocity.magnitude;
 		float torque = maxTorque * Input.GetAxis("Vertical");
-
+		if (torque != 0)
+		{
+			moveTortuge = torque;
+		}
 		foreach (WheelCollider wheel in wheelsColliders)
 		{
 			// a simple car where front wheels steer while rear ones drive
@@ -60,9 +66,12 @@ public class RearWheelDrive : MonoBehaviour {
 			}
 
 		}
-		foreach (Transform wheel in wheels)
+		if (velocity > 0.5f)
 		{
-			wheel.Rotate(new Vector3(torque,0,0));
+			foreach (Transform wheel in wheels)
+			{
+				wheel.Rotate(new Vector3(moveTortuge, 0, 0));
+			}
 		}
 	}
 }
