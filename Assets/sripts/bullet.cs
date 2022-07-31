@@ -26,20 +26,16 @@ public class bullet : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        
-        Instantiate(explosion, transform.position,Quaternion.identity);
-
-        Destroy(gameObject);
-        
-    }
+   
 
     private void OnCollisionStay(Collision collision)
     {
+        print("Boom");
         Instantiate(explosion, transform.position, Quaternion.identity);
 
         Destroy(gameObject);
+
+        
     }
 
 
