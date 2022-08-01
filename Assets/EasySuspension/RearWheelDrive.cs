@@ -66,6 +66,10 @@ public class RearWheelDrive : MonoBehaviour {
 			}
 
 		}
+		if (wheels == null)
+        {
+			return;
+        }
 		if (velocity > 0.5f)
 		{
 			foreach (Transform wheel in wheels)

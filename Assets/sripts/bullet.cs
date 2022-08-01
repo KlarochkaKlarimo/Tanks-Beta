@@ -13,7 +13,7 @@ public class bullet : MonoBehaviour
     {
         _destination = destination;
         _damage = damage;
-        Destroy(gameObject, lifeTime);
+        
     }
 
     private void Update()
