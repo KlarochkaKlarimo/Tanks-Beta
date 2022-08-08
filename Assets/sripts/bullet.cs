@@ -5,23 +5,26 @@ using UnityEngine;
 public class bullet : MonoBehaviour
 {
     [SerializeField] private GameObject explosion;
+    [SerializeField] private Rigidbody m_Rigidbody;
     private float _damage;
     private Vector3 _destination;
     [SerializeField] private float speed = 0.1f;
-
+    private Vector3 _step;
     public void SetVariables(Vector3 destination, float damage, float lifeTime)
     {
-        _destination = destination;
+           _destination = new Vector3(destination.x,0, destination.z) ;
         _damage = damage;
-        
+
+      //  m_Rigidbody.velocity = _destination;
+        //m_Rigidbody.AddForce(Vector3.forward * speed);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (_destination != null)
         {
-            transform.position = Vector3.MoveTowards(transform.position, _destination, Time.deltaTime * speed);
-          //  transform.position += _destination * (Time.deltaTime * speed);
+    //        _step = Vector3.MoveTowards(_step, _destination, speed * Time.fixedDeltaTime);
+            m_Rigidbody.AddForce(_destination);
         }
     }
 
