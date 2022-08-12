@@ -6,17 +6,17 @@ public class bullet : MonoBehaviour
 {
     [SerializeField] private GameObject explosion;
     [SerializeField] private Rigidbody m_Rigidbody;
-    private float _damage;
+    private int _penetrationDamage;
     private Vector3 _destination;
     [SerializeField] private float speed = 0.1f;
     private Vector3 _step;
-    public void SetVariables(Vector3 destination, float damage, float lifeTime)
+    public void SetVariables(Vector3 destination, int damage, float lifeTime)
     {
            //_destination = new Vector3(destination.x,0, destination.z);
         var vector=  transform.position - _destination;
-        _damage = damage;
+        _penetrationDamage = damage;
         m_Rigidbody.AddForce(100*transform.forward,ForceMode.Impulse);
-        Debug.Log(destination);
+        
         //  m_Rigidbody.velocity = _destination;
         //m_Rigidbody.AddForce(Vector3.forward * speed);
     }
@@ -35,13 +35,15 @@ public class bullet : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        print("Boom");
+        
         Instantiate(explosion, transform.position, Quaternion.identity);
 
         Destroy(gameObject);
 
         
     }
-
-
+    public int GetPenetrationDamage()
+    {
+        return _penetrationDamage;
+    }
 }
