@@ -12,10 +12,12 @@ public class bullet : MonoBehaviour
     private Vector3 _step;
     public void SetVariables(Vector3 destination, float damage, float lifeTime)
     {
-           _destination = new Vector3(destination.x,0, destination.z) ;
+           //_destination = new Vector3(destination.x,0, destination.z);
+        var vector=  transform.position - _destination;
         _damage = damage;
-
-      //  m_Rigidbody.velocity = _destination;
+        m_Rigidbody.AddForce(100*transform.forward,ForceMode.Impulse);
+        Debug.Log(destination);
+        //  m_Rigidbody.velocity = _destination;
         //m_Rigidbody.AddForce(Vector3.forward * speed);
     }
 
@@ -24,7 +26,7 @@ public class bullet : MonoBehaviour
         if (_destination != null)
         {
     //        _step = Vector3.MoveTowards(_step, _destination, speed * Time.fixedDeltaTime);
-            m_Rigidbody.AddForce(_destination);
+          //  m_Rigidbody.AddForce(_destination);
         }
     }
 
