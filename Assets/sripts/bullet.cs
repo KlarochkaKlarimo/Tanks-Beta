@@ -6,6 +6,7 @@ public class bullet : MonoBehaviour
 {
     [SerializeField] private GameObject explosion;
     [SerializeField] private Rigidbody m_Rigidbody;
+    [SerializeField] private Collider _collider;
     private int _penetrationDamage;
     private Vector3 _destination;
     [SerializeField] private float speed = 0.1f;
@@ -33,17 +34,47 @@ public class bullet : MonoBehaviour
 
    
 
-    private void OnCollisionStay(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
-        
-        Instantiate(explosion, transform.position, Quaternion.identity);
 
-        Destroy(gameObject);
+        var arrmor= collision.gameObject.GetComponent<armor_panel>();
+        if (arrmor == null)
+        {
+            Instantiate(explosion, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+            return;
+        }
+        var angle = ((Vector3.Angle(transform.forward, collision.contacts[0].normal)) - 90);
+        var anngleKoefecent = (angle * 0.9f)/100;
+        Debug.Log(arrmor.GetThicknes() + " arrmor.GetThicknes() " + anngleKoefecent + " anngleKoefecent " + " anngleKoefecent * _penetrationDamage " + anngleKoefecent * _penetrationDamage);
+        if (arrmor.GetThicknes() <= anngleKoefecent * _penetrationDamage)
+        {
+            Physics.IgnoreCollision(collision.collider, _collider);
+            m_Rigidbody.AddForce(100 * transform.forward, ForceMode.Impulse);
+            print("пробитие");
+        }
+        else
+        {
+            Physics.IgnoreCollision(collision.collider, _collider);
+            if (anngleKoefecent < 0.6f)
+            {
+                var rikoshetChanse = (1 - anngleKoefecent) * 100f;
+                var rikoshetRandom = Random.Range(0, 100);
+                Debug.Log(rikoshetChanse+ " rikoshetChanse " + rikoshetRandom + " rikoshetRandom " + " anngleKoefecent "+ anngleKoefecent);
+                if (rikoshetChanse < rikoshetRandom)
+                {
+                    Instantiate(explosion, transform.position, Quaternion.identity);
+                    Destroy(gameObject);
+                }
+            }
+        }
 
-        
+      //  
+
+
     }
-    public int GetPenetrationDamage()
-    {
-        return _penetrationDamage;
-    }
+    //public int GetPenetrationDamage()
+    //{
+    //    return _penetrationDamage;
+    //}
 }
