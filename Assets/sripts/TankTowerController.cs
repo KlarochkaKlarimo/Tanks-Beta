@@ -10,6 +10,7 @@ public class TankTowerController : MonoBehaviour
     [SerializeField] private float reloadingTime;
     [SerializeField] private Camera camera;
     [SerializeField] private ParticleSystem flesh;
+    [SerializeField] private int _BulletPenetration;
 
     private bool isReloading;
     private Vector3 _destination;
@@ -17,7 +18,7 @@ public class TankTowerController : MonoBehaviour
     {
         var ray = new Ray(ShootPoint.position, ShootPoint.forward);
         _destination = ray.origin + ray.direction * 1000f;
-        Debug.DrawLine(ShootPoint.position, _destination, Color.red, 10f);
+        Debug.DrawLine(ShootPoint.position, _destination, Color.cyan, 10f);
         if (Input.GetKey(KeyCode.Mouse0))
         {
             Shoot();
@@ -38,7 +39,7 @@ public class TankTowerController : MonoBehaviour
         isReloading = true;
         Invoke("Reloading", reloadingTime);
         var _bullet = Instantiate(bullet, ShootPoint.position, transform.rotation);
-        _bullet.GetComponent<bullet> ().SetVariables(_destination, 100, 40);
+        _bullet.GetComponent<bullet> ().SetVariables(_destination, _BulletPenetration, 40);
         flesh.Play();
     }
     private void Reloading()
