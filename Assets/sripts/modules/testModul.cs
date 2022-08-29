@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class testModul : ModulBase
 {
-    
+    public override void GetDamage()
+    {
+        base.GetDamage();
+    }
 }
