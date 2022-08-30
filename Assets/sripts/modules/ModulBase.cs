@@ -6,6 +6,10 @@ using UnityEngine;
 public abstract class ModulBase : MonoBehaviour
 {
     public int hp;
+    public bool isModelDamaged;
+
+    public TankTowerController tankTowerController;
+    public RearWheelDrive rearWheelDrive;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -32,6 +36,13 @@ public abstract class ModulBase : MonoBehaviour
     public virtual void GetDamage()
     {
         print(hp);
+    }
+
+    public virtual void TankDestroed()
+    {
+        tankTowerController.enabled = false;
+        rearWheelDrive.enabled = false;
+
     }
 
 }

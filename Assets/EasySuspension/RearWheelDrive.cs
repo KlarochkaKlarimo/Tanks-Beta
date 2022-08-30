@@ -5,6 +5,7 @@ public class RearWheelDrive : MonoBehaviour {
 
 	private WheelCollider[] wheelsColliders;
 	public Transform[] wheels;
+	[SerializeField] private bool _isTest;
 
 	public float maxAngle = 30;
 	public float maxTorque = 300;
@@ -35,6 +36,11 @@ public class RearWheelDrive : MonoBehaviour {
 	// this helps us to figure our which wheels are front ones and which are rear
 	public void Update()
 	{
+		if (_isTest)
+		{
+			return;
+		}
+
 		float angle = maxAngle * Input.GetAxis("Horizontal");
 		velocity = body.velocity.magnitude;
 		float torque = maxTorque * Input.GetAxis("Vertical");

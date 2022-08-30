@@ -4,18 +4,24 @@ using UnityEngine;
 
 public class TankTowerController : MonoBehaviour
 {
+    public float reloadingTime;
 
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform ShootPoint;
-    [SerializeField] private float reloadingTime;
     [SerializeField] private Camera camera;
     [SerializeField] private ParticleSystem flesh;
     [SerializeField] private int _BulletPenetration;
+    [SerializeField] private bool _isTest;
 
     private bool isReloading;
     private Vector3 _destination;
     void Update()
     {
+        if (_isTest)
+        {
+            return;
+        }
+
         var ray = new Ray(ShootPoint.position, ShootPoint.forward);
         _destination = ray.origin + ray.direction * 1000f;
         Debug.DrawLine(ShootPoint.position, _destination, Color.cyan, 10f);
@@ -23,6 +29,8 @@ public class TankTowerController : MonoBehaviour
         {
             Shoot();
         }
+
+
     }
 
     private void Shoot()

@@ -52,7 +52,7 @@ public class bullet : MonoBehaviour
         {
             Physics.IgnoreCollision(collision.collider, _collider);
             m_Rigidbody.AddForce(100 * transform.forward, ForceMode.Impulse);
-            print("Probitie");
+            print("Probitie" + collision.gameObject.name);
         }
         else
         {
