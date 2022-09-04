@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class modulEngine : ModulBase
 {
-    public override void GetDamage()
+    public override void GetDamage(int damage)
     {
-        base.GetDamage();
+        base.GetDamage(damage);
         switch (hp)
         {
             case 0:

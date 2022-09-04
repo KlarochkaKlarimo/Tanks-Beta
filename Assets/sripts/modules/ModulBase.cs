@@ -10,6 +10,7 @@ public abstract class ModulBase : MonoBehaviour
 
     public TankTowerController tankTowerController;
     public RearWheelDrive rearWheelDrive;
+    public MouseLook mouseLook;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -19,7 +20,7 @@ public abstract class ModulBase : MonoBehaviour
             return;
         }
 
-        hp = Mathf.Clamp(hp - bullet.GetModulDamage(), 0, hp);
+        
 
         if (hp == 0)
         {
@@ -29,12 +30,13 @@ public abstract class ModulBase : MonoBehaviour
 
         
 
-        GetDamage();
+        GetDamage(bullet.GetModulDamage());
     }
     
 
-    public virtual void GetDamage()
+    public virtual void GetDamage(int damage)
     {
+        hp = Mathf.Clamp(hp - damage, 0, hp);
         print(hp);
     }
 

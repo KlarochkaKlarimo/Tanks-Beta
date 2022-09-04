@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
+    public bool isTest;
     public float mouseSensitivity = 100f;
     public float RotationSensitivity = 1f;
     public float _roundedAxis;
@@ -17,6 +18,8 @@ public class MouseLook : MonoBehaviour
     public float yRotation = 0f;
     private float mouseX = 0f;
     private float mouseY = 0f;
+
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +29,11 @@ public class MouseLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isTest)
+        {
+            return;
+        }
+
         xRotation -= Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime * -1;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
         yRotation -= mouseY;

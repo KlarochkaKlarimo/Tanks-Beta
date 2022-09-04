@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ModulAmmorack : ModulBase
+public class ModulTowerRotation : ModulBase
 {
-    [SerializeField] private GameObject _ammorackExplosion;
     public override void GetDamage(int damage)
     {
         base.GetDamage(damage);
@@ -12,22 +11,15 @@ public class ModulAmmorack : ModulBase
         {
             case 0:
                 print("Modul destroed");
-                TankDestroed();
+                mouseLook.RotationSensitivity = 0;
                 break;
 
             case int n when (n <= 10):
                 print("Modul damaged");
-
-                tankTowerController.reloadingTime *= 2;
+                mouseLook.RotationSensitivity /= 2;
                 break;
 
-            
-        }
-    }
 
-    public override void TankDestroed()
-    {
-        base.TankDestroed();
-        _ammorackExplosion.SetActive(true);
+        }
     }
 }
