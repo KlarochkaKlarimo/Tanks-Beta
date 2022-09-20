@@ -5,6 +5,7 @@ using UnityEngine;
 public class ModulAmmorack : ModulBase
 {
     [SerializeField] private GameObject _ammorackExplosion;
+    [SerializeField] private GameObject _ammorackFire;
     public override void GetDamage(int damage)
     {
         base.GetDamage(damage);
@@ -29,5 +30,11 @@ public class ModulAmmorack : ModulBase
     {
         base.TankDestroed();
         _ammorackExplosion.SetActive(true);
+        Invoke("ActiveteAmmorackFire", 2f);
+    }
+
+    private void ActiveteAmmorackFire()
+    {
+        _ammorackFire.SetActive(true);
     }
 }

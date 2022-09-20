@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class ModulFuelTank : ModulBase
 {
-    public List<ModulBase> damagedModules;
+    private List<ModulBase> _damagedModules;
+    [SerializeField] private GameObject _fire;
 
     private bool _isBurn;
+    private void Start()
+    {
+        _damagedModules = new List<ModulBase>();
 
+    }
 
     public override void GetDamage(int damage)
     {
@@ -22,7 +27,7 @@ public class ModulFuelTank : ModulBase
             case int n when (n <= 10):
                 print("Modul damaged");
 
-                BurnWithChance(30);
+                BurnWithChance(20);
                 break;
 
 
@@ -35,20 +40,23 @@ public class ModulFuelTank : ModulBase
 
         if (isBurn)
         {
-            StartCoroutine("BurnDamage");
+            _fire.SetActive(true);
+            print("Start burning");
             _isBurn = true;
+            StartCoroutine(BurnDamage());
+            
         }
     }
 
-    private IEnumerable BurnDamage()
+    private IEnumerator BurnDamage()
     {
         while (_isBurn)
         {
-            foreach(ModulBase modul in damagedModules)
+            foreach(ModulBase modul in _damagedModules)
             {
                 modul.GetDamage(3);
                 print("burning");
-
+                
             }
             yield return new WaitForSeconds(1);
         }
@@ -56,6 +64,17 @@ public class ModulFuelTank : ModulBase
 
     private void OnTriggerEnter(Collider other)
     {
-        print(other.name);
+        var isModul = other.gameObject.GetComponent<ModulBase>();
+
+        if (isModul != null)
+        {
+            if (!_damagedModules.Contains(isModul))
+            {
+                _damagedModules.Add(isModul);
+            }
+           
+        }
+
+        
     }
 }
