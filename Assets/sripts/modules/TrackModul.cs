@@ -13,7 +13,7 @@ public class TrackModul : ModulBase
         _startTrackBonesPosition = new List<Vector3>();
         foreach (Transform bone in _trackBones)
         {
-            _startTrackBonesPosition.Add(bone.position);
+            _startTrackBonesPosition.Add(bone.localPosition);
         }
     }
 
@@ -46,7 +46,7 @@ public class TrackModul : ModulBase
             var i = 0;
             foreach (Transform bone in _trackBones)
             {
-                bone.position = _trackBonesPosition[i];
+                bone.localPosition = _trackBonesPosition[i];
                 i++;
             }
             rearWheelDrive.enabled = false;
@@ -60,7 +60,7 @@ public class TrackModul : ModulBase
         var i = 0;
         foreach (Transform bone in _trackBones)
         {
-            bone.position = _startTrackBonesPosition[i];
+            bone.localPosition = _startTrackBonesPosition[i];
             i++;
         }
     }

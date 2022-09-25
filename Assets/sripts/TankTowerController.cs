@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TankTowerController : MonoBehaviour
 {
+    public bool isCannonDamagd;
     public float reloadingTime;
 
     [SerializeField] private GameObject bullet;
@@ -12,6 +13,7 @@ public class TankTowerController : MonoBehaviour
     [SerializeField] private ParticleSystem flesh;
     [SerializeField] private int _BulletPenetration;
     [SerializeField] private bool _isTest;
+
 
     private bool isReloading;
     private Vector3 _destination;
@@ -22,6 +24,7 @@ public class TankTowerController : MonoBehaviour
             return;
         }
 
+        
         var ray = new Ray(ShootPoint.position, ShootPoint.forward);
         _destination = ray.origin + ray.direction * 1000f;
         Debug.DrawLine(ShootPoint.position, _destination, Color.cyan, 10f);
