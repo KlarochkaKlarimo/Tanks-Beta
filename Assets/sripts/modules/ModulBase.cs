@@ -9,7 +9,7 @@ public abstract class ModulBase : MonoBehaviour
     public bool isModelDamaged;
 
     public TankTowerController tankTowerController;
-    public RearWheelDrive rearWheelDrive;
+    public TankWheelControl rearWheelDrive;
     public MouseLook mouseLook;
 
     private void OnCollisionEnter(Collision collision)
