@@ -8,6 +8,7 @@ public class TankWheelControl : MonoBehaviour // place directly on a tank
     [SerializeField] WheelCollider frontLeft;
     [SerializeField] WheelCollider rearRight;
     [SerializeField] WheelCollider rearLeft;
+    [SerializeField] private bool _isTest;
 
     [Header("All other")]
 
@@ -21,13 +22,18 @@ public class TankWheelControl : MonoBehaviour // place directly on a tank
     private Rigidbody rb;
     private float maxSpeed = 10f;
 
+
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
     private void FixedUpdate()
     {
-
+        if (_isTest)
+        {
+            return;
+        }
         // this applies torque to the wheels so it can move
         currentAcceleration = acceleration * Input.GetAxis("Vertical");
 
