@@ -52,7 +52,7 @@ public abstract class ModulBase : MonoBehaviour
         switch (hp)
         {
             case 0:
-                print("Modul destroed");
+                print("Modul destroed" + gameObject.name);
                 modulDestroyed();          
                 break;
 
@@ -62,7 +62,7 @@ public abstract class ModulBase : MonoBehaviour
                     return;
                 }
                 isModelDamaged = true;
-                print("Modul damaged");
+                print("Modul damaged" + gameObject.name);
                 modulDamaged();
                 break;
 

@@ -13,10 +13,19 @@ public class TankTowerController : MonoBehaviour
     [SerializeField] private ParticleSystem flesh;
     [SerializeField] private int _BulletPenetration;
     [SerializeField] private bool _isTest;
-
+    [SerializeField] private int _misFireChance;
+    private bool _isBreachGunDamaged;
+    private bool _isMisFire;
 
     private bool isReloading;
     private Vector3 _destination;
+
+    public void DamagedBreachGun()
+    {
+        _isBreachGunDamaged = true;
+
+    }
+
     void Update()
     {
         if (_isTest)
@@ -24,7 +33,7 @@ public class TankTowerController : MonoBehaviour
             return;
         }
 
-        
+
         var ray = new Ray(ShootPoint.position, ShootPoint.forward);
         _destination = ray.origin + ray.direction * 1000f;
         Debug.DrawLine(ShootPoint.position, _destination, Color.cyan, 10f);
@@ -41,7 +50,16 @@ public class TankTowerController : MonoBehaviour
         if (isReloading)
         {
             return;
-        }  
+        }
+        if (_isBreachGunDamaged)
+        {
+            _isMisFire = Random.Range(0, 100)>= _misFireChance;
+            if (_isMisFire)
+            {
+                return;
+            }
+        }
+        
         SpawnBullet();
     }
 
@@ -58,4 +76,6 @@ public class TankTowerController : MonoBehaviour
         isReloading = false;
 
     }
+
+    
 }

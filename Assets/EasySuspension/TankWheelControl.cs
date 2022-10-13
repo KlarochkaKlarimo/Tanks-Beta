@@ -9,6 +9,9 @@ public class TankWheelControl : MonoBehaviour // place directly on a tank
     [SerializeField] WheelCollider rearRight;
     [SerializeField] WheelCollider rearLeft;
     [SerializeField] private bool _isTest;
+    [SerializeField] private float _overHeatTaimer;
+    [SerializeField] private modulEngine _modulEngine;
+
 
     [Header("All other")]
 
@@ -22,11 +25,22 @@ public class TankWheelControl : MonoBehaviour // place directly on a tank
     private Rigidbody rb;
     private float maxSpeed = 10f;
 
+    private bool _isRadiatorDamaged;
+    private float _currentOverHeatTaimer;
+    private bool _isEngineDamaged;
 
+
+
+    public void DamagedRadiator()
+    {
+        _isRadiatorDamaged = true;
+        
+    }
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        _currentOverHeatTaimer = _overHeatTaimer;
     }
     private void FixedUpdate()
     {
@@ -36,6 +50,34 @@ public class TankWheelControl : MonoBehaviour // place directly on a tank
         }
         // this applies torque to the wheels so it can move
         currentAcceleration = acceleration * Input.GetAxis("Vertical");
+
+        if (_isRadiatorDamaged)
+        {
+            if (currentAcceleration != 0)
+            {
+                if (_currentOverHeatTaimer > 0)
+                {
+                    _currentOverHeatTaimer -= Time.fixedDeltaTime;
+                }
+                else
+                {
+                    if (!_isEngineDamaged)
+                    {
+                        Invoke("DamageEngine",1f);
+                        _isEngineDamaged = true;
+                    }
+                }
+
+            }
+            else
+            {
+                if (_currentOverHeatTaimer < _overHeatTaimer)
+                {
+                    _currentOverHeatTaimer += Time.fixedDeltaTime;
+                }
+            }
+            
+        }
 
         rearRight.motorTorque = currentAcceleration;
         rearLeft.motorTorque = currentAcceleration;
@@ -67,4 +109,10 @@ public class TankWheelControl : MonoBehaviour // place directly on a tank
     //     rb.centerOfMass = massCenter;
     // }
 
+
+    private void DamageEngine()
+    {
+        _modulEngine.GetDamage(1);
+        _isEngineDamaged = false;
+    }
 }
