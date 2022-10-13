@@ -6,24 +6,17 @@ public class ModulAmmorack : ModulBase
 {
     [SerializeField] private GameObject _ammorackExplosion;
     [SerializeField] private GameObject _ammorackFire;
-    public override void GetDamage(int damage)
+
+    public override void modulDamaged()
     {
-        base.GetDamage(damage);
-        switch (hp)
-        {
-            case 0:
-                print("Modul destroed");
-                TankDestroed();
-                break;
+        base.modulDamaged();
+        tankTowerController.reloadingTime *= 2;
+    }
 
-            case int n when (n <= 10):
-                print("Modul damaged");
-
-                tankTowerController.reloadingTime *= 2;
-                break;
-
-            
-        }
+    public override void modulDestroyed()
+    {
+        base.modulDestroyed();
+        TankDestroed();
     }
 
     public override void TankDestroed()

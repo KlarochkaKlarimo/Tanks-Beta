@@ -2,47 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ModulDriver : ModulBase
+public class ModulDriver : CharacterBase
 {
-   private SkinnedMeshRenderer meshRenderer;
-   private MeshCollider collider;
-    private void Awake()
+    public override void modulDamaged()
     {
-        meshRenderer = gameObject.GetComponent<SkinnedMeshRenderer>();
-        collider = gameObject.GetComponent<MeshCollider>();
-        UpdateCollider();
+        base.modulDamaged();
+        rearWheelDrive.rotationSpeed /=2;
     }
-    private void UpdateCollider()
+
+    public override void modulDestroyed()
     {
-        Mesh colliderMesh = new Mesh();
-        meshRenderer.BakeMesh(colliderMesh);
-        collider.sharedMesh = null;
-        collider.sharedMesh = colliderMesh;
+        base.modulDestroyed();
+        rearWheelDrive.enabled = false;
     }
-    public override void GetDamage(int damage)
-    {
-        print("driver damaged");
-        base.GetDamage(damage);
-        switch (hp)
-        {
 
-            case 0:
-                print("Modul destroed");
-                rearWheelDrive.enabled = false;
-                break;
-
-            case int n when (n <= 3):
-                if (isModelDamaged)
-                {
-                    return;
-                }
-                isModelDamaged = true;
-                print("Modul damaged");
-
-                rearWheelDrive.rotationSpeed /=2;
-                break;
-
-
-        }
-    }
 }

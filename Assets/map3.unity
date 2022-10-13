@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -226,6 +226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 15
+  _damagedHp: 7
   isModelDamaged: 0
   tankTowerController: {fileID: 0}
   rearWheelDrive: {fileID: 4481738315120333558}
@@ -290,7 +291,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4481738315120333556}
-  m_RootOrder: 18
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &96511728
 Rigidbody:
@@ -702,6 +703,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 5
+  _damagedHp: 0
   isModelDamaged: 0
   tankTowerController: {fileID: 0}
   rearWheelDrive: {fileID: 4481738315120333558}
@@ -799,6 +801,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &366662065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366662058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b857b3b31cc228042827d5e7bc980bc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 5
+  _damagedHp: 0
+  isModelDamaged: 0
+  tankTowerController: {fileID: 0}
+  rearWheelDrive: {fileID: 0}
+  mouseLook: {fileID: 0}
+  _enemyVision: {fileID: 4481738315120333559}
 --- !u!1001 &385938215
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1112,7 +1133,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100120, guid: 5917c0e93d180a842b61d1ebc62a195c, type: 3}
       propertyPath: m_Name
-      value: BasicMotionsDummyModel (2)
+      value: gunner
       objectReference: {fileID: 0}
     - target: {fileID: 100888, guid: 5917c0e93d180a842b61d1ebc62a195c, type: 3}
       propertyPath: m_Layer
@@ -1373,6 +1394,30 @@ PrefabInstance:
     - target: {fileID: 400120, guid: 5917c0e93d180a842b61d1ebc62a195c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400888, guid: 5917c0e93d180a842b61d1ebc62a195c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 400888, guid: 5917c0e93d180a842b61d1ebc62a195c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 400888, guid: 5917c0e93d180a842b61d1ebc62a195c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 400888, guid: 5917c0e93d180a842b61d1ebc62a195c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.018
+      objectReference: {fileID: 0}
+    - target: {fileID: 400888, guid: 5917c0e93d180a842b61d1ebc62a195c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.051
+      objectReference: {fileID: 0}
+    - target: {fileID: 400888, guid: 5917c0e93d180a842b61d1ebc62a195c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.013
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5917c0e93d180a842b61d1ebc62a195c, type: 3}
@@ -1825,6 +1870,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 5
+  _damagedHp: 0
   isModelDamaged: 0
   tankTowerController: {fileID: 7129473028753772127}
   rearWheelDrive: {fileID: 0}
@@ -1938,6 +1984,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 15
+  _damagedHp: 7
   isModelDamaged: 0
   tankTowerController: {fileID: 0}
   rearWheelDrive: {fileID: 4481738315120333558}
@@ -1996,7 +2043,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4481738315120333556}
-  m_RootOrder: 19
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &870938134
 Rigidbody:
@@ -2023,7 +2070,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100120, guid: 5917c0e93d180a842b61d1ebc62a195c, type: 3}
       propertyPath: m_Name
-      value: BasicMotionsDummyModel
+      value: driver
       objectReference: {fileID: 0}
     - target: {fileID: 100888, guid: 5917c0e93d180a842b61d1ebc62a195c, type: 3}
       propertyPath: m_Layer
@@ -2231,7 +2278,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400120, guid: 5917c0e93d180a842b61d1ebc62a195c, type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 400120, guid: 5917c0e93d180a842b61d1ebc62a195c, type: 3}
       propertyPath: m_LocalScale.x
@@ -2526,6 +2573,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 20
+  _damagedHp: 10
   isModelDamaged: 0
   tankTowerController: {fileID: 7129473028753772127}
   rearWheelDrive: {fileID: 4481738315120333558}
@@ -3185,6 +3233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 30
+  _damagedHp: 20
   isModelDamaged: 0
   tankTowerController: {fileID: 0}
   rearWheelDrive: {fileID: 0}
@@ -3266,6 +3315,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 35
+  _damagedHp: 20
   isModelDamaged: 0
   tankTowerController: {fileID: 0}
   rearWheelDrive: {fileID: 4481738315120333558}
@@ -3435,6 +3485,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 20
+  _damagedHp: 10
   isModelDamaged: 0
   tankTowerController: {fileID: 0}
   rearWheelDrive: {fileID: 0}
@@ -3607,7 +3658,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 21f6aea0c9b788c4b9b6275efc33d0f9, type: 3}
       propertyPath: m_RootOrder
-      value: 20
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 21f6aea0c9b788c4b9b6275efc33d0f9, type: 3}
       propertyPath: m_LocalScale.x
@@ -5737,7 +5788,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100120, guid: 5917c0e93d180a842b61d1ebc62a195c, type: 3}
       propertyPath: m_Name
-      value: BasicMotionsDummyModel (1)
+      value: captain
       objectReference: {fileID: 0}
     - target: {fileID: 100888, guid: 5917c0e93d180a842b61d1ebc62a195c, type: 3}
       propertyPath: m_Layer
@@ -5999,6 +6050,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 400888, guid: 5917c0e93d180a842b61d1ebc62a195c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 400888, guid: 5917c0e93d180a842b61d1ebc62a195c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 400888, guid: 5917c0e93d180a842b61d1ebc62a195c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 400888, guid: 5917c0e93d180a842b61d1ebc62a195c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.018
+      objectReference: {fileID: 0}
+    - target: {fileID: 400888, guid: 5917c0e93d180a842b61d1ebc62a195c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.051
+      objectReference: {fileID: 0}
+    - target: {fileID: 400888, guid: 5917c0e93d180a842b61d1ebc62a195c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.013
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5917c0e93d180a842b61d1ebc62a195c, type: 3}
 --- !u!1 &2087145931 stripped
@@ -6231,6 +6306,7 @@ GameObject:
   - component: {fileID: 4481738315120333556}
   - component: {fileID: 4481738315120333557}
   - component: {fileID: 4481738315120333558}
+  - component: {fileID: 4481738315120333559}
   m_Layer: 13
   m_Name: T90 1 (1)
   m_TagString: Untagged
@@ -6267,10 +6343,10 @@ Transform:
   - {fileID: 1025154808}
   - {fileID: 1202190204}
   - {fileID: 1249568307}
-  - {fileID: 235174544}
   - {fileID: 96511727}
   - {fileID: 870938133}
   - {fileID: 1720181508}
+  - {fileID: 235174544}
   - {fileID: 2088092656}
   - {fileID: 152163514}
   m_Father: {fileID: 0}
@@ -6312,6 +6388,19 @@ MonoBehaviour:
   acceleration: 600
   brakingForce: 600
   rotationSpeed: 0.6
+--- !u!114 &4481738315120333559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4481738315120333448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60a3dbdb1fd2fe64eae11432df0dc65a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: 40
 --- !u!1 &4481738315441005124
 GameObject:
   m_ObjectHideFlags: 0
@@ -8475,7 +8564,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7131224167033207888}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.553, y: 0.521, z: 1.682}
+  m_LocalPosition: {x: 1.485671, y: 0.521, z: 1.682}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9399,6 +9488,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 20
+  _damagedHp: 0
   isModelDamaged: 0
   tankTowerController: {fileID: 0}
   rearWheelDrive: {fileID: 0}

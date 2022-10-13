@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class modulEngine : ModulBase
+public class TransimitionModul : ModulBase
 {
     public override void modulDamaged()
     {
         base.modulDamaged();
-        rearWheelDrive.acceleration /=2;
+        rearWheelDrive.rotationSpeed /=2;
     }
 
     public override void modulDestroyed()
@@ -17,4 +17,3 @@ public class modulEngine : ModulBase
     }
 
 }
-    

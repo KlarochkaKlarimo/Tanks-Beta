@@ -14,25 +14,18 @@ public class ModulFuelTank : ModulBase
 
     }
 
-    public override void GetDamage(int damage)
+    public override void modulDamaged()
     {
-        base.GetDamage(damage);
-        switch (hp)
-        {
-            case 0:
-                print("Modul destroed");
-                BurnWithChance(100);
-                break;
-
-            case int n when (n <= 10):
-                print("Modul damaged");
-
-                BurnWithChance(20);
-                break;
-
-
-        }
+        base.modulDamaged();
+        BurnWithChance(100);
     }
+
+    public override void modulDestroyed()
+    {
+        base.modulDestroyed();
+        BurnWithChance(20);
+    }
+
 
     private void BurnWithChance(int chance)
     {

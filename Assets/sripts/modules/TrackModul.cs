@@ -17,26 +17,18 @@ public class TrackModul : ModulBase
         }
     }
 
-    public override void GetDamage(int damage)
+    public override void modulDamaged()
     {
-        base.GetDamage(damage);
-        switch (hp)
-        {
-            case 0:
-                print("Modul destroed");
-                TrackDestroyWithChance(100);
-                break;
-
-            case int n when (n <= 10):
-                print("Modul damaged");
-
-                TrackDestroyWithChance(20);
-                break;
-
-
-        }
+        base.modulDamaged();
+        TrackDestroyWithChance(20);
     }
 
+    public override void modulDestroyed()
+    {
+        base.modulDestroyed();
+        TrackDestroyWithChance(100);
+    }
+    
     private void TrackDestroyWithChance(int chance)
     {
         var isDestroyed = Random.Range(0, 100) <= chance;

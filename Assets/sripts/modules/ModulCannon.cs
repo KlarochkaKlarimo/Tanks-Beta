@@ -5,25 +5,15 @@ using UnityEngine;
 public class ModulCannon : ModulBase
 {
     [SerializeField] private TankTowerController _tankTowerController;
-
-    public override void GetDamage(int damage)
+    public override void modulDamaged()
     {
-        base.GetDamage(damage);
-        switch (hp)
-        {
-            case 0:
-                print("Modul destroed");
-                _tankTowerController.enabled = false;
-                break;
+        base.modulDamaged();
 
-            case int n when (n <= 10):
-                print("Modul damaged");
-
-                
-                break;
-
-
-        }
     }
 
+    public override void modulDestroyed()
+    {
+        base.modulDestroyed();
+        _tankTowerController.enabled = false;
+    } 
 }
