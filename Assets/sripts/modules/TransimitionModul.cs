@@ -7,13 +7,13 @@ public class TransimitionModul : ModulBase
     public override void modulDamaged()
     {
         base.modulDamaged();
-        rearWheelDrive.rotationSpeed /=2;
+        tankWheelControl.rotationSpeed /=2;
     }
 
     public override void modulDestroyed()
     {
         base.modulDestroyed();
-        rearWheelDrive.enabled = false;
+        tankWheelControl.enabled = false;
     }
 
 }

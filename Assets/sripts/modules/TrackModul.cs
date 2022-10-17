@@ -41,14 +41,14 @@ public class TrackModul : ModulBase
                 bone.localPosition = _trackBonesPosition[i];
                 i++;
             }
-            rearWheelDrive.enabled = false;
+            tankWheelControl.enabled = false;
             Invoke("RepairTruck", 7f);
         }
     }
 
     private void RepairTruck()
     {
-        rearWheelDrive.enabled = true;
+        tankWheelControl.enabled = true;
         var i = 0;
         foreach (Transform bone in _trackBones)
         {

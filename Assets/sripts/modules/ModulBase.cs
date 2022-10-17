@@ -11,7 +11,7 @@ public abstract class ModulBase : MonoBehaviour
    
 
     public TankTowerController tankTowerController;
-    public TankWheelControl rearWheelDrive;
+    public TankWheelControl tankWheelControl;
     public MouseLook mouseLook;
 
     private void OnCollisionEnter(Collision collision)
@@ -73,7 +73,7 @@ public abstract class ModulBase : MonoBehaviour
     public virtual void TankDestroed()
     {
         tankTowerController.enabled = false;
-        rearWheelDrive.enabled = false;
+        tankWheelControl.enabled = false;
 
     }
 

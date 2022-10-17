@@ -12,12 +12,17 @@ public class bullet : MonoBehaviour
     [SerializeField] private float speed = 0.1f;
     private Vector3 _step;
     [SerializeField] private int modulDamage;
-    public void SetVariables(Vector3 destination, int damage, float lifeTime)
+    public void SetVariables(Vector3 destination, int damage, float lifeTime, bool isCannonDamaged)
     {
+        var deviation = new Vector3();
+        if (isCannonDamaged)
+        {
+            deviation = new Vector3(Random.Range(0, 1), Random.Range(0, 1), Random.Range(0, 1));
+        }
            //_destination = new Vector3(destination.x,0, destination.z);
         var vector=  transform.position - _destination;
         _penetrationDamage = damage;
-        m_Rigidbody.AddForce(speed*transform.forward,ForceMode.Impulse);
+        m_Rigidbody.AddForce(speed*transform.forward + deviation,ForceMode.Impulse);
         
         //  m_Rigidbody.velocity = _destination;
         //m_Rigidbody.AddForce(Vector3.forward * speed);

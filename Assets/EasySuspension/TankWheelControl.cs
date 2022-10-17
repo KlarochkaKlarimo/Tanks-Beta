@@ -29,7 +29,10 @@ public class TankWheelControl : MonoBehaviour // place directly on a tank
     private float _currentOverHeatTaimer;
     private bool _isEngineDamaged;
 
-
+    public void SetIsTest(bool isTest)
+    {
+        _isTest = isTest;
+    }
 
     public void DamagedRadiator()
     {

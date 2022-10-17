@@ -8,7 +8,7 @@ public class ModulCannon : ModulBase
     public override void modulDamaged()
     {
         base.modulDamaged();
-
+        _tankTowerController.isCannonDamaged = true;
     }
 
     public override void modulDestroyed()

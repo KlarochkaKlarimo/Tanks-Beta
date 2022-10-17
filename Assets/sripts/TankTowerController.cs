@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TankTowerController : MonoBehaviour
 {
-    public bool isCannonDamagd;
+    public bool isCannonDamaged;
     public float reloadingTime;
 
     [SerializeField] private GameObject bullet;
@@ -19,6 +19,11 @@ public class TankTowerController : MonoBehaviour
 
     private bool isReloading;
     private Vector3 _destination;
+
+    public void SetIsTest(bool isTest)
+    {
+        _isTest = isTest;
+    }
 
     public void DamagedBreachGun()
     {
@@ -68,7 +73,7 @@ public class TankTowerController : MonoBehaviour
         isReloading = true;
         Invoke("Reloading", reloadingTime);
         var _bullet = Instantiate(bullet, ShootPoint.position, transform.rotation);
-        _bullet.GetComponent<bullet> ().SetVariables(_destination, _BulletPenetration, 40);
+        _bullet.GetComponent<bullet> ().SetVariables(_destination, _BulletPenetration, 40, isCannonDamaged);
         flesh.Play();
     }
     private void Reloading()

@@ -5,21 +5,25 @@ using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
-    public bool isTest;
-    public float mouseSensitivity = 100f;
-    public float RotationSensitivity = 1f;
-    public float _roundedAxis;
-    public float _roundedAxisCamera;
-    public float _roundedAxisTower;
-    public Transform playerBody;
-    public Transform playerGun;
+    [SerializeField] private bool _isTest;
+    [SerializeField] private float mouseSensitivity = 100f;
+    [SerializeField] private float _roundedAxis;
+    [SerializeField] private float _roundedAxisCamera;
+    [SerializeField] private float _roundedAxisTower;
+    [SerializeField] private Transform playerBody;
+    [SerializeField] private Transform playerGun;
 
+    public float RotationSensitivity = 1f;
     private float xRotation = 0f;
-    public float yRotation = 0f;
+    private float yRotation = 0f;
     private float mouseX = 0f;
     private float mouseY = 0f;
 
-    
+    public void SetIsTest(bool isTest)
+    {
+        _isTest = isTest;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +33,7 @@ public class MouseLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isTest)
+        if (_isTest)
         {
             return;
         }

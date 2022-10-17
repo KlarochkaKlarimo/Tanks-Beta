@@ -7,13 +7,13 @@ public class modulEngine : ModulBase
     public override void modulDamaged()
     {
         base.modulDamaged();
-        rearWheelDrive.acceleration /=2;
+        tankWheelControl.acceleration /=2;
     }
 
     public override void modulDestroyed()
     {
         base.modulDestroyed();
-        rearWheelDrive.enabled = false;
+        tankWheelControl.enabled = false;
     }
 
 }
