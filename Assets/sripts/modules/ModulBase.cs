@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public abstract class ModulBase : MonoBehaviour
 {
     [SerializeField] private int hp;
     [SerializeField] private int _damagedHp;
+    [SerializeField] private Image _modulImage;
     public bool isModelDamaged;
    
 
@@ -21,27 +22,32 @@ public abstract class ModulBase : MonoBehaviour
         {
             return;
         }
-
-        
-
         if (hp == 0)
         {
             gameObject.GetComponent<Collider>().enabled = false;
             
         }
-
-        
-
         GetDamage(bullet.GetModulDamage());
     }
+
+    private void ChangeModulImageColor(Color _color)
+    {
+        if(_modulImage != null)
+        {
+            _modulImage.color = _color;
+            
+
+        }
+    }
+
     public virtual void modulDamaged()
     {
-
+        ChangeModulImageColor(Color.yellow);
     }
 
     public virtual void modulDestroyed()
     {
-
+        ChangeModulImageColor(Color.red);
     }
 
     public virtual void GetDamage(int damage)
