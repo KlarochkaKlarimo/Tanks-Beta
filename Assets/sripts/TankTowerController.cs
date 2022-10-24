@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TankTowerController : MonoBehaviour
 {
@@ -14,11 +15,19 @@ public class TankTowerController : MonoBehaviour
     [SerializeField] private int _BulletPenetration;
     [SerializeField] private bool _isTest;
     [SerializeField] private int _misFireChance;
+    [SerializeField] private GameObject _imageGreen;
+    [SerializeField] private Image _imageYellow;
+    [SerializeField] private Text _reloadingText;
     private bool _isBreachGunDamaged;
     private bool _isMisFire;
 
     private bool isReloading;
     private Vector3 _destination;
+
+    private void Awake()
+    {
+        _reloadingText.text = reloadingTime.ToString();
+    }
 
     public void SetIsTest(bool isTest)
     {
@@ -71,16 +80,32 @@ public class TankTowerController : MonoBehaviour
     public void SpawnBullet()
     {
         isReloading = true;
-        Invoke("Reloading", reloadingTime);
+        StartCoroutine(ReloadingTimer());
         var _bullet = Instantiate(bullet, ShootPoint.position, transform.rotation);
         _bullet.GetComponent<bullet> ().SetVariables(_destination, _BulletPenetration, 40, isCannonDamaged);
         flesh.Play();
     }
-    private void Reloading()
-    {
-        isReloading = false;
-
-    }
-
     
+    IEnumerator ReloadingTimer()
+    {
+        _reloadingText.color = Color.yellow;
+        _imageYellow.gameObject.SetActive(true);
+        _imageGreen.SetActive(false);
+        _imageYellow.fillAmount = 0;
+        var _reloadingTimer = reloadingTime;
+        float _imageFillStep = (float)0.1/reloadingTime;
+        do
+        {
+            yield return new WaitForSeconds(0.1f);
+            _reloadingTimer -= 0.1f;
+            _reloadingText.text = _reloadingTimer.ToString("0.0");
+            _imageYellow.fillAmount += _imageFillStep;
+        }
+        while (_reloadingTimer>0);
+        _imageGreen.SetActive(true);
+        isReloading = false;
+        _imageYellow.gameObject.SetActive(false);
+        _reloadingText.text = reloadingTime.ToString();
+        _reloadingText.color = Color.black;
+    }
 }
