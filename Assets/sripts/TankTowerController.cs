@@ -18,6 +18,7 @@ public class TankTowerController : MonoBehaviour
     [SerializeField] private GameObject _imageGreen;
     [SerializeField] private Image _imageYellow;
     [SerializeField] private Text _reloadingText;
+    [SerializeField] private GameObject _cannon;
     private bool _isBreachGunDamaged;
     private bool _isMisFire;
 
@@ -82,7 +83,7 @@ public class TankTowerController : MonoBehaviour
         isReloading = true;
         StartCoroutine(ReloadingTimer());
         var _bullet = Instantiate(bullet, ShootPoint.position, transform.rotation);
-        _bullet.GetComponent<bullet> ().SetVariables(_destination, _BulletPenetration, 40, isCannonDamaged);
+        _bullet.GetComponent<bullet> ().SetVariables(_destination, _BulletPenetration, 40, isCannonDamaged, _cannon);
         flesh.Play();
     }
     

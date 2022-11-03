@@ -12,8 +12,16 @@ public class bullet : MonoBehaviour
     [SerializeField] private float speed = 0.1f;
     private Vector3 _step;
     [SerializeField] private int modulDamage;
-    public void SetVariables(Vector3 destination, int damage, float lifeTime, bool isCannonDamaged)
+    public void SetVariables(Vector3 destination, int damage, float lifeTime, bool isCannonDamaged, GameObject cannon)
     {
+        var cannonColliders = cannon.GetComponents<Collider>();
+        if (cannonColliders != null)
+        {
+            foreach (Collider collider in cannon.GetComponents<Collider>())
+            {
+                Physics.IgnoreCollision(collider, _collider);
+            }
+        }
         var deviation = new Vector3();
         if (isCannonDamaged)
         {
