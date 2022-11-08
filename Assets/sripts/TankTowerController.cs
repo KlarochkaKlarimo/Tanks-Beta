@@ -82,7 +82,9 @@ public class TankTowerController : MonoBehaviour
     {
         isReloading = true;
         StartCoroutine(ReloadingTimer());
+        //var bulletRotation = new Quaternion.(_cannon.transform.rotation.x, transform.rotation.y, transform.rotation.z, transform.rotation.w);
         var _bullet = Instantiate(bullet, ShootPoint.position, transform.rotation);
+        _bullet.transform.Rotate (_cannon.transform.rotation.x, transform.rotation.y, transform.rotation.z);
         _bullet.GetComponent<bullet> ().SetVariables(_destination, _BulletPenetration, 40, isCannonDamaged, _cannon);
         flesh.Play();
     }
