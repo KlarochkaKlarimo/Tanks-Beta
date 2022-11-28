@@ -14,7 +14,8 @@ public class bullet : MonoBehaviour
     [SerializeField] private int modulDamage;
     public void SetVariables(Vector3 destination, int damage, float lifeTime, bool isCannonDamaged, GameObject cannon)
     {
-        var cannonColliders = cannon.GetComponents<Collider>();
+        transform.rotation = cannon.transform.rotation;
+           var cannonColliders = cannon.GetComponents<Collider>();
         if (cannonColliders != null)
         {
             foreach (Collider collider in cannon.GetComponents<Collider>())
@@ -30,7 +31,7 @@ public class bullet : MonoBehaviour
            //_destination = new Vector3(destination.x,0, destination.z);
         
         _penetrationDamage = damage;
-        //m_Rigidbody.AddForce(speed*transform.forward + deviation,ForceMode.Impulse);
+        m_Rigidbody.AddForce(speed*transform.forward + deviation,ForceMode.Impulse);
         
         //  m_Rigidbody.velocity = _destination;
         //m_Rigidbody.AddForce(Vector3.forward * speed);

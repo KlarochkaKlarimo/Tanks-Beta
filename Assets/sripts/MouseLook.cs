@@ -42,8 +42,8 @@ public class MouseLook : MonoBehaviour
         xRotation -= Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime * -1;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
         yRotation -= mouseY;
-        
-        
+        yRotation = Mathf.Clamp(yRotation, -10, 10);
+
 
         // -=Mathf.Clamp( Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime ,-10,10);
         transform.localRotation = Quaternion.Euler(yRotation, xRotation, 0);
@@ -61,10 +61,11 @@ public class MouseLook : MonoBehaviour
         }
         if (Math.Abs(transform.localEulerAngles.x - playerGun.transform.localEulerAngles.x) > 1)
         {
+            playerGun.Rotate(Vector3.left * mouseY);
             //var clamped = new Vector3(Mathf.Clamp(playerGun.rotation.x, -10, 10), 0);
-            angle += Input.GetAxis("Mouse Y") * RotationSensitivity*Time.deltaTime;
-            angle = Mathf.Clamp(angle, -10f, 10f);
-            playerGun.rotation = Quaternion.Euler(angle, 0.0f, 0.0f);
+            //angle += Input.GetAxis("Mouse Y") * RotationSensitivity*Time.deltaTime;
+            //angle = Mathf.Clamp(angle, -10f, 10f);
+            //playerGun.rotation = Quaternion.Euler(angle, 0.0f, 0.0f);
 
             //playerGun.Rotate(clamped * mouseY);
         }
