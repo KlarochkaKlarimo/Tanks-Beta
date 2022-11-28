@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bullet : MonoBehaviour
+public class Bullet : MonoBehaviour
 {
+    [SerializeField] private GameObject[] fragments;
     [SerializeField] private GameObject explosion;
     [SerializeField] private Rigidbody m_Rigidbody;
     [SerializeField] private Collider _collider;
@@ -50,6 +51,22 @@ public class bullet : MonoBehaviour
         var angle = ((Vector3.Angle(transform.forward, collision.contacts[0].normal)) - 90);
         var anngleKoefecent = (angle * 0.9f)/100;
         Debug.Log(arrmor.GetThicknes() + " arrmor.GetThicknes() " + anngleKoefecent + " anngleKoefecent " + " anngleKoefecent * _penetrationDamage " + anngleKoefecent * _penetrationDamage);
+
+        Rickoshet(arrmor, anngleKoefecent, collision);
+        SpawnFragments();
+    }
+
+    public virtual void SpawnFragments()
+    {
+        foreach(GameObject fragment in fragments)
+        {
+            fragment.SetActive(true);
+        }
+    }
+
+    public virtual void Rickoshet(armor_panel arrmor, float anngleKoefecent, Collision collision)
+    {
+
         if (arrmor.GetThicknes() <= anngleKoefecent * _penetrationDamage)
         {
             Physics.IgnoreCollision(collision.collider, _collider);
@@ -71,9 +88,6 @@ public class bullet : MonoBehaviour
                 }
             }
         }
-
-      //  
-
 
     }
     public int GetModulDamage()

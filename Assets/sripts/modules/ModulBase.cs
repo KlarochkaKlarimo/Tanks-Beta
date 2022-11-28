@@ -17,7 +17,7 @@ public abstract class ModulBase : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        var bullet = collision.gameObject.GetComponentInParent<bullet>();
+        var bullet = collision.gameObject.GetComponentInParent<Bullet>();
         if (bullet == null)
         {
             return;
