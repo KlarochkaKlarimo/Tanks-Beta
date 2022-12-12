@@ -41,11 +41,11 @@ public class Bullet : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
 
-        var arrmor= collision.gameObject.GetComponent<armor_panel>();
+        var arrmor = collision.contacts[0].otherCollider.gameObject.GetComponent<armor_panel>();
         if (arrmor == null)
         {
-            Instantiate(explosion, transform.position, Quaternion.identity);
-            Destroy(gameObject);
+            //Instantiate(explosion, transform.position, Quaternion.identity);
+            //Destroy(gameObject);
             return;
         }
         var angle = ((Vector3.Angle(transform.forward, collision.contacts[0].normal)) - 90);
