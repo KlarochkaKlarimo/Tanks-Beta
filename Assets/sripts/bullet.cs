@@ -40,42 +40,42 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-
-        var arrmor = collision.contacts[0].otherCollider.gameObject.GetComponent<armor_panel>();
+        var contact = collision.contacts[0];
+        var arrmor = contact.otherCollider.gameObject.GetComponent<armor_panel>();
         if (arrmor == null)
         {
-            //Instantiate(explosion, transform.position, Quaternion.identity);
-            //Destroy(gameObject);
+            Instantiate(explosion, transform.position, Quaternion.identity);
+            Destroy(gameObject);
             return;
         }
         var angle = ((Vector3.Angle(transform.forward, collision.contacts[0].normal)) - 90);
         var anngleKoefecent = (angle * 0.9f)/100;
         Debug.Log(arrmor.GetThicknes() + " arrmor.GetThicknes() " + anngleKoefecent + " anngleKoefecent " + " anngleKoefecent * _penetrationDamage " + anngleKoefecent * _penetrationDamage);
 
-        Rickoshet(arrmor, anngleKoefecent, collision);
+        Rickoshet(arrmor, anngleKoefecent, contact.otherCollider);
         SpawnFragments();
     }
 
     public virtual void SpawnFragments()
     {
-        foreach(GameObject fragment in fragments)
-        {
-            fragment.SetActive(true);
-        }
+        //foreach(GameObject fragment in fragments)
+        //{
+        //    fragment.SetActive(true);
+        //}
     }
 
-    public virtual void Rickoshet(armor_panel arrmor, float anngleKoefecent, Collision collision)
+    public virtual void Rickoshet(armor_panel arrmor, float anngleKoefecent, Collider collision)
     {
 
         if (arrmor.GetThicknes() <= anngleKoefecent * _penetrationDamage)
         {
-            Physics.IgnoreCollision(collision.collider, _collider);
+            Physics.IgnoreCollision(collision, _collider);
             m_Rigidbody.AddForce(100 * transform.forward, ForceMode.Impulse);
             print("Probitie" + collision.gameObject.name);
         }
         else
         {
-            Physics.IgnoreCollision(collision.collider, _collider);
+          //  Physics.IgnoreCollision(collision.collider, _collider);
             if (anngleKoefecent < 0.6f)
             {
                 var rikoshetChanse = (1 - anngleKoefecent) * 100f;

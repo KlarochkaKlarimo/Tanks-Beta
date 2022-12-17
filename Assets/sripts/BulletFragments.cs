@@ -9,7 +9,7 @@ public class BulletFragments : Bullet
         
     }
 
-    public override void Rickoshet(armor_panel arrmor, float anngleKoefecent, Collision collision)
+    public override void Rickoshet(armor_panel arrmor, float anngleKoefecent, Collider collision)
     {
 
     }
