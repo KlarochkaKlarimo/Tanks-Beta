@@ -5,11 +5,17 @@ using UnityEngine;
 public class armor_panel : MonoBehaviour
 {
     [SerializeField] private int _thickness;
-
+    [SerializeField] private Collider collider;
     public int GetThicknes()
     { 
         return _thickness;
     }
+
+    public Collider GetCollider()
+    {
+        return collider;
+    }
+
     //private void OnSetDamage(f)
     //{
     //    var bullet = collision.gameObject.GetComponent<bullet>();

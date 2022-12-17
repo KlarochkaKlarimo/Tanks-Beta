@@ -13,6 +13,8 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float speed = 0.1f;
     private Vector3 _step;
     [SerializeField] private int modulDamage;
+    [SerializeField] private Transform _fragmentsParent;
+    private Collider armorCollider;
     public void SetVariables(Vector3 destination, int damage, float lifeTime, bool isCannonDamaged, GameObject cannon)
     {
         transform.rotation = cannon.transform.rotation;
@@ -37,29 +39,43 @@ public class Bullet : MonoBehaviour
         //  m_Rigidbody.velocity = _destination;
         //m_Rigidbody.AddForce(Vector3.forward * speed);
     }
-
-    private void OnCollisionEnter(Collision collision)
+    
+    private void OnTriggerEnter(Collider other)
     {
-        var contact = collision.contacts[0];
-        var arrmor = contact.otherCollider.gameObject.GetComponent<armor_panel>();
+        print("trigger");
+        var arrmor = other.gameObject.GetComponent<armor_panel>();
         if (arrmor == null)
         {
             Instantiate(explosion, transform.position, Quaternion.identity);
             Destroy(gameObject);
             return;
         }
-        var angle = ((Vector3.Angle(transform.forward, collision.contacts[0].normal)) - 90);
+        var angle = 50;//((Vector3.Angle(transform.forward, other.contactOffset.)) - 90);
         var anngleKoefecent = (angle * 0.9f)/100;
         Debug.Log(arrmor.GetThicknes() + " arrmor.GetThicknes() " + anngleKoefecent + " anngleKoefecent " + " anngleKoefecent * _penetrationDamage " + anngleKoefecent * _penetrationDamage);
 
-        Rickoshet(arrmor, anngleKoefecent, contact.otherCollider);
+        Rickoshet(arrmor, anngleKoefecent, other);
         SpawnFragments();
+
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        var arrmor = other.gameObject.GetComponent<armor_panel>();
+        if (arrmor != null)
+        {
+            armorCollider.enabled = true;
+            armorCollider = null;
+        }
+    }
+
 
     public virtual void SpawnFragments()
     {
+        //_fragmentsParent.DetachChildren();
         //foreach(GameObject fragment in fragments)
         //{
+            
         //    fragment.SetActive(true);
         //}
     }
@@ -69,7 +85,8 @@ public class Bullet : MonoBehaviour
 
         if (arrmor.GetThicknes() <= anngleKoefecent * _penetrationDamage)
         {
-            Physics.IgnoreCollision(collision, _collider);
+            armorCollider = arrmor.GetCollider();
+            armorCollider.enabled = false;
             m_Rigidbody.AddForce(100 * transform.forward, ForceMode.Impulse);
             print("Probitie" + collision.gameObject.name);
         }
