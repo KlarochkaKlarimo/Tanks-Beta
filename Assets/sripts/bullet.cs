@@ -4,18 +4,17 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private GameObject[] fragments;
-    [SerializeField] private GameObject explosion;
-    [SerializeField] private Rigidbody m_Rigidbody;
-    [SerializeField] private Collider _collider;
-    private int _penetrationDamage;
-    private Vector3 _destination;
-    [SerializeField] private float speed = 0.1f;
-    private Vector3 _step;
-    [SerializeField] private int modulDamage;
-    [SerializeField] private Transform _fragmentsParent;
+
+    [SerializeField] protected BulletFragments[] fragments;
+    [SerializeField] protected GameObject explosion;
+    [SerializeField] protected Rigidbody m_Rigidbody;
+    [SerializeField] protected Collider _collider;
+    protected int _penetrationDamage;
+    [SerializeField] protected float speed = 0.1f;
+    [SerializeField] protected int modulDamage;
+    [SerializeField] protected Transform _fragmentsParent;
     private Collider armorCollider;
-    public void SetVariables(Vector3 destination, int damage, float lifeTime, bool isCannonDamaged, GameObject cannon)
+    public virtual void SetVariables( int damage, float lifeTime, bool isCannonDamaged, GameObject cannon)
     {
         transform.rotation = cannon.transform.rotation;
            var cannonColliders = cannon.GetComponents<Collider>();
@@ -49,7 +48,7 @@ public class Bullet : MonoBehaviour
         var arrmor = other.gameObject.GetComponent<armor_panel>();
         if (arrmor == null)
         {
-            DestroyBullet();
+        //    DestroyBullet();
             return;
         }
         var angle = 50;//((Vector3.Angle(transform.forward, other.contactOffset.)) - 90);
@@ -60,18 +59,19 @@ public class Bullet : MonoBehaviour
     }
     public virtual void SpawnFragments()
     {
-        //_fragmentsParent.DetachChildren();
-        //foreach(GameObject fragment in fragments)
-        //{
+        _fragmentsParent.DetachChildren();
+        foreach(BulletFragments fragment in fragments)
+        {
             
-        //    fragment.SetActive(true);
-        //}
+            fragment.gameObject.SetActive(true);
+            fragment.SetVariables(2, 5, false, gameObject);
+        }
     }
 
     public virtual void Rickoshet(armor_panel arrmor, float anngleKoefecent, Collider collision)
     {
 
-        if (false/*arrmor.GetThicknes() <= anngleKoefecent * _penetrationDamage*/)
+        if (true/*arrmor.GetThicknes() <= anngleKoefecent * _penetrationDamage*/)
         {     
             print("Probitie " + collision.gameObject.name);
         }

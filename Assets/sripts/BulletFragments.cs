@@ -13,4 +13,11 @@ public class BulletFragments : Bullet
     {
 
     }
+
+    public override void SetVariables(int damage, float lifeTime, bool isCannonDamaged, GameObject cannon)
+    {
+        _penetrationDamage = damage;
+        m_Rigidbody.AddForce(speed*transform.forward, ForceMode.Impulse);
+    }
+
 }
