@@ -9,7 +9,7 @@ public class TankTowerController : MonoBehaviour
     public float reloadingTime;
 
     [SerializeField] private GameObject bullet;
-    [SerializeField] private Transform ShootPoint;
+    [SerializeField] private Transform _shootPoint;
     [SerializeField] private Camera camera;
     [SerializeField] private ParticleSystem flesh;
     [SerializeField] private int _BulletPenetration;
@@ -23,7 +23,7 @@ public class TankTowerController : MonoBehaviour
     private bool _isMisFire;
 
     private bool isReloading;
-    private Vector3 _destination;
+    
 
     private void Awake()
     {
@@ -47,16 +47,11 @@ public class TankTowerController : MonoBehaviour
         {
             return;
         }
-
-
-        var ray = new Ray(ShootPoint.position, ShootPoint.forward);
-        _destination = ray.origin + ray.direction * 1000f;
-        Debug.DrawLine(ShootPoint.position, _destination, Color.cyan, 10f);
+        
         if (Input.GetKey(KeyCode.Mouse0))
         {
             Shoot();
         }
-
 
     }
 
@@ -83,9 +78,14 @@ public class TankTowerController : MonoBehaviour
         isReloading = true;
         StartCoroutine(ReloadingTimer());
         //var bulletRotation = new Quaternion.(_cannon.transform.rotation.x, transform.rotation.y, transform.rotation.z, transform.rotation.w);
-        var _bullet = Instantiate(bullet, ShootPoint.position, transform.rotation);
+        var _bullet = Instantiate(bullet, _shootPoint.position, transform.rotation);
         _bullet.transform.Rotate (_cannon.transform.rotation.x, transform.rotation.y, transform.rotation.z);
         _bullet.GetComponent<Bullet> ().SetVariables( _BulletPenetration, 40, isCannonDamaged, _cannon);
+        var atgm = _bullet.GetComponent<Atgm>();
+        if (atgm!=null)
+        {
+            atgm.SetShootPoint(_shootPoint);
+        }
         flesh.Play();
     }
     
