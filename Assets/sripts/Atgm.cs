@@ -6,6 +6,8 @@ public class Atgm : Bullet
 {
     private Vector3 _destination;
     private Transform _shootPoint;
+    [SerializeField] private float _noControlAtgmDistance;
+    [SerializeField] private float _rotationSpeed;
 
     public override void SetVariables(int damage, float lifeTime, bool isCannonDamaged, GameObject cannon)
     {
@@ -33,10 +35,16 @@ public class Atgm : Bullet
         {
             return;
         }
+        var distance = Vector3.Distance(transform.position, _shootPoint.position);
+        if (distance > _noControlAtgmDistance)
+        {
+            return;
+        }
         var ray = new Ray(_shootPoint.position, _shootPoint.forward);
         _destination = ray.origin + ray.direction* 1000f;
         Debug.DrawLine(_shootPoint.position, _destination, Color.cyan, 0f);
-        transform.position = Vector3.MoveTowards(transform.position, _destination, Time.deltaTime * speed);
+        transform.position = Vector3.MoveTowards(transform.position, _destination, Time.deltaTime * _rotationSpeed);
+
     }
 
     public void SetShootPoint(Transform shootPoint)
