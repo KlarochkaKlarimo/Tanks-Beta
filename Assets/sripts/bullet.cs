@@ -108,7 +108,8 @@ public class Bullet : MonoBehaviour
     }
     private void DestroyBullet()
     {
-        Instantiate(explosion, transform.position, Quaternion.identity);
+        explosion.SetActive(true);
+        explosion.transform.parent = null;
         Destroy(gameObject);
     }
     public int GetModulDamage()
