@@ -35,7 +35,7 @@ public class Bullet : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        var arrmor = collision.gameObject.GetComponent<armor_panel>();
+        var arrmor = collision.gameObject.GetComponent<IPinetrtlbe>();
         if (arrmor == null)
         {
             DestroyBullet();
@@ -45,7 +45,7 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         print("trigger");
-        var arrmor = other.gameObject.GetComponent<armor_panel>();
+        var arrmor = other.gameObject.GetComponent<IPinetrtlbe>();
         if (arrmor == null)
         {
         //    DestroyBullet();
@@ -68,7 +68,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    public virtual void Rickoshet(armor_panel arrmor, float anngleKoefecent, Collider collision)
+    public virtual void Rickoshet(IPinetrtlbe arrmor, float anngleKoefecent, Collider collision)
     {
 
         if (true/*arrmor.GetThicknes() <= anngleKoefecent * _penetrationDamage*/)

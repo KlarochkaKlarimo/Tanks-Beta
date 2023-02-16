@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class ModulBase : MonoBehaviour
+public abstract class ModulBase : IPinetrtlbe
 {
     [SerializeField] private int hp;
     [SerializeField] private int _damagedHp;

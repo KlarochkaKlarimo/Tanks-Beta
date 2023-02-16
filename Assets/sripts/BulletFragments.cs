@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletFragments : Bullet
@@ -9,7 +7,7 @@ public class BulletFragments : Bullet
         
     }
 
-    public override void Rickoshet(armor_panel arrmor, float anngleKoefecent, Collider collision)
+    public override void Rickoshet(IPinetrtlbe arrmor, float anngleKoefecent, Collider collision)
     {
 
     }
@@ -19,5 +17,4 @@ public class BulletFragments : Bullet
         _penetrationDamage = damage;
         m_Rigidbody.AddForce(speed*transform.forward, ForceMode.Impulse);
     }
-
 }

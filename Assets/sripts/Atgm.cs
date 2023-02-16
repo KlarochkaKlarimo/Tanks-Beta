@@ -24,7 +24,7 @@ public class Atgm : Bullet
         _penetrationDamage = damage;
         m_Rigidbody.AddForce(speed*transform.forward, ForceMode.Impulse);
     }
-    public override void Rickoshet(armor_panel arrmor, float anngleKoefecent, Collider collision)
+    public override void Rickoshet(IPinetrtlbe arrmor, float anngleKoefecent, Collider collision)
     {
         
     }
