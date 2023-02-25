@@ -7,13 +7,13 @@ public class ModulGunner : CharacterBase
     public override void modulDamaged()
     {
         base.modulDamaged();
-        mouseLook.RotationSensitivity /=2;
+        mouseLook._horizontalSpeed /=2;
     }
 
     public override void modulDestroyed()
     {
         base.modulDestroyed();
-        mouseLook.RotationSensitivity = 0;
+        mouseLook._horizontalSpeed = 0;
     }
 
     

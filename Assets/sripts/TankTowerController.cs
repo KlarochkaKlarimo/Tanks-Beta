@@ -7,7 +7,7 @@ public class TankTowerController : MonoBehaviour
     public bool isCannonDamaged;
     public float reloadingTime;
 
-    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject _currentAmmo;
     [SerializeField] private Transform _shootPoint;
     [SerializeField] private Camera camera;
     [SerializeField] private ParticleSystem flesh;
@@ -18,6 +18,9 @@ public class TankTowerController : MonoBehaviour
     [SerializeField] private Image _imageYellow;
     [SerializeField] private Text _reloadingText;
     [SerializeField] private GameObject _cannon;
+    [SerializeField] private Text _currentAmmoText;
+    [SerializeField] private AmmoList[] _ammoLists;
+
     private bool _isBreachGunDamaged;
     private bool _isMisFire;
 
@@ -27,6 +30,7 @@ public class TankTowerController : MonoBehaviour
     private void Awake()
     {
         _reloadingText.text = reloadingTime.ToString();
+        ChangeAmmo(0);
     }
 
     public void SetIsTest(bool isTest)
@@ -52,6 +56,7 @@ public class TankTowerController : MonoBehaviour
             Shoot();
         }
 
+        AmmoChanger();
     }
 
     private void Shoot()
@@ -76,7 +81,7 @@ public class TankTowerController : MonoBehaviour
     {
         isReloading = true;
         StartCoroutine(ReloadingTimer());
-        var _bullet = Instantiate(bullet, _shootPoint.position, transform.rotation);
+        var _bullet = Instantiate(_currentAmmo, _shootPoint.position, transform.rotation);
         _bullet.transform.Rotate (_cannon.transform.rotation.x, transform.rotation.y, transform.rotation.z);
         _bullet.GetComponent<Bullet> ().SetVariables( _BulletPenetration, 40, isCannonDamaged, _cannon);
         var atgm = _bullet.GetComponent<Atgm>();
@@ -108,5 +113,27 @@ public class TankTowerController : MonoBehaviour
         _imageYellow.gameObject.SetActive(false);
         _reloadingText.text = reloadingTime.ToString();
         _reloadingText.color = Color.black;
+    }
+
+    public void AmmoChanger()
+    {
+        if (Input.GetKey(KeyCode.Alpha1))
+        {
+            ChangeAmmo(0);
+        }
+
+        if (Input.GetKey(KeyCode.Alpha2))
+        {
+            ChangeAmmo(1);
+        }
+    }
+
+    private void ChangeAmmo(int index)
+    {
+        _currentAmmo = _ammoLists[index].prefab;
+        _currentAmmoText.text = _ammoLists[index].ammoName;
+        StopAllCoroutines();
+        isReloading = true;
+        StartCoroutine(ReloadingTimer());
     }
 }

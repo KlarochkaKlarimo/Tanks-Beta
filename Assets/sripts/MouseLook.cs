@@ -13,8 +13,9 @@ public class MouseLook : MonoBehaviour
     [SerializeField] private Transform playerBody;
     [SerializeField] private Transform playerGun;
     [SerializeField] private Transform rayStartPoint;
+    [SerializeField] private float _verticalSpeed;
 
-    public float RotationSensitivity = 1f;
+    public float _horizontalSpeed = 1f;
     private float xRotation = 0f;
     private float yRotation = 0f;
 
@@ -49,13 +50,13 @@ public class MouseLook : MonoBehaviour
         var target = ray.origin + ray.direction * 1000f;
         Debug.DrawRay(transform.position, target, Color.red);
         Quaternion endRotation = Quaternion.LookRotation(target - transform.position);
-        playerBody.rotation = Quaternion.Slerp(playerBody.rotation, endRotation, Time.deltaTime * RotationSensitivity);
+        playerBody.rotation = Quaternion.Slerp(playerBody.rotation, endRotation, Time.deltaTime * _horizontalSpeed);
         playerBody.rotation = Quaternion.Euler(0f, playerBody.eulerAngles.y, 0f);
 
         if (Input.GetAxis("Mouse Y") != 0)
         {
             var roundedAxisY = GetAxis(Input.GetAxis("Mouse Y"));
-            mouseY = roundedAxisY * RotationSensitivity * Time.deltaTime;
+            mouseY = roundedAxisY * _verticalSpeed * Time.deltaTime;
         }
         if (Math.Abs(transform.localEulerAngles.x - playerGun.transform.localEulerAngles.x) > 1)
         {
