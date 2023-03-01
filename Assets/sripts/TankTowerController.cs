@@ -126,6 +126,11 @@ public class TankTowerController : MonoBehaviour
         {
             ChangeAmmo(1);
         }
+
+        if (Input.GetKey(KeyCode.Alpha3))
+        {
+            ChangeAmmo(2);
+        }
     }
 
     private void ChangeAmmo(int index)
