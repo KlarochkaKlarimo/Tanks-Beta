@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028542, g: 0.22571567, b: 0.30692503, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028511, g: 0.22571518, b: 0.306924, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7218,7 +7218,7 @@ MonoBehaviour:
   _roundedAxisTower: 0
   playerBody: {fileID: 4335486643602351268}
   playerGun: {fileID: 4335696350418576404}
-  rayStartPoint: {fileID: 0}
+  _target: {fileID: 0}
   _verticalSpeed: 0
   _horizontalSpeed: 1
 --- !u!1 &567693494
@@ -12318,7 +12318,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 616501360}
   m_LocalRotation: {x: -0, y: -0.7104799, z: -0, w: 0.7037175}
-  m_LocalPosition: {x: 352.5, y: 9.62, z: -328}
+  m_LocalPosition: {x: 350, y: 3.04, z: -60.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16629,6 +16629,37 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.11, y: 1.1, z: 0.6}
   m_Center: {x: 0.47, y: 0.16, z: -0.18}
+--- !u!1 &1253462727
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1253462728}
+  m_Layer: 0
+  m_Name: target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1253462728
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253462727}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 4.62, z: 20.43}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4335476441584383938}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1277748166
 GameObject:
   m_ObjectHideFlags: 0
@@ -23389,7 +23420,7 @@ MonoBehaviour:
   _roundedAxisTower: 0
   playerBody: {fileID: 7125379423134892394}
   playerGun: {fileID: 7125728354923381210}
-  rayStartPoint: {fileID: 0}
+  _target: {fileID: 0}
   _verticalSpeed: 0
   _horizontalSpeed: 1
 --- !u!1001 &1608203726
@@ -40754,6 +40785,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2094727921}
   m_CullTransparentMesh: 1
+--- !u!1 &2136029849
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2136029850}
+  m_Layer: 10
+  m_Name: Target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2136029850
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136029849}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: -0, z: 100}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4189253246530630}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1736671982894344
 GameObject:
   m_ObjectHideFlags: 0
@@ -40789,6 +40851,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 176702924}
+  - {fileID: 2136029850}
   m_Father: {fileID: 6474861354909192106}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 10, y: 0, z: 0}
@@ -44008,6 +44071,7 @@ Transform:
   - {fileID: 6474861354909192106}
   - {fileID: 4335486643602351268}
   - {fileID: 4338252927520544974}
+  - {fileID: 1253462728}
   m_Father: {fileID: 6988044780169754426}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -50392,7 +50456,7 @@ MonoBehaviour:
   _roundedAxisTower: 0
   playerBody: {fileID: 4335486643602351268}
   playerGun: {fileID: 4335696350418576404}
-  rayStartPoint: {fileID: 0}
+  _target: {fileID: 2136029850}
   _verticalSpeed: 50
   _horizontalSpeed: 1
 --- !u!33 &6486923612213002375

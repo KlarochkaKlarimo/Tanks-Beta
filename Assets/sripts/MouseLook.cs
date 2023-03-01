@@ -12,7 +12,7 @@ public class MouseLook : MonoBehaviour
     [SerializeField] private float _roundedAxisTower;
     [SerializeField] private Transform playerBody;
     [SerializeField] private Transform playerGun;
-    [SerializeField] private Transform rayStartPoint;
+    [SerializeField] private Transform _target;
     [SerializeField] private float _verticalSpeed;
 
     public float _horizontalSpeed = 1f;
@@ -27,7 +27,6 @@ public class MouseLook : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rayStartPoint = transform;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -46,12 +45,20 @@ public class MouseLook : MonoBehaviour
         transform.localRotation = Quaternion.Euler(yRotation, xRotation, 0);
 
 
-        var ray = new Ray(rayStartPoint.position, rayStartPoint.forward);
-        var target = ray.origin + ray.direction * 1000f;
-        Debug.DrawRay(transform.position, target, Color.red);
-        Quaternion endRotation = Quaternion.LookRotation(target - transform.position);
-        playerBody.rotation = Quaternion.Slerp(playerBody.rotation, endRotation, Time.deltaTime * _horizontalSpeed);
-        playerBody.rotation = Quaternion.Euler(0f, playerBody.eulerAngles.y, 0f);
+        Vector3 targetDirection = new Vector3(_target.position.x, playerBody.position.y, _target.position.z) /*_taget.position*/ - playerBody.position;
+
+        // The step size is equal to speed times frame time.
+        float singleStep = _horizontalSpeed * Time.deltaTime;
+
+        // Rotate the forward vector towards the target direction by one step
+        Vector3 newDirection = Vector3.RotateTowards(playerBody.forward, targetDirection, singleStep, 0.0f);
+
+        // Draw a ray pointing at our target in
+        Debug.DrawRay(playerBody.position, newDirection, Color.red);
+
+        // Calculate a rotation a step closer to the target and applies rotation to this object
+        playerBody.rotation = Quaternion.LookRotation(newDirection);
+
 
         if (Input.GetAxis("Mouse Y") != 0)
         {
