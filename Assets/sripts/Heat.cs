@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Heat : Bullet
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Rickoshet(IPinetrtlbe arrmor, float anngleKoefecent, Collider collision)
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void OnTriggerEnter(Collider other)
     {
-        
+        DestroyBullet();
+    }
+
+    public override void OnCollisionEnter(Collision collision)
+    {
+        DestroyBullet();
     }
 }

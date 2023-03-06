@@ -17,4 +17,9 @@ public class BulletFragments : Bullet
         _penetrationDamage = damage;
         m_Rigidbody.AddForce(speed*transform.forward, ForceMode.Impulse);
     }
+
+    public override void DestroyBullet()
+    {
+        Destroy(gameObject);
+    }
 }

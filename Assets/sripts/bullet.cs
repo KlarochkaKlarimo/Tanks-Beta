@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-
+    [SerializeField] public int _burningModificator;
     [SerializeField] protected BulletFragments[] fragments;
     [SerializeField] protected GameObject explosion;
     [SerializeField] protected Rigidbody m_Rigidbody;
@@ -33,7 +33,7 @@ public class Bullet : MonoBehaviour
         _penetrationDamage = damage;
         m_Rigidbody.AddForce(speed*transform.forward + deviation,ForceMode.Impulse);
     }
-    private void OnCollisionEnter(Collision collision)
+    public virtual void OnCollisionEnter(Collision collision)
     {
         var arrmor = collision.gameObject.GetComponent<IPinetrtlbe>();
         if (arrmor == null)
@@ -42,7 +42,7 @@ public class Bullet : MonoBehaviour
             return;
         }
     }
-    private void OnTriggerEnter(Collider other)
+    public virtual void OnTriggerEnter(Collider other)
     {
         print("trigger");
         var arrmor = other.gameObject.GetComponent<IPinetrtlbe>();
@@ -106,7 +106,7 @@ public class Bullet : MonoBehaviour
             }
         }
     }
-    private void DestroyBullet()
+    public virtual void DestroyBullet()
     {
         explosion.SetActive(true);
         explosion.transform.parent = null;

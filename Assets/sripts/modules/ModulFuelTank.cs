@@ -17,13 +17,13 @@ public class ModulFuelTank : ModulBase
     public override void modulDamaged()
     {
         base.modulDamaged();
-        BurnWithChance(100);
+        BurnWithChance(70/bullet._burningModificator);
     }
 
     public override void modulDestroyed()
     {
         base.modulDestroyed();
-        BurnWithChance(20);
+        BurnWithChance(0);
     }
 
 

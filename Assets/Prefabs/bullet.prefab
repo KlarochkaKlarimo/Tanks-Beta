@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06e0b9ed36c26524f93abc3319c6a8cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _burningModificator: 1
   fragments:
   - {fileID: 8755678129245183616}
   - {fileID: 6600941843360946930}
@@ -191,6 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc0e60e12964c7d49af703d729ec03c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _burningModificator: 1
   fragments: []
   explosion: {fileID: 100002, guid: 00fedc70b62a31e448e8ccc298257b56, type: 3}
   m_Rigidbody: {fileID: 6083819735038307541}
@@ -325,6 +327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc0e60e12964c7d49af703d729ec03c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _burningModificator: 1
   fragments: []
   explosion: {fileID: 100002, guid: 00fedc70b62a31e448e8ccc298257b56, type: 3}
   m_Rigidbody: {fileID: 1276845504450938554}
@@ -459,6 +462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc0e60e12964c7d49af703d729ec03c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _burningModificator: 1
   fragments: []
   explosion: {fileID: 100002, guid: 00fedc70b62a31e448e8ccc298257b56, type: 3}
   m_Rigidbody: {fileID: 2268059859123338470}
@@ -5246,6 +5250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc0e60e12964c7d49af703d729ec03c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _burningModificator: 1
   fragments: []
   explosion: {fileID: 100002, guid: 00fedc70b62a31e448e8ccc298257b56, type: 3}
   m_Rigidbody: {fileID: 4707433225427000928}
@@ -5380,6 +5385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc0e60e12964c7d49af703d729ec03c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _burningModificator: 1
   fragments: []
   explosion: {fileID: 100002, guid: 00fedc70b62a31e448e8ccc298257b56, type: 3}
   m_Rigidbody: {fileID: 5676633176148501797}
@@ -5514,6 +5520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc0e60e12964c7d49af703d729ec03c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _burningModificator: 1
   fragments: []
   explosion: {fileID: 100002, guid: 00fedc70b62a31e448e8ccc298257b56, type: 3}
   m_Rigidbody: {fileID: 6294529591014221549}
@@ -5648,6 +5655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc0e60e12964c7d49af703d729ec03c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _burningModificator: 1
   fragments: []
   explosion: {fileID: 100002, guid: 00fedc70b62a31e448e8ccc298257b56, type: 3}
   m_Rigidbody: {fileID: 4274797446122851}
@@ -5782,6 +5790,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc0e60e12964c7d49af703d729ec03c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _burningModificator: 1
   fragments: []
   explosion: {fileID: 100002, guid: 00fedc70b62a31e448e8ccc298257b56, type: 3}
   m_Rigidbody: {fileID: 3703229461581646138}
@@ -6056,6 +6065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc0e60e12964c7d49af703d729ec03c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _burningModificator: 1
   fragments: []
   explosion: {fileID: 100002, guid: 00fedc70b62a31e448e8ccc298257b56, type: 3}
   m_Rigidbody: {fileID: 3237585490432379921}
@@ -6190,6 +6200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc0e60e12964c7d49af703d729ec03c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _burningModificator: 1
   fragments: []
   explosion: {fileID: 100002, guid: 00fedc70b62a31e448e8ccc298257b56, type: 3}
   m_Rigidbody: {fileID: 3870590836484147503}

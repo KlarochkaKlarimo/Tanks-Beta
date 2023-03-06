@@ -14,10 +14,12 @@ public abstract class ModulBase : IPinetrtlbe
     public TankTowerController tankTowerController;
     public TankWheelControl tankWheelControl;
     public MouseLook mouseLook;
+    protected Bullet bullet;
 
     private void OnCollisionEnter(Collision collision)
     {
-        var bullet = collision.gameObject.GetComponentInParent<Bullet>();
+        bullet = null;
+         bullet = collision.gameObject.GetComponentInParent<Bullet>();
         if (bullet == null)
         {
             return;
@@ -48,6 +50,7 @@ public abstract class ModulBase : IPinetrtlbe
     public virtual void modulDestroyed()
     {
         ChangeModulImageColor(Color.red);
+        gameObject.GetComponent<Collider>().enabled = false;
     }
 
     public virtual void GetDamage(int damage)
