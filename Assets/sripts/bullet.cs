@@ -106,6 +106,17 @@ public class Bullet : MonoBehaviour
             }
         }
     }
+
+    public void DamageReduction(int modulReducation, int penetrationReducation)
+    {
+        modulDamage = Mathf.Clamp(modulDamage - modulReducation, 0, 10000);
+        _penetrationDamage = Mathf.Clamp(_penetrationDamage - penetrationReducation, 0, 10000);
+        foreach(BulletFragments fragment in fragments)
+        {
+            fragment.DamageReduction(modulReducation, penetrationReducation);
+        }
+    }
+
     public virtual void DestroyBullet()
     {
         explosion.SetActive(true);
