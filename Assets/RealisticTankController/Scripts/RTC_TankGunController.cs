@@ -1,40 +1,37 @@
-﻿//----------------------------------------------
-//            Realistic Tank Controller
-//
-// Copyright © 2014 - 2017 BoneCracker Games
-// http://www.bonecrackergames.com
-// Buğra Özdoğanlar
-//
-//----------------------------------------------
+﻿
 
-#pragma warning disable 0414
+//#pragma warning disable 0414
 
 using UnityEngine;
 using System.Collections;
-#if RTC_REWIRED
-using Rewired;
-#endif
+//#if RTC_REWIRED
+//using Rewired;
+//#endif
 
 [RequireComponent (typeof (Rigidbody))]
-[AddComponentMenu("BoneCracker Games/Realistic Tank Controller/Main/Gun Controller")]
+[RequireComponent(typeof(TestAmmo))]
+//[AddComponentMenu("BoneCracker Games/Realistic Tank Controller/Main/Gun Controller")]
 public class RTC_TankGunController : MonoBehaviour {
 
 	// Getting an Instance of Main Shared RTC Settings.
 	#region RTC Settings Instance
 
 	private RTC_Settings RTCSettingsInstance;
-	private RTC_Settings RTCSettings {
-		get {
-			if (RTCSettingsInstance == null) {
-				RTCSettingsInstance = RTC_Settings.Instance;
-			}
-			return RTCSettingsInstance;
-		}
-	}
+    private RTC_Settings RTCSettings
+    {
+        get
+        {
+            if (RTCSettingsInstance == null)
+            {
+                RTCSettingsInstance = RTC_Settings.Instance;
+            }
+            return RTCSettingsInstance;
+        }
+    }
 
-	#endregion
+    #endregion
 
-	private Rigidbody tankRigid;
+    private Rigidbody tankRigid;
 	private Rigidbody mainGunRigid;
 	private RTC_TankController tank;
 	private RTC_MainCamera tankCamera;
@@ -71,26 +68,29 @@ public class RTC_TankGunController : MonoBehaviour {
 	internal Transform locatedTarget;
 	internal Transform directedTarget;
 
+	public AmmoList[] _ammoLists;
+
 	public int selectedAmmunation = 0;
 
 	public GameObject projectile{
 
-		get{
-			return RTC_Ammunation.Instance.ammunations [selectedAmmunation].projectile;
+		get
+		{
+			return _ammoLists[selectedAmmunation].prefab;
 		}
 
 	}
 	public int bulletVelocity{
 
 		get{
-			return RTC_Ammunation.Instance.ammunations [selectedAmmunation].velocity;
+			return _ammoLists[selectedAmmunation].velocity;
 		}
 
 	}
 	public int recoilForce{
 
 		get{
-			return RTC_Ammunation.Instance.ammunations [selectedAmmunation].recoilForce;
+			return _ammoLists[selectedAmmunation].recoilForce;
 		}
 
 	}
@@ -100,7 +100,7 @@ public class RTC_TankGunController : MonoBehaviour {
 	public float reloadTime{
 
 		get{
-			return RTC_Ammunation.Instance.ammunations [selectedAmmunation].reloadTime;
+			return _ammoLists[selectedAmmunation].reloadTime;
 		}
 
 	}
@@ -119,7 +119,7 @@ public class RTC_TankGunController : MonoBehaviour {
 	public AudioClip fireSoundClip{
 
 		get{
-			return RTC_Ammunation.Instance.ammunations [selectedAmmunation].fireSoundClip;
+			return _ammoLists[selectedAmmunation].fireSoundClip;
 		}
 
 	}
@@ -127,14 +127,14 @@ public class RTC_TankGunController : MonoBehaviour {
 	public GameObject groundSmoke{
 
 		get{
-			return RTC_Ammunation.Instance.ammunations [selectedAmmunation].groundSmoke;
+			return _ammoLists[selectedAmmunation].groundSmoke;
 		}
 
 	}
 	public GameObject fireSmoke{
 
 		get{
-			return RTC_Ammunation.Instance.ammunations [selectedAmmunation].fireSmoke;
+			return _ammoLists[selectedAmmunation].fireSmoke;
 		}
 
 	}
@@ -144,7 +144,7 @@ public class RTC_TankGunController : MonoBehaviour {
 	#endif
 		
 	void Awake () {
-
+		_ammoLists = GetComponent<TestAmmo>().ammoList;
 		tankRigid = GetComponent<Rigidbody>();
 		mainGunRigid = mainGun.GetComponent<Rigidbody>();
 		tank = gameObject.GetComponent<RTC_TankController>();
@@ -181,6 +181,8 @@ public class RTC_TankGunController : MonoBehaviour {
 		directedTarget.position = barrelOut.transform.position + (barrelOut.transform.forward * 100f);
 
 		Inputs ();
+
+		AmmoChanger();
 
 	}
 
@@ -223,32 +225,25 @@ public class RTC_TankGunController : MonoBehaviour {
 				Fire ();
 			}
 
-			if(Input.GetKeyDown(RTCSettings.changeAmmunation)){
-				if (selectedAmmunation < RTC_Ammunation.Instance.ammunations.Length - 1)
-					selectedAmmunation ++;
-				else
-					selectedAmmunation = 0;
-			}
-
 			break;
 
-		case RTC_Settings.ControllerType.Mobile:
+		//case RTC_Settings.ControllerType.Mobile:
 
-			switch (aimType) {
+		//	switch (aimType) {
 
-			case AimType.Orbit:
-				steerInput = (targetPosition.x / targetPosition.magnitude);
-				elevatorInput = -(targetPosition2.y / targetPosition2.magnitude);
-				break;
+		//	case AimType.Orbit:
+		//		steerInput = (targetPosition.x / targetPosition.magnitude);
+		//		elevatorInput = -(targetPosition2.y / targetPosition2.magnitude);
+		//		break;
 
-			case AimType.Direct:
-				steerInput = Mathf.Lerp(steerInput, RTC_UIMobileButtons.Instance.GetValues().aimingHorizontal * horizontalSensitivity, Time.deltaTime * 100f);
-				elevatorInput = Mathf.Lerp(elevatorInput, -RTC_UIMobileButtons.Instance.GetValues().aimingVertical * verticalSensitivity, Time.deltaTime * 100f);
-				break;
+		//	case AimType.Direct:
+		//		steerInput = Mathf.Lerp(steerInput, RTC_UIMobileButtons.Instance.GetValues().aimingHorizontal * horizontalSensitivity, Time.deltaTime * 100f);
+		//		elevatorInput = Mathf.Lerp(elevatorInput, -RTC_UIMobileButtons.Instance.GetValues().aimingVertical * verticalSensitivity, Time.deltaTime * 100f);
+		//		break;
 
-			}
+		//	}
 
-			break;
+		//	break;
 
 		case RTC_Settings.ControllerType.Custom:
 
@@ -318,16 +313,54 @@ public class RTC_TankGunController : MonoBehaviour {
 			return;
 
 		tankRigid.AddForce(-mainGun.transform.forward * recoilForce, ForceMode.Impulse);
-		Rigidbody shot = Instantiate(projectile.GetComponent<Rigidbody>(), barrelOut.position, barrelOut.rotation) as Rigidbody;
-		shot.AddForce(barrelOut.forward * bulletVelocity, ForceMode.VelocityChange);
-		if(groundSmoke)
-			Instantiate(groundSmoke, new Vector3(tank.transform.position.x, tank.transform.position.y, tank.transform.position.z), tank.transform.rotation);
-		if(fireSmoke)
-			Instantiate(fireSmoke, barrelOut.transform.position, barrelOut.transform.rotation);
-		fireSoundSource = RTC_CreateAudioSource.NewAudioSource(gameObject, "FireSound", 30f, 500f, 1f, fireSoundClip, false, true, true);
+
+		var _bullet = Instantiate(projectile, barrelOut.position, transform.rotation);
+		//_bullet.transform.Rotate(_cannon.transform.rotation.x, transform.rotation.y, transform.rotation.z);
+		_bullet.GetComponent<Bullet>().SetVariables(_ammoLists[selectedAmmunation].bulletPenetration, 40, false, mainGun);
+		//var atgm = _bullet.GetComponent<Atgm>();
+  //      if (atgm!=null)
+  //      {
+  //          atgm.SetShootPoint(barrelOut);
+  //      }
+
+  //      Rigidbody shot = Instantiate(projectile.GetComponent<Rigidbody>(), barrelOut.position, barrelOut.rotation) as Rigidbody;
+		//shot.AddForce(barrelOut.forward * bulletVelocity, ForceMode.VelocityChange);
+		//if(groundSmoke)
+		//	Instantiate(groundSmoke, new Vector3(tank.transform.position.x, tank.transform.position.y, tank.transform.position.z), tank.transform.rotation);
+		//if(fireSmoke)
+		//	Instantiate(fireSmoke, barrelOut.transform.position, barrelOut.transform.rotation);
+		//fireSoundSource = RTC_CreateAudioSource.NewAudioSource(gameObject, "FireSound", 30f, 500f, 1f, fireSoundClip, false, true, true);
 		currentAmmo --;
 		loadingTime = 0;
 
+	}
+	public void AmmoChanger()
+	{
+		if (Input.GetKey(KeyCode.Alpha1))
+		{
+			ChangeAmmo(0);
+		}
+
+		if (Input.GetKey(KeyCode.Alpha2))
+		{
+			ChangeAmmo(1);
+		}
+
+		if (Input.GetKey(KeyCode.Alpha3))
+		{
+			ChangeAmmo(2);
+		}
+	}
+
+	private void ChangeAmmo(int index)
+	{
+		//_currentAmmo = _ammoLists[index].prefab;
+		//_currentAmmoText.text = _ammoLists[index].ammoName;
+		//StopAllCoroutines();
+		//isReloading = true;
+		//StartCoroutine(ReloadingTimer());
+		selectedAmmunation = index;
+		loadingTime = 0;
 	}
 
 	public void ChangeAmmunation(){

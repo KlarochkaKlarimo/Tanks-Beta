@@ -24371,6 +24371,139 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114000012075404724, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: maximumRotationLimit
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012075404724, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: maximumAngularVelocity
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524066552798208965, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: ammoList.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524066552798208965, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: ammoList.Array.data[0].prefab
+      value: 
+      objectReference: {fileID: 21630175310231115, guid: a7afa6a87bba99c4cbf8ee3b186ff3b4,
+        type: 3}
+    - target: {fileID: 2524066552798208965, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: ammoList.Array.data[1].prefab
+      value: 
+      objectReference: {fileID: 5451496216709978893, guid: f3d2d31adf1fcd544863b8848fa87266,
+        type: 3}
+    - target: {fileID: 2524066552798208965, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: ammoList.Array.data[0].ammoName
+      value: APFSDS
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524066552798208965, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: ammoList.Array.data[0].velocity
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524066552798208965, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: ammoList.Array.data[1].ammoName
+      value: HEAT
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524066552798208965, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: ammoList.Array.data[1].velocity
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524066552798208965, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: ammoList.Array.data[0].fireSmoke
+      value: 
+      objectReference: {fileID: 1973075987484898, guid: bccc7a794e75b2a44a4b0dac69160b7b,
+        type: 3}
+    - target: {fileID: 2524066552798208965, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: ammoList.Array.data[1].fireSmoke
+      value: 
+      objectReference: {fileID: 1973075987484898, guid: bccc7a794e75b2a44a4b0dac69160b7b,
+        type: 3}
+    - target: {fileID: 2524066552798208965, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: ammoList.Array.data[0].reloadTime
+      value: 7.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524066552798208965, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: ammoList.Array.data[1].reloadTime
+      value: 7.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524066552798208965, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: ammoList.Array.data[0].groundSmoke
+      value: 
+      objectReference: {fileID: 1121192042590650, guid: e1b08032bec16ba4eb1ae23cbd572664,
+        type: 3}
+    - target: {fileID: 2524066552798208965, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: ammoList.Array.data[0].recoilForce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524066552798208965, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: ammoList.Array.data[1].groundSmoke
+      value: 
+      objectReference: {fileID: 1121192042590650, guid: e1b08032bec16ba4eb1ae23cbd572664,
+        type: 3}
+    - target: {fileID: 2524066552798208965, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: ammoList.Array.data[1].recoilForce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524066552798208965, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: ammoList.Array.data[0].fireSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 42e65e088b3f4374e851b8dbd38f3df9, type: 3}
+    - target: {fileID: 2524066552798208965, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: ammoList.Array.data[1].fireSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 42e65e088b3f4374e851b8dbd38f3df9, type: 3}
+    - target: {fileID: 2524066552798208965, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: ammoList.Array.data[1].explosionForce
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524066552798208965, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: ammoList.Array.data[0].explosionPrefab
+      value: 
+      objectReference: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc,
+        type: 3}
+    - target: {fileID: 2524066552798208965, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: ammoList.Array.data[1].explosionPrefab
+      value: 
+      objectReference: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc,
+        type: 3}
+    - target: {fileID: 2524066552798208965, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: ammoList.Array.data[1].explosionRadius
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524066552798208965, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: ammoList.Array.data[0].bulletPenetration
+      value: 580
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524066552798208965, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: ammoList.Array.data[1].bulletPenetration
+      value: 580
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
 --- !u!1001 &1661599494
@@ -49777,14 +49910,58 @@ MonoBehaviour:
   _ammoLists:
   - prefab: {fileID: 21630175310231115, guid: a7afa6a87bba99c4cbf8ee3b186ff3b4, type: 3}
     ammoName: APFSDS
+    bulletPenetration: 0
+    reloadTime: 3
+    velocity: 250
+    recoilForce: 50000
+    explosionPrefab: {fileID: 0}
+    explosionForce: 20000
+    explosionRadius: 5
+    lifeTimeOfTheProjectile: 5
+    fireSoundClip: {fileID: 0}
+    groundSmoke: {fileID: 0}
+    fireSmoke: {fileID: 0}
   - prefab: {fileID: 21630175310231115, guid: 46ff5fb318f292c45bd34e72eb55c5d3, type: 3}
     ammoName: ATGM
+    bulletPenetration: 0
+    reloadTime: 3
+    velocity: 250
+    recoilForce: 50000
+    explosionPrefab: {fileID: 0}
+    explosionForce: 20000
+    explosionRadius: 5
+    lifeTimeOfTheProjectile: 5
+    fireSoundClip: {fileID: 0}
+    groundSmoke: {fileID: 0}
+    fireSmoke: {fileID: 0}
   - prefab: {fileID: 5451496216709978893, guid: f3d2d31adf1fcd544863b8848fa87266,
       type: 3}
     ammoName: HEAT
+    bulletPenetration: 0
+    reloadTime: 3
+    velocity: 250
+    recoilForce: 50000
+    explosionPrefab: {fileID: 0}
+    explosionForce: 20000
+    explosionRadius: 5
+    lifeTimeOfTheProjectile: 5
+    fireSoundClip: {fileID: 0}
+    groundSmoke: {fileID: 0}
+    fireSmoke: {fileID: 0}
   - prefab: {fileID: 6335250783087129314, guid: 80cdbb55741de6f4794371c02477118d,
       type: 3}
     ammoName: HE
+    bulletPenetration: 0
+    reloadTime: 3
+    velocity: 250
+    recoilForce: 50000
+    explosionPrefab: {fileID: 0}
+    explosionForce: 20000
+    explosionRadius: 5
+    lifeTimeOfTheProjectile: 5
+    fireSoundClip: {fileID: 0}
+    groundSmoke: {fileID: 0}
+    fireSmoke: {fileID: 0}
 --- !u!33 &4344912328910320046
 MeshFilter:
   m_ObjectHideFlags: 0
