@@ -71,7 +71,7 @@ public class Bullet : MonoBehaviour
     public virtual void Rickoshet(IPinetrtlbe arrmor, float anngleKoefecent, Collider collision)
     {
 
-        if (true/*arrmor.GetThicknes() <= anngleKoefecent * _penetrationDamage*/)
+        if (arrmor.GetThicknes() <= _penetrationDamage)  //chek angle
         {     
             print("Probitie " + collision.gameObject.name);
         }

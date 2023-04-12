@@ -5287,6 +5287,22 @@ MonoBehaviour:
       type: 3}
     fireSmoke: {fileID: 1973075987484898, guid: bccc7a794e75b2a44a4b0dac69160b7b,
       type: 3}
+  - prefab: {fileID: 21630175310231115, guid: 46ff5fb318f292c45bd34e72eb55c5d3, type: 3}
+    ammoName: ATGM
+    bulletPenetration: 580
+    reloadTime: 7.1
+    velocity: 10
+    recoilForce: 1
+    explosionPrefab: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc,
+      type: 3}
+    explosionForce: 3000
+    explosionRadius: 10
+    lifeTimeOfTheProjectile: 0
+    fireSoundClip: {fileID: 8300000, guid: 42e65e088b3f4374e851b8dbd38f3df9, type: 3}
+    groundSmoke: {fileID: 1121192042590650, guid: e1b08032bec16ba4eb1ae23cbd572664,
+      type: 3}
+    fireSmoke: {fileID: 1973075987484898, guid: bccc7a794e75b2a44a4b0dac69160b7b,
+      type: 3}
   selectedAmmunation: 0
   currentAmmo: 15
 --- !u!1 &192560

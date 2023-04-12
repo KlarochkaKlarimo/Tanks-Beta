@@ -20,7 +20,6 @@ public class ExplosiveReactiveArmour : MonoBehaviour
         print("Helooooooooooooooo");
         if (other.gameObject.layer == 12)
         {
-
             bullet.DamageReduction(_kineticDamageModulReduction, _kineticDamagePenetrationReduction);
         }
 
