@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Atgm : Bullet
@@ -22,7 +20,6 @@ public class Atgm : Bullet
         }
         
         _penetrationDamage = damage;
-     //   m_Rigidbody.AddForce(speed*transform.forward, ForceMode.Impulse);
     }
     public override void Rickoshet(IPinetrtlbe arrmor, float anngleKoefecent, Collider collision)
     {
@@ -46,8 +43,6 @@ public class Atgm : Bullet
         _destination = ray.origin + ray.direction* 1000f;
 
         m_Rigidbody.velocity = (_destination - transform.position).normalized * speed;
-     //   transform.position = Vector3.MoveTowards(transform.position, _destination, Time.deltaTime * _rotationSpeed);
-
     }
 
     public void SetShootPoint(Transform shootPoint)

@@ -1,21 +1,6 @@
-﻿//----------------------------------------------
-//            Realistic Tank Controller
-//
-// Copyright © 2014 - 2017 BoneCracker Games
-// http://www.bonecrackergames.com
-// Buğra Özdoğanlar
-//
-//----------------------------------------------
-
-#pragma warning disable 0414
-
-using UnityEngine;
-using System;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-#if RTC_REWIRED
-using Rewired;
-#endif
 
 [RequireComponent (typeof (Rigidbody))]
 [AddComponentMenu("BoneCracker Games/Realistic Tank Controller/Main/Tank Controller")]
