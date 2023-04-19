@@ -6243,7 +6243,7 @@ MonoBehaviour:
   _modulImage: {fileID: 0}
   isModelDamaged: 0
   tankTowerController: {fileID: 0}
-  tankWheelControl: {fileID: 4481738315120333558}
+  tankWheelControl: {fileID: 0}
   mouseLook: {fileID: 0}
 --- !u!1 &254564507
 GameObject:
@@ -13861,7 +13861,7 @@ MonoBehaviour:
   _damagedHp: 0
   _modulImage: {fileID: 0}
   isModelDamaged: 0
-  tankTowerController: {fileID: 7129473028753772127}
+  tankTowerController: {fileID: 0}
   tankWheelControl: {fileID: 0}
   mouseLook: {fileID: 1602426651}
 --- !u!1001 &839137873
@@ -14181,8 +14181,8 @@ MonoBehaviour:
   _damagedHp: 10
   _modulImage: {fileID: 0}
   isModelDamaged: 0
-  tankTowerController: {fileID: 7129473028753772127}
-  tankWheelControl: {fileID: 4481738315120333558}
+  tankTowerController: {fileID: 0}
+  tankWheelControl: {fileID: 0}
   mouseLook: {fileID: 0}
   _ammorackExplosion: {fileID: 1327350475}
   _ammorackFire: {fileID: 0}
@@ -14793,8 +14793,8 @@ MonoBehaviour:
   _damagedHp: 10
   _modulImage: {fileID: 0}
   isModelDamaged: 0
-  tankTowerController: {fileID: 7129473028753772127}
-  tankWheelControl: {fileID: 4481738315120333558}
+  tankTowerController: {fileID: 0}
+  tankWheelControl: {fileID: 0}
   mouseLook: {fileID: 0}
   _ammorackExplosion: {fileID: 1327350475}
   _ammorackFire: {fileID: 2014806432}
@@ -15807,8 +15807,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 844e65af71cf89d4eaaa7e12b1097556, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _testingTank: {fileID: 4481738315120333560}
-  _playerTank: {fileID: 1844109127}
+  _testingTank: {fileID: 1674092941}
+  _playerTank: {fileID: 2119558592}
 --- !u!4 &1075468600
 Transform:
   m_ObjectHideFlags: 0
@@ -16186,7 +16186,7 @@ MonoBehaviour:
   _modulImage: {fileID: 0}
   isModelDamaged: 0
   tankTowerController: {fileID: 0}
-  tankWheelControl: {fileID: 4481738315120333558}
+  tankWheelControl: {fileID: 0}
   mouseLook: {fileID: 0}
 --- !u!136 &1105805283
 CapsuleCollider:
@@ -16785,7 +16785,7 @@ MonoBehaviour:
   _modulImage: {fileID: 1746584524}
   isModelDamaged: 0
   tankTowerController: {fileID: 0}
-  tankWheelControl: {fileID: 4481738315120333558}
+  tankWheelControl: {fileID: 0}
   mouseLook: {fileID: 0}
 --- !u!54 &1208721090
 Rigidbody:
@@ -17208,7 +17208,7 @@ MonoBehaviour:
   _damagedHp: 10
   _modulImage: {fileID: 0}
   isModelDamaged: 0
-  tankTowerController: {fileID: 7129473028753772127}
+  tankTowerController: {fileID: 0}
   tankWheelControl: {fileID: 0}
   mouseLook: {fileID: 0}
 --- !u!54 &1293704600
@@ -23349,6 +23349,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1468264123}
   m_CullTransparentMesh: 1
+--- !u!1 &1474668519 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 190390, guid: 5e326a396f81cc2489178a4497352fd4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1652138831}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1519931009
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24332,6 +24338,18 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 451336, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.99999994
+      objectReference: {fileID: 0}
+    - target: {fileID: 451336, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.99999994
+      objectReference: {fileID: 0}
+    - target: {fileID: 451336, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.99999994
+      objectReference: {fileID: 0}
+    - target: {fileID: 451336, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 352.3
       objectReference: {fileID: 0}
@@ -24370,6 +24388,28 @@ PrefabInstance:
     - target: {fileID: 451336, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11414452, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
+      propertyPath: orgMaxSpeed
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 11414452, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
+      propertyPath: steerTorque
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11414452, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
+      propertyPath: engineTorque
+      value: 15500
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012075404724, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: reloadTime
+      value: 7.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012075404724, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: _misFireChance
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 114000012075404724, guid: 5e326a396f81cc2489178a4497352fd4,
         type: 3}
@@ -29461,6 +29501,45 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1652138831}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1674092939 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114000012075404724, guid: 5e326a396f81cc2489178a4497352fd4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1652138831}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474668519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87080cdd412f0ab40a8573533d110473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1674092940 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 11414452, guid: 5e326a396f81cc2489178a4497352fd4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1652138831}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474668519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76d2446b27d076945ba65b6dcd2ccada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1674092941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474668519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 329f65e6aca435741ba5c0f03c905c75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tankTowerController: {fileID: 1674092939}
+  tankWheelControl: {fileID: 1674092940}
+  mouseLook: {fileID: 1366368175}
 --- !u!1 &1724781328
 GameObject:
   m_ObjectHideFlags: 0
@@ -34891,10 +34970,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 329f65e6aca435741ba5c0f03c905c75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tankTowerController: {fileID: 4344912328910320017}
-  tankWheelControl: {fileID: 1844109126}
-  mouseLook: {fileID: 6474861354909192107}
-  camera: {fileID: 0}
+  tankTowerController: {fileID: 0}
+  tankWheelControl: {fileID: 0}
+  mouseLook: {fileID: 0}
 --- !u!1001 &1845578649
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41211,6 +41289,121 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2056704957}
   m_CullTransparentMesh: 1
+--- !u!1001 &2062435804
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 190390, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
+      propertyPath: m_Name
+      value: RTCTank (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 451336, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
+      propertyPath: m_RootOrder
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 451336, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.99999994
+      objectReference: {fileID: 0}
+    - target: {fileID: 451336, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.99999994
+      objectReference: {fileID: 0}
+    - target: {fileID: 451336, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.99999994
+      objectReference: {fileID: 0}
+    - target: {fileID: 451336, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 380.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 451336, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 451336, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 451336, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9506924
+      objectReference: {fileID: 0}
+    - target: {fileID: 451336, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.002409083
+      objectReference: {fileID: 0}
+    - target: {fileID: 451336, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.31000346
+      objectReference: {fileID: 0}
+    - target: {fileID: 451336, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.0087179225
+      objectReference: {fileID: 0}
+    - target: {fileID: 451336, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -0.572
+      objectReference: {fileID: 0}
+    - target: {fileID: 451336, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -36.116
+      objectReference: {fileID: 0}
+    - target: {fileID: 451336, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -0.864
+      objectReference: {fileID: 0}
+    - target: {fileID: 11414452, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11414452, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
+      propertyPath: orgMaxSpeed
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 11414452, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
+      propertyPath: steerTorque
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11414452, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
+      propertyPath: engineTorque
+      value: 15500
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012075404724, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012075404724, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: reloadTime
+      value: 7.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012075404724, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: _misFireChance
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012075404724, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: _ammoLists.Array.data[2].reloadTime
+      value: 7.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012075404724, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: _ammoLists.Array.data[1].bulletPenetration
+      value: 550
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012075404724, guid: 5e326a396f81cc2489178a4497352fd4,
+        type: 3}
+      propertyPath: _ammoLists.Array.data[2].bulletPenetration
+      value: 850
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
 --- !u!1 &2069079571
 GameObject:
   m_ObjectHideFlags: 0
@@ -41463,6 +41656,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2094727921}
   m_CullTransparentMesh: 1
+--- !u!1 &2119558591 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 190390, guid: 5e326a396f81cc2489178a4497352fd4,
+    type: 3}
+  m_PrefabInstance: {fileID: 2062435804}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2119558592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119558591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 329f65e6aca435741ba5c0f03c905c75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tankTowerController: {fileID: 2119558593}
+  tankWheelControl: {fileID: 2119558594}
+  mouseLook: {fileID: 1366368175}
+--- !u!114 &2119558593 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114000012075404724, guid: 5e326a396f81cc2489178a4497352fd4,
+    type: 3}
+  m_PrefabInstance: {fileID: 2062435804}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119558591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87080cdd412f0ab40a8573533d110473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2119558594 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 11414452, guid: 5e326a396f81cc2489178a4497352fd4,
+    type: 3}
+  m_PrefabInstance: {fileID: 2062435804}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119558591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76d2446b27d076945ba65b6dcd2ccada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2136029849
 GameObject:
   m_ObjectHideFlags: 0
@@ -51467,10 +51705,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 329f65e6aca435741ba5c0f03c905c75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tankTowerController: {fileID: 7129473028753772127}
-  tankWheelControl: {fileID: 4481738315120333558}
-  mouseLook: {fileID: 1602426651}
-  camera: {fileID: 1075259626}
+  tankTowerController: {fileID: 0}
+  tankWheelControl: {fileID: 0}
+  mouseLook: {fileID: 0}
 --- !u!54 &4481738315120333561
 Rigidbody:
   m_ObjectHideFlags: 0

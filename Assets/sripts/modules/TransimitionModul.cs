@@ -7,7 +7,7 @@ public class TransimitionModul : ModulBase
     public override void modulDamaged()
     {
         base.modulDamaged();
-        tankWheelControl.rotationSpeed /=2;
+        tankWheelControl.steerTorque /=5;
     }
 
     public override void modulDestroyed()

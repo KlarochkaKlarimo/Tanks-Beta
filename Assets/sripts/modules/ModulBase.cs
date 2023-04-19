@@ -11,8 +11,8 @@ public abstract class ModulBase : IPinetrtlbe
     public bool isModelDamaged;
    
 
-    public TankTowerController tankTowerController;
-    public TankWheelControl tankWheelControl;
+    public RTC_TankGunController tankTowerController;
+    public RTC_TankController tankWheelControl;
     public MouseLook mouseLook;
     protected Bullet bullet;
 

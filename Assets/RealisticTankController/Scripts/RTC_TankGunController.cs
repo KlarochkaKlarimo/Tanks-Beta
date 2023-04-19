@@ -62,6 +62,15 @@ public class RTC_TankGunController : MonoBehaviour {
 
 	public int selectedAmmunation = 0;
 
+	private bool _isBreachGunDamaged;
+
+	[SerializeField] private int _misFireChance;
+
+	public void DamagedBreachGun()
+    {
+		_isBreachGunDamaged = true;
+    }
+
 	public GameObject projectile{
 
 		get
@@ -87,13 +96,7 @@ public class RTC_TankGunController : MonoBehaviour {
 
 	public int currentAmmo = 15;
 
-	public float reloadTime{
-
-		get{
-			return _ammoLists[selectedAmmunation].reloadTime;
-		}
-
-	}
+	public float reloadTime;
 
 	private float loadingTime = 0f;
 
@@ -282,7 +285,15 @@ public class RTC_TankGunController : MonoBehaviour {
 
 		if (loadingTime < reloadTime || currentAmmo <= 0f)
 			return;
+		if(_isBreachGunDamaged)
 
+		{
+			var _isMisFire = Random.Range(0, 100)>= _misFireChance;
+			if (_isMisFire)
+			{
+				return;
+			}
+		}
 		tankRigid.AddForce(-mainGun.transform.forward * recoilForce, ForceMode.Impulse);
 
 		var _bullet = Instantiate(projectile, barrelOut.position, transform.rotation);
