@@ -13,7 +13,9 @@ public class TankTesting : MonoBehaviour
     {
         tankTowerController.enabled = status;
         tankWheelControl.enabled = status;
-        mouseLook.currentTank = transform;
-        
+        if (status)
+        {
+            mouseLook.SetTarget(gameObject);
+        }
     }
 }

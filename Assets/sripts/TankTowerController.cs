@@ -30,7 +30,7 @@ public class TankTowerController : MonoBehaviour
     private void Awake()
     {
         _reloadingText.text = reloadingTime.ToString();
-        ChangeAmmo(0);
+        //ChangeAmmo(0);
     }
 
     public void SetIsTest(bool isTest)
