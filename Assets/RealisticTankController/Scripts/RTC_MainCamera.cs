@@ -33,7 +33,8 @@ public class RTC_MainCamera : MonoBehaviour{
 	private Rigidbody currentRigid;
 
 	internal Camera cam;	// Camera is not attached to this main gameobject. Our child camera parented to this gameobject. Therefore, we can apply additional position and rotation changes.
-	public GameObject pivot;	// Pivot center of the camera. Used for making offsets and collision movements.
+	public GameObject pivot;    // Pivot center of the camera. Used for making offsets and collision movements.
+	public static RTC_MainCamera instance;
 
 	// Camera modes.
 	public CameraMode cameraMode;
@@ -73,7 +74,7 @@ public class RTC_MainCamera : MonoBehaviour{
 	#endif
 
 	void Awake(){
-
+		instance = this;
 		cam = GetComponentInChildren<Camera>();
 
 		#if RTC_REWIRED

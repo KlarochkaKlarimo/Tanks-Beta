@@ -8,13 +8,13 @@ public class ModulTowerRotation : ModulBase
     public override void modulDamaged()
     {
         base.modulDamaged();
-        mouseLook._horizontalSpeed /= 2;
+        tankTowerController.horizontalSensitivity /= 2;
     }
 
     public override void modulDestroyed()
     {
         base.modulDestroyed();
-        mouseLook._horizontalSpeed = 0;
+        tankTowerController.horizontalSensitivity = 0;
     }
     
 }

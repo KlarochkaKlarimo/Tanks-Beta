@@ -286,7 +286,7 @@ public class RTC_TankGunController : MonoBehaviour {
 		if (loadingTime < reloadTime || currentAmmo <= 0f)
 			return;
 		if(_isBreachGunDamaged)
-
+	
 		{
 			var _isMisFire = Random.Range(0, 100)>= _misFireChance;
 			if (_isMisFire)

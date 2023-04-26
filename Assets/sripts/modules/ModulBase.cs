@@ -13,7 +13,6 @@ public abstract class ModulBase : IPinetrtlbe
 
     public RTC_TankGunController tankTowerController;
     public RTC_TankController tankWheelControl;
-    public MouseLook mouseLook;
     protected Bullet bullet;
 
     private void OnCollisionEnter(Collision collision)
@@ -83,7 +82,7 @@ public abstract class ModulBase : IPinetrtlbe
     {
         tankTowerController.enabled = false;
         tankWheelControl.enabled = false;
-
+        RTC_MainCamera.instance.enabled = false;
     }
 
 }
