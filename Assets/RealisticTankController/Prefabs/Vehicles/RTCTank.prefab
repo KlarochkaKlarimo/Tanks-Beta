@@ -5259,7 +5259,7 @@ MonoBehaviour:
   - prefab: {fileID: 21630175310231115, guid: a7afa6a87bba99c4cbf8ee3b186ff3b4, type: 3}
     ammoName: APFSDS
     bulletPenetration: 580
-    reloadTime: 7.1
+    reloadTime: 2
     velocity: 10
     recoilForce: 1
     explosionPrefab: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc,
@@ -5276,7 +5276,7 @@ MonoBehaviour:
       type: 3}
     ammoName: HEAT
     bulletPenetration: 580
-    reloadTime: 7.1
+    reloadTime: 2
     velocity: 10
     recoilForce: 1
     explosionPrefab: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc,
@@ -5292,7 +5292,7 @@ MonoBehaviour:
   - prefab: {fileID: 21630175310231115, guid: 46ff5fb318f292c45bd34e72eb55c5d3, type: 3}
     ammoName: ATGM
     bulletPenetration: 580
-    reloadTime: 7.1
+    reloadTime: 2
     velocity: 10
     recoilForce: 1
     explosionPrefab: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc,
@@ -17485,7 +17485,8 @@ MonoBehaviour:
   tankTowerController: {fileID: 114000012075404724}
   tankWheelControl: {fileID: 11414452}
   _ammorackExplosion: {fileID: 5701115425355066447}
-  _ammorackFire: {fileID: 0}
+  _ammorackFire: {fileID: 5700304703459708371}
+  _towerBody: {fileID: 5428878}
 --- !u!1 &6916469147665325174
 GameObject:
   m_ObjectHideFlags: 0
@@ -18433,6 +18434,12 @@ PrefabInstance:
 --- !u!4 &5697618989978678723 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4388947112716342, guid: e1b08032bec16ba4eb1ae23cbd572664,
+    type: 3}
+  m_PrefabInstance: {fileID: 5700877569308859893}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5700304703459708371 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1716462130679846, guid: e1b08032bec16ba4eb1ae23cbd572664,
     type: 3}
   m_PrefabInstance: {fileID: 5700877569308859893}
   m_PrefabAsset: {fileID: 0}

@@ -13535,6 +13535,25 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1595619466}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &767243444 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 145916, guid: 5e326a396f81cc2489178a4497352fd4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1652138831}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &767243448
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 767243444}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.47, y: 0.79, z: 2.41}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &789827152
 GameObject:
   m_ObjectHideFlags: 0
@@ -14065,6 +14084,7 @@ MonoBehaviour:
   tankWheelControl: {fileID: 0}
   _ammorackExplosion: {fileID: 1327350475}
   _ammorackFire: {fileID: 0}
+  _towerBody: {fileID: 0}
 --- !u!64 &879148711
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -14676,6 +14696,7 @@ MonoBehaviour:
   tankWheelControl: {fileID: 0}
   _ammorackExplosion: {fileID: 1327350475}
   _ammorackFire: {fileID: 2014806432}
+  _towerBody: {fileID: 0}
 --- !u!1 &921917834
 GameObject:
   m_ObjectHideFlags: 0
@@ -24272,6 +24293,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5927448, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
+      propertyPath: m_BreakForce
+      value: Infinity
+      objectReference: {fileID: 0}
     - target: {fileID: 11414452, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
       propertyPath: orgMaxSpeed
       value: 60
@@ -24287,7 +24312,7 @@ PrefabInstance:
     - target: {fileID: 114000012075404724, guid: 5e326a396f81cc2489178a4497352fd4,
         type: 3}
       propertyPath: reloadTime
-      value: 7.1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114000012075404724, guid: 5e326a396f81cc2489178a4497352fd4,
         type: 3}
