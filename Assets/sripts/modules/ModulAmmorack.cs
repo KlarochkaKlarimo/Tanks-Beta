@@ -7,7 +7,18 @@ public class ModulAmmorack : ModulBase
     [SerializeField] private GameObject _ammorackExplosion;
     [SerializeField] private GameObject _ammorackFire;
     [SerializeField] private Rigidbody _towerBody;
+    private Vector3 _destroedTowerRotation;
+    public bool _tankDestroyed;
 
+    private void FixedUpdate()
+    {
+
+        if (_tankDestroyed)
+        {
+            Quaternion delta = Quaternion.Euler(_destroedTowerRotation*Time.fixedDeltaTime);
+            _towerBody.MoveRotation(delta*_towerBody.rotation);
+        }
+    }
     public override void modulDamaged()
     {
         base.modulDamaged();
@@ -29,7 +40,9 @@ public class ModulAmmorack : ModulBase
         var joint = _towerBody.GetComponent<HingeJoint>();
         Destroy(joint);
         _towerBody.AddForce(new Vector3(Random.Range(-100, 100), Random.Range(800, 1200), Random.Range(-100, 100)));
-
+        _destroedTowerRotation = new Vector3(Random.Range(-360, 360), Random.Range(-360, 360), Random.Range(-360, 360));
+        _tankDestroyed = true;
+        
     }
 
     private void ActiveteAmmorackFire()
