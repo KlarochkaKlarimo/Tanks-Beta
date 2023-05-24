@@ -82,7 +82,9 @@ public abstract class ModulBase : IPinetrtlbe
     {
         tankTowerController.enabled = false;
         tankWheelControl.enabled = false;
-        RTC_MainCamera.instance.enabled = false;
+        Destroy(tankTowerController);
+        Destroy(tankWheelControl);
+        //RTC_MainCamera.instance.enabled = false;
     }
 
 }
