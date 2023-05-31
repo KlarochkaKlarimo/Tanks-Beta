@@ -41,8 +41,16 @@ public class ModulFuelTank : ModulBase
         }
     }
 
+    private void ChangeFlame()
+    {
+        ModulBase.isTankDestroyed -= ChangeFlame;
+
+        _fire.SetActive(false);
+    }
+
     private IEnumerator BurnDamage()
     {
+        ModulBase.isTankDestroyed += ChangeFlame;
         while (_isBurn)
         {
             foreach(ModulBase modul in _damagedModules)
@@ -64,10 +72,7 @@ public class ModulFuelTank : ModulBase
             if (!_damagedModules.Contains(isModul))
             {
                 _damagedModules.Add(isModul);
-            }
-           
+            } 
         }
-
-        
     }
 }

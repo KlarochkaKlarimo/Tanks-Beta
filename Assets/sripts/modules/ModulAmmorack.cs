@@ -35,7 +35,7 @@ public class ModulAmmorack : ModulBase
     {
         base.TankDestroed();
         _ammorackExplosion.SetActive(true);
-        Invoke("ActiveteAmmorackFire", 2f);      
+        Invoke("ActiveteAmmorackFire", 1f);      
         _towerBody.transform.parent = null;
         var joint = _towerBody.GetComponent<HingeJoint>();
         Destroy(joint);

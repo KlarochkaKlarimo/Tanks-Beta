@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,8 @@ public abstract class ModulBase : IPinetrtlbe
     public RTC_TankGunController tankTowerController;
     public RTC_TankController tankWheelControl;
     protected Bullet bullet;
+
+    public static Action isTankDestroyed;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -85,6 +88,7 @@ public abstract class ModulBase : IPinetrtlbe
         Destroy(tankTowerController);
         Destroy(tankWheelControl);
         //RTC_MainCamera.instance.enabled = false;
+        isTankDestroyed?.Invoke();
     }
 
 }
