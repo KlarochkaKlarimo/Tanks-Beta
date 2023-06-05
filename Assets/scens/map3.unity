@@ -24239,6 +24239,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RTCTank
       objectReference: {fileID: 0}
+    - target: {fileID: 190390, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 451336, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -41209,6 +41213,10 @@ PrefabInstance:
     - target: {fileID: 190390, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
       propertyPath: m_Name
       value: RTCTank (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 190390, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 451336, guid: 5e326a396f81cc2489178a4497352fd4, type: 3}
       propertyPath: m_RootOrder
