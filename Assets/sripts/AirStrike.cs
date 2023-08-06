@@ -8,19 +8,32 @@ public class AirStrike : MonoBehaviour
     [SerializeField] private GameObject missile;
     [SerializeField] private float reloadTime;
     private bool isReloading = false;
+    private Rigidbody missileRB;
+    [SerializeField] private float _missileSpeed;
 
     // Update is called once per frame
+    private void FixedUpdate()
+    {
+        if (missileRB != null)
+        {
+            missileRB.transform.position=Vector3.MoveTowards(missileRB.transform.position, koordinates, _missileSpeed * Time.fixedDeltaTime);
+            //Vector3 movePosition = Vector3.Slerp(missileRB.position, koordinates, 1f * Time.fixedDeltaTime);
+            //missileRB.MovePosition(movePosition);
+            //Debug.Log(missileRB.position);
+        }
+    }
+
     void Update()
     {
+        
+
         if (Input.GetKeyDown(KeyCode.K))
         {
             if (isReloading)
             {
                 return;
-            }
-            missile.SetActive(true);
-            //missile.transform.position = koordinates;
-            GameObject _missile = Instantiate(missile, koordinates, Quaternion.identity);
+            }          
+            missileRB =  Instantiate(missile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
             StartCoroutine(Reload());
         }
     }
