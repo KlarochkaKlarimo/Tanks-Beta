@@ -1,17 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
     [SerializeField] public int _burningModificator;
-    [SerializeField] protected BulletFragments[] fragments;
+    [SerializeField] protected Transform[] fragments;
     [SerializeField] protected GameObject explosion;
     [SerializeField] protected Rigidbody m_Rigidbody;
     [SerializeField] protected Collider _collider;
     protected int _penetrationDamage;
     [SerializeField] protected float speed = 0.1f;
     [SerializeField] protected int modulDamage;
+    [SerializeField] protected int _fragmentsModulDamage;
     [SerializeField] protected Transform _fragmentsParent;
     private Collider armorCollider;
     public virtual void SetVariables( int damage, float lifeTime, bool isCannonDamaged, GameObject cannon)
@@ -35,37 +34,57 @@ public class Bullet : MonoBehaviour
     }
     public virtual void OnCollisionEnter(Collision collision)
     {
-        var arrmor = collision.gameObject.GetComponent<IPinetrtlbe>();
+        var arrmor = collision.collider.gameObject.GetComponent<IPinetrtlbe>();
         if (arrmor == null)
         {
             DestroyBullet();
             return;
         }
-    }
-    public virtual void OnTriggerEnter(Collider other)
-    {
-        print("trigger");
-        var arrmor = other.gameObject.GetComponent<IPinetrtlbe>();
-        if (arrmor == null)
-        {
-        //    DestroyBullet();
-            return;
-        }
-        var angle = 50;//((Vector3.Angle(transform.forward, other.contactOffset.)) - 90);
-        var anngleKoefecent = (angle * 0.9f)/100;
-        Debug.Log(arrmor.GetThicknes() + " arrmor.GetThicknes() " + anngleKoefecent + " anngleKoefecent " + " anngleKoefecent * _penetrationDamage " + anngleKoefecent * _penetrationDamage);
-        Rickoshet(arrmor, anngleKoefecent, other);
+        //var angle = 50;//((Vector3.Angle(transform.forward, other.contactOffset.)) - 90);
+        //var anngleKoefecent = (angle * 0.9f)/100;
+        //Debug.Log(arrmor.GetThicknes() + " arrmor.GetThicknes() " + anngleKoefecent + " anngleKoefecent " + " anngleKoefecent * _penetrationDamage " + anngleKoefecent * _penetrationDamage);
+        //   Rickoshet(arrmor, anngleKoefecent, other);
         SpawnFragments();
     }
+    //public void OnCollisionEnter(Collision collision)
+    //{
+    //    print("trigger");
+    //    var arrmor = collision.gameObject.GetComponent<IPinetrtlbe>();
+    //    if (arrmor == null)
+    //    {
+    //        DestroyBullet();
+    //        return;
+    //    }
+    //    //var angle = 50;//((Vector3.Angle(transform.forward, other.contactOffset.)) - 90);
+    //    //var anngleKoefecent = (angle * 0.9f)/100;
+    //    //Debug.Log(arrmor.GetThicknes() + " arrmor.GetThicknes() " + anngleKoefecent + " anngleKoefecent " + " anngleKoefecent * _penetrationDamage " + anngleKoefecent * _penetrationDamage);
+    // //   Rickoshet(arrmor, anngleKoefecent, other);
+    //    SpawnFragments();
+    //}
     public virtual void SpawnFragments()
     {
         _fragmentsParent.DetachChildren();
-        foreach(BulletFragments fragment in fragments)
+        foreach(Transform fragment in fragments)
         {
-            
-            fragment.gameObject.SetActive(true);
-            fragment.SetVariables(2, 5, false, gameObject);
+            RaycastHit hit;
+            if (Physics.Raycast(fragment.position, fragment.TransformDirection(Vector3.forward), out hit, 100f))
+            {
+                Debug.DrawRay(fragment.position, fragment.TransformDirection(Vector3.forward) * hit.distance, Color.red,14f);
+                Debug.Log("Did Hit "+ hit.transform.name);
+                var modul = hit.transform.GetComponent<ModulBase>();
+                if (modul != null)
+                {
+                    Debug.Log("Modul Hit " + modul.name);
+                    modul.GetDamage(_fragmentsModulDamage);
+                }
+            }
+            else
+            {
+                Debug.DrawRay(fragment.position, fragment.TransformDirection(Vector3.forward) * 100f, Color.yellow, 14f);
+                Debug.Log("Did not Hit");
+            }
         }
+       // DestroyBullet();
     }
 
     public virtual void Rickoshet(IPinetrtlbe arrmor, float anngleKoefecent, Collider collision)
@@ -111,10 +130,7 @@ public class Bullet : MonoBehaviour
     {
         modulDamage = Mathf.Clamp(modulDamage - modulReducation, 0, 10000);
         _penetrationDamage = Mathf.Clamp(_penetrationDamage - penetrationReducation, 0, 10000);
-        foreach(BulletFragments fragment in fragments)
-        {
-            fragment.DamageReduction(modulReducation, penetrationReducation);
-        }
+        Debug.Log("Modul damaged" + modulDamage + "penetration damage" + _penetrationDamage);
     }
 
     public virtual void DestroyBullet()

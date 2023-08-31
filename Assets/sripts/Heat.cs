@@ -9,7 +9,7 @@ public class Heat : Bullet
 
     }
 
-    public override void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
         var ERA = other.gameObject.GetComponent<ExplosiveReactiveArmour>();
         if (ERA != null)

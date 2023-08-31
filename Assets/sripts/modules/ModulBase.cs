@@ -63,7 +63,7 @@ public abstract class ModulBase : IPinetrtlbe
         switch (hp)
         {
             case 0:
-                print("Modul destroed" + gameObject.name);
+                //print("Modul destroed" + gameObject.name);
                 modulDestroyed();          
                 break;
 
@@ -73,7 +73,7 @@ public abstract class ModulBase : IPinetrtlbe
                     return;
                 }
                 isModelDamaged = true;
-                print("Modul damaged" + gameObject.name);
+                //print("Modul damaged" + gameObject.name);
                 modulDamaged();
                 break;
 
@@ -87,7 +87,6 @@ public abstract class ModulBase : IPinetrtlbe
         tankWheelControl.enabled = false;
         Destroy(tankTowerController);
         Destroy(tankWheelControl);
-        //RTC_MainCamera.instance.enabled = false;
         isTankDestroyed?.Invoke();
     }
 
