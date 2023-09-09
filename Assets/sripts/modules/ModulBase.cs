@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using ChobiAssets.PTM;
 
 public abstract class ModulBase : IPinetrtlbe
 {
@@ -12,8 +13,8 @@ public abstract class ModulBase : IPinetrtlbe
     public bool isModelDamaged;
    
 
-    public RTC_TankGunController tankTowerController;
-    public RTC_TankController tankWheelControl;
+    public Aiming_Control_CS tankTowerController;
+    public Drive_Control_CS tankWheelControl;
     protected Bullet bullet;
 
     public static Action isTankDestroyed;

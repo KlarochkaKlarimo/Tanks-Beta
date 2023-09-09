@@ -18,7 +18,7 @@ public class BulletFragments : Bullet
         m_Rigidbody.AddForce(speed*transform.forward, ForceMode.Impulse);
     }
 
-    public override void DestroyBullet()
+    public override void DestroyBullet(ExpEffType type)
     {
         Destroy(gameObject);
     }

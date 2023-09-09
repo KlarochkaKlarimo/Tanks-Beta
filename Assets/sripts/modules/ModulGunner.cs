@@ -7,13 +7,13 @@ public class ModulGunner : CharacterBase
     public override void modulDamaged()
     {
         base.modulDamaged();
-        tankTowerController.horizontalSensitivity /=2;
+        tankTowerController.Turret_Speed_Multiplier /=2;
     }
 
     public override void modulDestroyed()
     {
         base.modulDestroyed();
-        tankTowerController.horizontalSensitivity = 0;
+        tankTowerController.Turret_Speed_Multiplier = 0;
     }
 
     

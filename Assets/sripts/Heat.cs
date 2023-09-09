@@ -16,11 +16,11 @@ public class Heat : Bullet
         {
             return; 
         }
-        DestroyBullet();
+        DestroyBullet(ExpEffType.metallic);
     }
 
     public override void OnCollisionEnter(Collision collision)
     {
-        DestroyBullet();
+        DestroyBullet(ExpEffType.ground);
     }
 }

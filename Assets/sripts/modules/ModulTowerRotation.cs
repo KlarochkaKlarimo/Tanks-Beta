@@ -8,13 +8,13 @@ public class ModulTowerRotation : ModulBase
     public override void modulDamaged()
     {
         base.modulDamaged();
-        tankTowerController.horizontalSensitivity /= 2;
+        //tankTowerController.horizontalSensitivity /= 2;
     }
 
     public override void modulDestroyed()
     {
         base.modulDestroyed();
-        tankTowerController.horizontalSensitivity = 0;
+        //tankTowerController.horizontalSensitivity = 0;
     }
     
 }

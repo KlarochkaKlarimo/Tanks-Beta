@@ -7,7 +7,7 @@ public class modulEngine : ModulBase
     public override void modulDamaged()
     {
         base.modulDamaged();
-        tankWheelControl.engineTorque /=5;
+        tankWheelControl.Torque /=5;
     }
 
     public override void modulDestroyed()

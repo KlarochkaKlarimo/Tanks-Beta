@@ -4,7 +4,8 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] public int _burningModificator;
     [SerializeField] protected Transform[] fragments;
-    [SerializeField] protected GameObject explosion;
+    [SerializeField] protected GameObject explosionGround;
+    [SerializeField] protected GameObject explosionMetallic;
     [SerializeField] protected Rigidbody m_Rigidbody;
     [SerializeField] protected Collider _collider;
     protected int _penetrationDamage;
@@ -13,6 +14,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] protected int _fragmentsModulDamage;
     [SerializeField] protected Transform _fragmentsParent;
     private Collider armorCollider;
+    
     public virtual void SetVariables( int damage, float lifeTime, bool isCannonDamaged, GameObject cannon)
     {
         transform.rotation = cannon.transform.rotation;
@@ -37,14 +39,20 @@ public class Bullet : MonoBehaviour
         var arrmor = collision.collider.gameObject.GetComponent<IPinetrtlbe>();
         if (arrmor == null)
         {
-            DestroyBullet();
+            DestroyBullet(ExpEffType.ground);
             return;
         }
         //var angle = 50;//((Vector3.Angle(transform.forward, other.contactOffset.)) - 90);
         //var anngleKoefecent = (angle * 0.9f)/100;
         //Debug.Log(arrmor.GetThicknes() + " arrmor.GetThicknes() " + anngleKoefecent + " anngleKoefecent " + " anngleKoefecent * _penetrationDamage " + anngleKoefecent * _penetrationDamage);
         //   Rickoshet(arrmor, anngleKoefecent, other);
-        SpawnFragments();
+
+        if (arrmor.GetThicknes() <= _penetrationDamage)  //chek angle
+        {
+            SpawnFragments();
+            print("Probitie " + collision.gameObject.name);                   
+        }
+        DestroyBullet(ExpEffType.metallic);
     }
     //public void OnCollisionEnter(Collision collision)
     //{
@@ -105,7 +113,7 @@ public class Bullet : MonoBehaviour
                 if (false/*rikoshetChanse < rikoshetRandom*/)
                 {
                     print("Not Rikoshet " + collision.gameObject.name);
-                    DestroyBullet();
+                    DestroyBullet(ExpEffType.metallic);
                 }
                 else
                 {
@@ -121,7 +129,7 @@ public class Bullet : MonoBehaviour
             else
             {
                 print("Not Rikoshet by angle" + collision.gameObject.name);
-                DestroyBullet();
+                DestroyBullet(ExpEffType.metallic);
             }
         }
     }
@@ -133,14 +141,32 @@ public class Bullet : MonoBehaviour
         Debug.Log("Modul damaged" + modulDamage + "penetration damage" + _penetrationDamage);
     }
 
-    public virtual void DestroyBullet()
+    public virtual void DestroyBullet(ExpEffType type)
     {
-        explosion.SetActive(true);
-        explosion.transform.parent = null;
+        switch (type)
+        {
+            case ExpEffType.ground:
+                explosionGround.SetActive(true);
+                explosionGround.transform.parent = null;
+                break;
+            case ExpEffType.metallic:
+                explosionMetallic.SetActive(true);
+                explosionMetallic.transform.parent = null;
+                break;
+        }
+        explosionGround.SetActive(true);
+        explosionGround.transform.parent = null;
         Destroy(gameObject);
     }
     public int GetModulDamage()
     {
         return modulDamage;
     }
+}
+
+public enum ExpEffType
+{
+    ground, 
+    metallic
+
 }

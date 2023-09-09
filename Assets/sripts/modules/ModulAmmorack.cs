@@ -22,7 +22,7 @@ public class ModulAmmorack : ModulBase
     public override void modulDamaged()
     {
         base.modulDamaged();
-        tankTowerController.reloadTime *= 2;
+        //tankTowerController.reloadTime *= 2;
     }
 
     public override void modulDestroyed()

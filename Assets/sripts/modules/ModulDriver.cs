@@ -7,13 +7,13 @@ public class ModulDriver : CharacterBase
     public override void modulDamaged()
     {
         base.modulDamaged();
-        tankWheelControl.steerTorque /=4;
+        //tankWheelControl. /=4;
     }
 
     public override void modulDestroyed()
     {
         base.modulDestroyed();
-        tankWheelControl.enabled = false;
+        //tankWheelControl.enabled = false;
     }
 
 }
