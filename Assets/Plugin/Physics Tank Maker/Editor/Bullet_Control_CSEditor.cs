@@ -5,7 +5,7 @@ using UnityEditor;
 namespace ChobiAssets.PTM
 {
 
-	[ CustomEditor (typeof(Bullet_Control_CS))]
+	//[ CustomEditor (typeof(Bullet_Control_CS))]
 	public class Bullet_Control_CSEditor : Editor
 	{
 		

@@ -11,10 +11,10 @@ public class TimeScalecontroller : MonoBehaviour
 
     }
 
-    
-     void Update()
+
+    void Update()
     {
-        if (Input.GetKey(KeyCode.P))
+        if (Input.GetKey(KeyCode.O))
         {
             Time.timeScale = 0.01f;
         }

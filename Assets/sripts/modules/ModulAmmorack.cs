@@ -6,7 +6,10 @@ public class ModulAmmorack : ModulBase
 {
     [SerializeField] private GameObject _ammorackExplosion;
     [SerializeField] private GameObject _ammorackFire;
-    [SerializeField] private Rigidbody _towerBody;
+    [SerializeField] private GameObject _tower;
+
+    private Rigidbody _towerBody;
+    
     private Vector3 _destroedTowerRotation;
     public bool _tankDestroyed;
 
@@ -33,16 +36,16 @@ public class ModulAmmorack : ModulBase
 
     public override void TankDestroed()
     {
-        base.TankDestroed();
+        
         _ammorackExplosion.SetActive(true);
         Invoke("ActiveteAmmorackFire", 1f);      
-        _towerBody.transform.parent = null;
-        var joint = _towerBody.GetComponent<HingeJoint>();
-        Destroy(joint);
+        _tower.transform.parent = null;
+
+        _towerBody = _tower.AddComponent<Rigidbody>();
         _towerBody.AddForce(new Vector3(Random.Range(-100, 100), Random.Range(800, 1200), Random.Range(-100, 100)));
         _destroedTowerRotation = new Vector3(Random.Range(-360, 360), Random.Range(-360, 360), Random.Range(-360, 360));
         _tankDestroyed = true;
-        
+        base.TankDestroed();
     }
 
     private void ActiveteAmmorackFire()

@@ -7,12 +7,12 @@ public class ModulBreachGun : ModulBase
     public override void modulDamaged()
     {
         base.modulDamaged();
-       // tankTowerController.DamagedBreachGun();
+        cannonFire.DamagedBreachGun();
     }
 
     public override void modulDestroyed()
     {
         base.modulDestroyed();
-        //tankTowerController.enabled = false;
+        cannonFire.enabled = false;
     }
 }

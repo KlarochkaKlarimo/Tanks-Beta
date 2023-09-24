@@ -35,7 +35,21 @@ namespace ChobiAssets.PTM
         protected Cannon_Fire_Input_00_Base_CS inputScript;
 
         bool isSelected;
+        private bool _isCannonDamaged;
+        private bool _isBreachGunDamaged;
 
+        [SerializeField] private int _misFireChance;
+
+        public void CannonDamage()
+        {
+            _isCannonDamaged = true;
+
+        }
+
+        public void DamagedBreachGun()
+        {
+            _isBreachGunDamaged = true;
+        }
 
         void Start()
 		{
@@ -109,9 +123,24 @@ namespace ChobiAssets.PTM
         public void Fire()
         { // Called from "Cannon_Fire_Input_##_###".
             // Call all the "Bullet_Generator_CS".
+            if (_isBreachGunDamaged)
+
+            {
+                var chance = Random.Range(0, 100);
+                _misFireChance = 50;
+                var _isMisFire = chance< _misFireChance;
+                Debug.Log(chance);
+                if (_isMisFire)
+                {
+                    // Reload.
+                    StartCoroutine("Reload");
+                    return;
+                }
+            }
+            var spread = _isCannonDamaged ? new Vector3(0, Random.Range(-0.01f, 0.01f), Random.Range(-0.01f, 0.01f)) : Vector3.zero;
             for (int i = 0; i < Bullet_Generator_Scripts.Length; i++)
             {
-                Bullet_Generator_Scripts[i].Fire_Linkage(direction);
+                Bullet_Generator_Scripts[i].Fire_Linkage(direction, spread);
             }
 
             // Call all the "Recoil_Brake_CS".

@@ -37,6 +37,7 @@ namespace ChobiAssets.PTM
         // Only for AI tank.
         public bool Can_Aim; // Set by "AI_CS", and referred to from "Cannon_Fire_Input_99_AI_CS" script.
 
+        private Vector3 _spread;
 
         void Start()
         {
@@ -76,11 +77,11 @@ namespace ChobiAssets.PTM
         }
 
 
-        public void Fire_Linkage(int direction)
+        public void Fire_Linkage(int direction, Vector3 spread)
         { // Called from "Cannon_Fire_CS".
             if (Barrel_Type == 0 || Barrel_Type == direction)
             { // Single barrel, or the same direction.
-
+                _spread = spread; 
                 // Generate the bullet and shoot it.
                 StartCoroutine("Generate_Bullet");
             }
@@ -141,7 +142,7 @@ namespace ChobiAssets.PTM
             // Shoot.
             yield return new WaitForFixedUpdate();
             Rigidbody rigidbody = bulletObject.GetComponent<Rigidbody>();
-            Vector3 currentVelocity = bulletObject.transform.forward * Current_Bullet_Velocity;
+            Vector3 currentVelocity = (bulletObject.transform.forward + _spread) * Current_Bullet_Velocity;
             rigidbody.velocity = currentVelocity;
         }
 

@@ -6,16 +6,17 @@ namespace ChobiAssets.PTM
 
 	public class Bullet_Control_CS : MonoBehaviour
 	{
-		/*
+        /*
 		 * This script is attached to bullet prefabs.
 		 * This script controls the posture of the bullet, and supports the collision detecting by casting a ray while flying.
 		 * When the bullet hits the target, this script sends the damage value to the "Damage_Control_##_##_CS" script in the hit collider.
 		 * The damage value is calculated considering the hit angle.
 		*/
-
-
-		// User options >>
-		public int Type; // 0=AP , 1=HE.
+        [SerializeField] protected Transform[] fragments;
+        [SerializeField] protected int _fragmentsModulDamage;
+        [SerializeField] protected Transform _fragmentsParent;
+        // User options >>
+        public int Type; // 0=AP , 1=HE.
 		public Transform This_Transform;
 		public Rigidbody This_Rigidbody;
 		// Only for AP
@@ -61,6 +62,35 @@ namespace ChobiAssets.PTM
             Destroy(this.gameObject, Life_Time);
         }
 
+        private void SpawnFragments()
+        {
+            //int layerMask = 1 << 18;
+            //layerMask = ~layerMask;
+            //LayerMask mask = LayerMask.GetMask("bulletIgnore");
+            int layerMask = LayerMask.GetMask("ignoreAll");
+            _fragmentsParent.DetachChildren();
+            foreach (Transform fragment in fragments)
+            {
+                RaycastHit hit;
+                if (Physics.Raycast(fragment.position, fragment.TransformDirection(Vector3.forward), out hit, 100f, layerMask))
+                {
+                    Debug.DrawRay(fragment.position, fragment.TransformDirection(Vector3.forward) * hit.distance, Color.red, 14f);
+                    Debug.Log("Did Hit "+ hit.transform.name);
+                    var modul = hit.transform.GetComponent<ModulBase>();
+                    if (modul != null)
+                    {
+                        Debug.Log("Modul Hit " + modul.name);
+                        modul.GetDamage(_fragmentsModulDamage);
+                    }
+                }
+                else
+                {
+                    Debug.DrawRay(fragment.position, fragment.TransformDirection(Vector3.forward) * 100f, Color.yellow, 14f);
+                    Debug.Log("Did not Hit");
+                }
+            }
+            // DestroyBullet();
+        }
 
         void Update()
         {
@@ -110,36 +140,37 @@ namespace ChobiAssets.PTM
             if (damageScript != null)
             { // The hit object has "Damage_Control_##_##_CS" script. >> It should be a breakable object.
 
-                // Calculate the hit damage.
-                var hitAngle = Mathf.Abs(90.0f - Vector3.Angle(This_Transform.forward, hitNormal));
-                var damageValue = Attack_Point * Mathf.Pow(hitVelocity / Initial_Velocity, 2.0f) * Mathf.Lerp(0.0f, 1.0f, Mathf.Sqrt(hitAngle / 90.0f)) * Attack_Multiplier;
+                SpawnFragments();
+                //// Calculate the hit damage.
+                //var hitAngle = Mathf.Abs(90.0f - Vector3.Angle(This_Transform.forward, hitNormal));
+                //var damageValue = Attack_Point * Mathf.Pow(hitVelocity / Initial_Velocity, 2.0f) * Mathf.Lerp(0.0f, 1.0f, Mathf.Sqrt(hitAngle / 90.0f)) * Attack_Multiplier;
 
-                // Output for debugging.
-                if (Debug_Flag)
-                {
-                    float tempMultiplier = 1.0f;
-                    Damage_Control_09_Armor_Collider_CS armorColliderScript = hitObject.GetComponent<Damage_Control_09_Armor_Collider_CS>();
-                    if (armorColliderScript)
-                    {
-                        tempMultiplier = armorColliderScript.Damage_Multiplier;
-                    }
-                    Debug.Log("AP Damage " + damageValue * tempMultiplier + " on " + hitObject.name + " (" + (90.0f - hitAngle) + " degrees)");
-                }
+                //// Output for debugging.
+                //if (Debug_Flag)
+                //{
+                //    float tempMultiplier = 1.0f;
+                //    Damage_Control_09_Armor_Collider_CS armorColliderScript = hitObject.GetComponent<Damage_Control_09_Armor_Collider_CS>();
+                //    if (armorColliderScript)
+                //    {
+                //        tempMultiplier = armorColliderScript.Damage_Multiplier;
+                //    }
+                //    Debug.Log("AP Damage " + damageValue * tempMultiplier + " on " + hitObject.name + " (" + (90.0f - hitAngle) + " degrees)");
+                //}
 
-                // Send the damage value to "Damage_Control_##_##_CS" script.
-                if (damageScript.Get_Damage(damageValue, Type) == true)
-                { // The hit part has been destroyed.
-                    // Remove the bullet from the scene.
-                    Destroy(this.gameObject);
-                }
-                else
-                { // The hit part has not been destroyed.
-                    // Create the ricochet object.
-                    if (Ricochet_Object)
-                    {
-                        Instantiate(Ricochet_Object, This_Transform.position, Quaternion.identity, hitObject.transform);
-                    }
-                }
+                //// Send the damage value to "Damage_Control_##_##_CS" script.
+                //if (damageScript.Get_Damage(damageValue, Type) == true)
+                //{ // The hit part has been destroyed.
+                //    // Remove the bullet from the scene.
+                //    Destroy(this.gameObject);
+                //}
+                //else
+                //{ // The hit part has not been destroyed.
+                //    // Create the ricochet object.
+                //    if (Ricochet_Object)
+                //    {
+                //        Instantiate(Ricochet_Object, This_Transform.position, Quaternion.identity, hitObject.transform);
+                //    }
+                //}
 
             }
             else

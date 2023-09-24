@@ -11,8 +11,8 @@ public abstract class ModulBase : IPinetrtlbe
     [SerializeField] private int _damagedHp;
     [SerializeField] private Image _modulImage;
     public bool isModelDamaged;
-   
 
+    public Cannon_Fire_CS cannonFire;
     public Aiming_Control_CS tankTowerController;
     public Drive_Control_CS tankWheelControl;
     protected Bullet bullet;
