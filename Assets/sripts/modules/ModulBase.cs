@@ -15,14 +15,19 @@ public abstract class ModulBase : IPinetrtlbe
     public Cannon_Fire_CS cannonFire;
     public Aiming_Control_CS tankTowerController;
     public Drive_Control_CS tankWheelControl;
-    protected Bullet bullet;
+    protected Bullet_Control_CS bullet;
 
     public static Action isTankDestroyed;
+
+    public void setBullet(Bullet_Control_CS _bullet)
+    {
+        bullet = _bullet;
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
         bullet = null;
-         bullet = collision.gameObject.GetComponentInParent<Bullet>();
+         bullet = collision.gameObject.GetComponentInParent<Bullet_Control_CS>();
         if (bullet == null)
         {
             return;
@@ -32,7 +37,7 @@ public abstract class ModulBase : IPinetrtlbe
             gameObject.GetComponent<Collider>().enabled = false;
             
         }
-        GetDamage(bullet.GetModulDamage());
+        //GetDamage(bullet.GetModulDamage()); FIX
     }
 
     private void ChangeModulImageColor(Color _color)

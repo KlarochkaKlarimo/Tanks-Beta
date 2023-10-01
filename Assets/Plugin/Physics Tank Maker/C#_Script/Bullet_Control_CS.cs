@@ -36,6 +36,8 @@ namespace ChobiAssets.PTM
 		public float Attack_Multiplier = 1.0f;
 		public bool Debug_Flag = false;
 
+        public int _burningModificator = 1;
+
         bool isLiving = true;
 
 
@@ -80,6 +82,7 @@ namespace ChobiAssets.PTM
                     if (modul != null)
                     {
                         Debug.Log("Modul Hit " + modul.name);
+                        modul.setBullet(this);
                         modul.GetDamage(_fragmentsModulDamage);
                     }
                 }

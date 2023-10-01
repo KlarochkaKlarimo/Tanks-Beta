@@ -84,6 +84,9 @@ namespace ChobiAssets.PTM
         int currentStep;
         bool switchDirectionTimerFlag;
 
+        private bool _isDriverDamaged;
+        private bool _isDriverDead;
+
         bool isSelected;
 
         protected Drive_Control_Input_00_Base_CS inputScript;

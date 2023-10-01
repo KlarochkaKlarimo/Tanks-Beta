@@ -83,7 +83,9 @@ public class Bullet : MonoBehaviour
                 if (modul != null)
                 {
                     Debug.Log("Modul Hit " + modul.name);
+                    
                     modul.GetDamage(_fragmentsModulDamage);
+                    
                 }
             }
             else
