@@ -15,5 +15,9 @@ public class TransimitionModul : ModulBase
         base.modulDestroyed();
        // tankWheelControl.enabled = false;
     }
-
+    private void Awake()
+    {
+        
+        tankWheelControl.turnDivider = 0;
+    }
 }

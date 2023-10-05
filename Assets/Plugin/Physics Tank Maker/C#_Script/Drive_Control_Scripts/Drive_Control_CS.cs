@@ -91,7 +91,7 @@ namespace ChobiAssets.PTM
 
         protected Drive_Control_Input_00_Base_CS inputScript;
 
-
+        public int turnDivider = 1;
         void Start()
         {
             Initialize();
@@ -281,6 +281,14 @@ namespace ChobiAssets.PTM
             // Set the "Left_Torque" and "Right_Torque".
             Left_Torque = Torque * -Mathf.Sign(leftSpeedRate) * Mathf.Ceil(Mathf.Abs(leftSpeedRate)); // (Note.) When the "leftSpeedRate" is zero, the torque will be set to zero.
             Right_Torque = Torque * Mathf.Sign(rightSpeedRate) * Mathf.Ceil(Mathf.Abs(rightSpeedRate));
+            if (turnDivider == 0)
+            {
+                Left_Torque = 0;
+                Right_Torque = 0;
+                return;
+            }
+            Left_Torque /= turnDivider;
+            Right_Torque /= turnDivider;
         }
 
 
