@@ -62,6 +62,8 @@ MonoBehaviour:
   - {fileID: 6400379699848150045}
   _fragmentsModulDamage: 7
   _fragmentsParent: {fileID: 315111657562301401}
+  modulDamage: 10
+  _penetrationDamage: 600
   Type: 0
   This_Transform: {fileID: 4498786755513422}
   This_Rigidbody: {fileID: 54414218098899862}

@@ -15,6 +15,8 @@ namespace ChobiAssets.PTM
         [SerializeField] protected Transform[] fragments;
         [SerializeField] protected int _fragmentsModulDamage;
         [SerializeField] protected Transform _fragmentsParent;
+        [SerializeField] protected int modulDamage;
+        [SerializeField] protected int _penetrationDamage;
         // User options >>
         public int Type; // 0=AP , 1=HE.
 		public Transform This_Transform;
@@ -46,7 +48,7 @@ namespace ChobiAssets.PTM
 			Initialize();
 		}
 
-
+        
         void Initialize()
         {
             if (This_Transform == null)
@@ -66,6 +68,7 @@ namespace ChobiAssets.PTM
 
         private void SpawnFragments()
         {
+            Debug.Log("spawn fragments");
             //int layerMask = 1 << 18;
             //layerMask = ~layerMask;
             //LayerMask mask = LayerMask.GetMask("bulletIgnore");
@@ -253,6 +256,17 @@ namespace ChobiAssets.PTM
                         Debug.Log("HE Damage " + damageValue + " on " + collider.name);
                     }
                 }
+            }
+        }
+        public void DamageReduction(int modulReducation, int penetrationReducation)
+        {
+            modulDamage = Mathf.Clamp(modulDamage - modulReducation, 0, 10000);
+            _penetrationDamage = Mathf.Clamp(_penetrationDamage - penetrationReducation, 0, 10000);
+            Debug.Log("Modul damaged" + modulDamage + "penetration damage" + _penetrationDamage);
+            if (_penetrationDamage <=0)
+            {
+                Destroy(gameObject);
+                Debug.Log("boom");
             }
         }
 
