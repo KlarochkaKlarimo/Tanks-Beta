@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 namespace ChobiAssets.PTM
 {
@@ -69,9 +70,6 @@ namespace ChobiAssets.PTM
         private void SpawnFragments()
         {
             Debug.Log("spawn fragments");
-            //int layerMask = 1 << 18;
-            //layerMask = ~layerMask;
-            //LayerMask mask = LayerMask.GetMask("bulletIgnore");
             int layerMask = LayerMask.GetMask("ignoreAll");
             _fragmentsParent.DetachChildren();
             foreach (Transform fragment in fragments)
@@ -118,7 +116,7 @@ namespace ChobiAssets.PTM
                 switch (Type)
                 {
                     case 0: // AP
-                        AP_Hit_Process(collision.collider.gameObject, collision.relativeVelocity.magnitude, collision.contacts[0].normal);
+                        AP_Hit_Process(collision, collision.relativeVelocity.magnitude, collision.contacts[0].normal);
                         break;
 
                     case 1: // HE
@@ -129,62 +127,81 @@ namespace ChobiAssets.PTM
         }
 
 
-        void AP_Hit_Process(GameObject hitObject, float hitVelocity, Vector3 hitNormal)
+        void AP_Hit_Process(Collision hitObject, float hitVelocity, Vector3 hitNormal)
         {
             isLiving = false;
 
             // Set the collision detection mode.
             This_Rigidbody.collisionDetectionMode = CollisionDetectionMode.Discrete;
 
-            if (hitObject == null)
+            if (hitObject.collider.gameObject == null)
             { // The hit object had been removed from the scene.
                 return;
             }
+            var DZ = hitObject.collider.gameObject.GetComponent<ExplosiveReactiveArmour>();
+            if (DZ != null)
+            {
+                hitObject.collider.enabled = false;
+                DamageReduction(DZ.GetModulDamage(Type), DZ.GetPenitrationDamage(Type));
+                RaycastHit hit;
 
-            // Get the "Damage_Control_##_##_CS" script in the hit object.
-            var damageScript = hitObject.GetComponent<Damage_Control_00_Base_CS>();
-            if (damageScript != null)
-            { // The hit object has "Damage_Control_##_##_CS" script. >> It should be a breakable object.
+                if (Physics.Raycast(gameObject.transform.position, gameObject.transform.TransformDirection(Vector3.forward), out hit, 10f/*, layerMask*/))
+                {
+                    Debug.DrawRay(gameObject.transform.position, gameObject.transform.TransformDirection(Vector3.forward) * hit.distance, Color.red, 14f);
+                    Debug.Log("Did Hit " + hit.transform.name);
+                    var armor = hit.transform.GetComponent<armor_panel>();     
+                    if(armor!=null)
+                    {
+                        var angle = Math.Abs( 90 - (Vector3.Angle(transform.forward, hit.point.normalized)));
 
-                SpawnFragments();
-                //// Calculate the hit damage.
-                //var hitAngle = Mathf.Abs(90.0f - Vector3.Angle(This_Transform.forward, hitNormal));
-                //var damageValue = Attack_Point * Mathf.Pow(hitVelocity / Initial_Velocity, 2.0f) * Mathf.Lerp(0.0f, 1.0f, Mathf.Sqrt(hitAngle / 90.0f)) * Attack_Multiplier;
-
-                //// Output for debugging.
-                //if (Debug_Flag)
-                //{
-                //    float tempMultiplier = 1.0f;
-                //    Damage_Control_09_Armor_Collider_CS armorColliderScript = hitObject.GetComponent<Damage_Control_09_Armor_Collider_CS>();
-                //    if (armorColliderScript)
-                //    {
-                //        tempMultiplier = armorColliderScript.Damage_Multiplier;
-                //    }
-                //    Debug.Log("AP Damage " + damageValue * tempMultiplier + " on " + hitObject.name + " (" + (90.0f - hitAngle) + " degrees)");
-                //}
-
-                //// Send the damage value to "Damage_Control_##_##_CS" script.
-                //if (damageScript.Get_Damage(damageValue, Type) == true)
-                //{ // The hit part has been destroyed.
-                //    // Remove the bullet from the scene.
-                //    Destroy(this.gameObject);
-                //}
-                //else
-                //{ // The hit part has not been destroyed.
-                //    // Create the ricochet object.
-                //    if (Ricochet_Object)
-                //    {
-                //        Instantiate(Ricochet_Object, This_Transform.position, Quaternion.identity, hitObject.transform);
-                //    }
-                //}
-
+                          //  90 - Vector3.Angle(gameObject.transform.position + Vector3.forward, hit.point.normalized);
+                        var isPinetrate = (_penetrationDamage-(armor.GetThicknes()/ Math.Abs(Mathf.Cos(angle)))) > 0;
+                        if (isPinetrate)
+                        {
+                            _fragmentsParent.position = hit.transform.position;
+                            SpawnFragments();
+                        }
+                        else
+                        {
+                            Debug.Log("Not penitrate");
+                        }
+                        Debug.Log("isPinetrate " + isPinetrate+" angle " + angle);
+                    }
+                }
+                else
+                {
+                    Debug.DrawRay(gameObject.transform.position, gameObject.transform.TransformDirection(Vector3.forward) * 100f, Color.yellow, 14f);
+                    Debug.Log("Did not Hit");
+                }
+                Destroy(hitObject.collider.gameObject);
             }
             else
-            { // The hit object does not have "Damage_Control_##_##_CS" script. >> It should not be a breakable object.
-                // Create the impact object.
-                if (Impact_Object)
-                {
-                    Instantiate(Impact_Object, This_Transform.position, Quaternion.identity);
+            {
+                // Get the "Damage_Control_##_##_CS" script in the hit object.
+                var damageScript = hitObject.collider.gameObject.GetComponent<armor_panel>();
+                if (damageScript != null)
+                { // The hit object has "Damage_Control_##_##_CS" script. >> It should be a breakable object.
+                    var angle = Math.Abs(90 - (Vector3.Angle(transform.forward, hitObject.contacts[0].normal)));
+
+                    var isPinetrate = (_penetrationDamage-(damageScript.GetThicknes() / Math.Abs(Mathf.Cos(angle)))) > 0;
+
+                    Debug.Log("isPinetrate " + isPinetrate + " angle " + angle);
+                    if (isPinetrate)
+                    {
+                        SpawnFragments();
+                    }
+                    else
+                    {
+                        Debug.Log("Not penitrate");
+                    }
+                }
+                else
+                { // The hit object does not have "Damage_Control_##_##_CS" script. >> It should not be a breakable object.
+                  // Create the impact object.
+                    if (Impact_Object)
+                    {
+                        Instantiate(Impact_Object, This_Transform.position, Quaternion.identity);
+                    }
                 }
             }
         }
@@ -269,7 +286,6 @@ namespace ChobiAssets.PTM
                 Debug.Log("boom");
             }
         }
-
     }
 
 }

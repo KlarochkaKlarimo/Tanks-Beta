@@ -1,6 +1,3 @@
-using ChobiAssets.PTM;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ExplosiveReactiveArmour : MonoBehaviour
@@ -10,26 +7,22 @@ public class ExplosiveReactiveArmour : MonoBehaviour
     [SerializeField] private int _kineticDamagePenetrationReduction;
     [SerializeField] private int _kineticDamageModulReduction;
 
-
-    
-    private void OnCollisionEnter(Collision collision)
+    public int GetModulDamage(int type )
     {
-        var bullet = collision.gameObject.GetComponent<Bullet_Control_CS>();
-        if (bullet == null)
+        switch (type) 
         {
-            return;
+        case 0: return _kineticDamageModulReduction;
+        case 1: return _heatDamageModulReduction;
         }
-        print("Helooooooooooooooo");
-        if (collision.gameObject.layer == 12)
-        {
-            bullet.DamageReduction(_kineticDamageModulReduction, _kineticDamagePenetrationReduction);
-        }
-
-        if (collision.gameObject.layer == 15)
-        {
-            bullet.DamageReduction(_heatDamageModulReduction, _heatDamagePenetrationReduction);
-        }
-        Destroy(gameObject);
+        return 0;
     }
-
+    public int GetPenitrationDamage(int type)
+    {
+        switch (type)
+        {
+            case 0: return _kineticDamagePenetrationReduction;
+            case 1: return _heatDamagePenetrationReduction;
+        }
+        return 0;
+    }
 }
