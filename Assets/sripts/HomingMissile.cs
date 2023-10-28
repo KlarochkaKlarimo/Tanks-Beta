@@ -9,17 +9,31 @@ public class HomingMissile : MonoBehaviour
     [SerializeField] private TargetLock targetLock;
     [SerializeField] private GameObject _flightFire;
     [SerializeField] private GameObject _flightFire1;
+    private bool _isStarted = false;
+
+    private void Awake()
+    {
+        targetLock = FindObjectOfType<TargetLock>();
+    }
 
     private void Update()
     {
-        targetLock = FindObjectOfType<TargetLock>();
-
+        
         if (targetLock != null)
         {
             target = targetLock.GetLockedTarget();
         }
 
-        if (target != null)
+        if (target == null)       
+        {
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            _isStarted = true;                    
+        }
+        if (_isStarted)
         {
             transform.SetParent(null);
 
