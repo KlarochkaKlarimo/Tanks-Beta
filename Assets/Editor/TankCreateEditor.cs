@@ -108,9 +108,13 @@ public class TankCreateEditor : EditorWindow
         cb.Part_Mesh = _cannonMesh;
         cb.Part_Material = _cannonMaterial;
 
+        //var mbs = _vehicle.GetComponentInChildren<MainBody_Setting_CSEditor>();
+        //mbs.Body_MeshProp.objectReferenceValue = _mainBodyMesh;
+        //  mbs.MaterialsProp.objectReferenceValue = _mainBodyMaterial;
         var mbs = _vehicle.GetComponentInChildren<MainBody_Setting_CS>();
         mbs.Body_Mesh = _mainBodyMesh;
         mbs.Materials[0] = _mainBodyMaterial;
+        mbs.Create();
     }
     private void Find(string objName)
     {

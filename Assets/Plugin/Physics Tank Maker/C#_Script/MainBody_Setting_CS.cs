@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEditor;
 
 namespace ChobiAssets.PTM
 {
@@ -90,6 +91,56 @@ namespace ChobiAssets.PTM
         void OnBecameInvisible()
         { // The tank is not visible by any camera.
             Visible_Flag = false;
+        }
+        public void Create()
+        {
+            // Rigidbody settings.
+            Rigidbody thisRigidbody = gameObject.GetComponent<Rigidbody>();
+            thisRigidbody.mass = Body_Mass;
+
+            // Mesh settings.
+            gameObject.GetComponent<MeshFilter>().mesh = Body_Mesh;
+            Material[] materials = new Material[Materials_Num];
+            for (int i = 0; i < materials.Length; i++)
+            {
+                materials[i] = Materials[i];
+            }
+            gameObject.GetComponent<MeshRenderer>().materials = materials;
+            { 
+            // Collider settings.
+            //MeshCollider[] oldMeshColliders = gameObject.GetComponents<MeshCollider>();
+            //for (int i = 0; i < oldMeshColliders.Length; i++)
+            //{
+            //    var oldCollider = oldMeshColliders[i];
+            //    EditorApplication.delayCall += () => DestroyImmediate(oldCollider);
+            //}
+            //for (int i = 0; i < Colliders_Num; i++)
+            //{
+            //    MeshCollider meshCollider = gameObject.AddComponent<MeshCollider>();
+            //    meshCollider.sharedMesh = Colliders_Mesh[i];
+            //    meshCollider.convex = true;
+            //}
+
+            //// Add "Damage_Control_00_MainBody_CS" script.
+            //var damageScript = thisGameObject.GetComponent<Damage_Control_01_MainBody_CS>();
+            //if (Use_Damage_ControlProp.boolValue)
+            //{
+            //    if (damageScript == null)
+            //    {
+            //        damageScript = thisGameObject.AddComponent<Damage_Control_01_MainBody_CS>();
+            //    }
+            //}
+            //else
+            //{
+            //    if (damageScript)
+            //    {
+            //        EditorApplication.delayCall += () => DestroyImmediate(damageScript);
+            //    }
+            //}
+
+            // Set the Layer.
+        }
+            gameObject.layer = Layer_Settings_CS.Body_Layer;
         }
 
     }
