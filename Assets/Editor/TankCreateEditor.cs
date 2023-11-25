@@ -83,6 +83,7 @@ public class TankCreateEditor : EditorWindow
         var crw = _vehicle.GetComponentInChildren<Create_RoadWheel_CS>();
         crw.Wheel_Mesh = _roadWheelsMesh;
         crw.Wheel_Material = _roadWheelsMaterial;
+        crw.Create();
 
         var ciw = _vehicle.GetComponentInChildren<Create_IdlerWheel_CS>();
         ciw.Wheel_Mesh = _IlderWheelMesh;
