@@ -1,0 +1,42 @@
+
+Hi
+
+----------------------------------------------------------------
+
+1Note : this shader and script is only available on the full version of the lighting box
+buy the full version from here:
+https://assetstore.unity.com/packages/tools/utilities/lighting-box-2-next-gen-lighting-solution-2021-93057?_gl=1*snrlct*_ga*MTA3OTkzMzI0Ny4xNjIzNjc3NTEy*_ga_1S78EFL1W5*MTYyMzc0MDExMi4xMC4xLjE2MjM3NDExMzcuMjM.&_ga=2.161879545.459844169.1623677512-1079933247.1623677512&_gac=1.47585749.1619901400.Cj0KCQjw-LOEBhDCARIsABrC0Tk2P0OGjpM1touQZGuEpjx_8LT092-G3TZIVKigLZcc5GZs6oyg4gMaAvaKEALw_wcB
+----------------------------------------------------------------
+
+note: terain shader will not works on Lightweight or HD pipelines currentlly (feb 2021)   
+
+You have 3 different terrain shaders:
+4-Layers , 6-Layers and 8-Layers
+
+Performance comparison:
+4-Layers > 6-Layers > 8-Layers
+
+So the best choice is 4-Layers terrain shader. Only use higher layers shader when you want a very important effects
+Because you will lost the performance
+
+Follow Tutorials play list about terrain usage
+
+Quick Start:
+- Add at least 4 or 6 or 8 layers into your terrain (paint tan)
+- Add LB_Terrain_2 component into your terrain
+- Now select layers count and press Initialize button .
+- Now you must select terrain material and TextureArrays save path (All splats will be stored into 2 teture arrays, one for Albedo and another for Normal maps)
+
+Note:
+- All textures (and normals)must has save texel size (open in Photoshop or GIMP and assign same texture size for all textures)
+
+
+- All textures must be Read-Write enabled in import settings
+
+Follow video tutorials:
+
+Part 1 :
+https://www.youtube.com/watch?v=9K5PmDIk3Yk&pbjreload=101
+
+Part 2 :
+https://www.youtube.com/watch?v=PUE8UtrYJwk

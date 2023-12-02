@@ -221,7 +221,7 @@ namespace ChobiAssets.PTM
 		}
 
 
-        void Create()
+        public void Create()
         {
             // Delete Objects
             int childCount = thisTransform.childCount;

@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: New Terrain Material
-  m_Shader: {fileID: 10623, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 10505, guid: 0000000000000000f000000000000000, type: 0}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -20,7 +20,27 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _AO:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecularMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -28,8 +48,44 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Wave:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _ChromaticAberration: 0.1
+    - _Displacement: 0
+    - _Float0: 0
+    - _MaskClipValue: 0.5
+    - _MaxDistance: 7
+    - _MaxIntensity: 30
+    - _Metallic: 0.554
+    - _MinY: -1
+    - _NormalPower: 0.1
+    - _RefractionValue: 0
+    - _Shininess: 0.078125
+    - _Smoothness: 1
+    - _Specularity: 0.554
+    - _TessMax: 30
+    - _TessMin: 30
+    - _TessValue: 8.3
+    - _TransDirect: 1
+    - _TransNormalDistortion: 0.1
+    - _TransScattering: 2
+    - _Translucency: 1
+    - _WorldScale: 0.1
+    - __dirty: 1
+    - _xScale: 0.5
+    - _yScale: 0.5
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _MetallicColor: {r: 0.62352943, g: 0.7058823, b: 1, a: 1}
+    - _SpecColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _Specular: {r: 0, g: 0, b: 0, a: 1}
+    - _SpecularColor: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
