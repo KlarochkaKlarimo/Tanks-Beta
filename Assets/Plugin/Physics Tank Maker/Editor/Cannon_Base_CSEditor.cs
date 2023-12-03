@@ -168,71 +168,10 @@ namespace ChobiAssets.PTM
 
             serializedObject.ApplyModifiedProperties ();
 		}
-
-
-		void Create ()
+		void Create()
 		{
-			Transform oldTransform = thisTransform.Find ("Cannon"); // Find the old object.
-			int childCount;
-			Transform[] childTransforms;
-			if (oldTransform) {
-				childCount = oldTransform.transform.childCount;
-				childTransforms = new Transform [ childCount ];
-				for (int i = 0; i < childCount; i++) {
-					childTransforms [i] = oldTransform.GetChild (0); // Get the child object such as "Armor_Collider".
-					childTransforms [i].parent = thisTransform; // Change the parent of the child object.
-				}
-				DestroyImmediate (oldTransform.gameObject); // Delete old object.
-			} else {
-				childCount = 0;
-				childTransforms = null;
-			}
-
-			// Create new Gameobject & Set Transform.
-			GameObject newObject = new GameObject ("Cannon");
-			newObject.transform.parent = thisTransform;
-			newObject.transform.localPosition = -thisTransform.localPosition + new Vector3 (Offset_XProp.floatValue, Offset_YProp.floatValue, Offset_ZProp.floatValue);
-			newObject.transform.localRotation = Quaternion.identity;
-
-			// Mesh settings.
-			MeshRenderer meshRenderer = newObject.AddComponent < MeshRenderer > ();
-			Material[] materials = new Material [ Materials_NumProp.intValue ];
-			for (int i = 0; i < materials.Length; i++) {
-				materials [i] = MaterialsProp.GetArrayElementAtIndex (i).objectReferenceValue as Material;
-			}
-			meshRenderer.materials = materials;
-			MeshFilter meshFilter = newObject.AddComponent < MeshFilter > ();
-			meshFilter.mesh = Part_MeshProp.objectReferenceValue as Mesh;
-
-			// Collider settings.
-			for (int i = 0; i < Colliders_NumProp.intValue; i++) {
-				MeshCollider meshCollider = newObject.AddComponent <MeshCollider>();
-				meshCollider.sharedMesh = Colliders_MeshProp.GetArrayElementAtIndex(i).objectReferenceValue as Mesh;
-				meshCollider.convex = true;
-			}
-
-			// Add "Damage_Control_01_Turret_CS" script.
-			if (Use_Damage_ControlProp.boolValue) {
-				var damageScript = newObject.AddComponent <Damage_Control_02_Turret_CS>();
-				// Get the "Turret_Index" value in the "Turret_Base_CS" script.
-				Turret_Base_CS turretScript = thisTransform.parent.GetComponentInChildren <Turret_Base_CS>();
-				if (turretScript) {
-					Turret_IndexProp.intValue = turretScript.Turret_Index;
-					damageScript.Turret_Index = Turret_IndexProp.intValue;
-				}
-			}
-
-			// Set the layer.
-			newObject.layer = 0;
-
-			// Return the child objects.
-			if (childCount > 0) {
-				for (int i = 0; i < childCount; i++) {
-					childTransforms [i].transform.parent = newObject.transform;
-				}
-			}
+			thisTransform.GetComponent<Cannon_Base_CS>().Create();
 		}
-
 	}
 
 }

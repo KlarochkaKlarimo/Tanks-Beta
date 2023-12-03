@@ -223,210 +223,217 @@ namespace ChobiAssets.PTM
 
 		void Create ()
 		{
-            // Delete Objects
-            int childCount = thisTransform.childCount;
-			for (int i = 0; i < childCount; i++) {
-				DestroyImmediate (thisTransform.GetChild (0).gameObject);
-			}
-			// Create Arm and Wheel
-			Vector3 pos;
-			if (Arm_FlagProp.boolValue) { //With Arm
-				// Create Arms.
-				Create_Arm ("L", new Vector3 (0.0f, Arm_DistanceProp.floatValue / 2.0f, 0.0f));
-				Create_Arm ("R", new Vector3 (0.0f, -Arm_DistanceProp.floatValue / 2.0f, 0.0f));
-				// Set Wheel Pos.
-				pos.x = Mathf.Sin (Mathf.Deg2Rad * (180.0f + Arm_AngleProp.floatValue)) * Arm_LengthProp.floatValue;
-				pos.y = Wheel_DistanceProp.floatValue / 2.0f;
-				pos.z = Mathf.Cos (Mathf.Deg2Rad * (180.0f + Arm_AngleProp.floatValue)) * Arm_LengthProp.floatValue;
-			} else { // No Arm
-				// Set Wheel Pos.
-				pos.x = 0.0f;
-				pos.y = Wheel_DistanceProp.floatValue / 2.0f;
-				pos.z = 0.0f;
-			}
-			// Create Wheels.
-			Set_Drive_Wheel_Parent_Script();
-			if (Static_FlagProp.boolValue == false) { //Drive Wheel.
-				Remove_Static_Wheel_Parent_Script();
-				Create_Physics_Wheel ("L", new Vector3 (pos.x, pos.y, pos.z));
-				Create_Physics_Wheel ("R", new Vector3 (pos.x, -pos.y, pos.z));
-			}
-			else { //Static Wheel.
-				Set_Static_Wheel_Parent_Script();
-				Create_Static_Wheel ("L", new Vector3 (pos.x, pos.y, pos.z));
-				Create_Static_Wheel ("R", new Vector3 (pos.x, -pos.y, pos.z));
-				Create_Invisible_Wheel ("L", new Vector3 (pos.x, pos.y, pos.z));
-				Create_Invisible_Wheel ("R", new Vector3 (pos.x, -pos.y, pos.z));
-			}
+			thisTransform.GetComponent<Create_SprocketWheel_CS>().Create();
+			//// Delete Objects
+			//int childCount = thisTransform.childCount;
+			//for (int i = 0; i < childCount; i++)
+			//{
+			//	DestroyImmediate(thisTransform.GetChild(0).gameObject);
+			//}
+			//// Create Arm and Wheel
+			//Vector3 pos;
+			//if (Arm_FlagProp.boolValue)
+			//{ //With Arm
+			//  // Create Arms.
+			//	Create_Arm("L", new Vector3(0.0f, Arm_DistanceProp.floatValue / 2.0f, 0.0f));
+			//	Create_Arm("R", new Vector3(0.0f, -Arm_DistanceProp.floatValue / 2.0f, 0.0f));
+			//	// Set Wheel Pos.
+			//	pos.x = Mathf.Sin(Mathf.Deg2Rad * (180.0f + Arm_AngleProp.floatValue)) * Arm_LengthProp.floatValue;
+			//	pos.y = Wheel_DistanceProp.floatValue / 2.0f;
+			//	pos.z = Mathf.Cos(Mathf.Deg2Rad * (180.0f + Arm_AngleProp.floatValue)) * Arm_LengthProp.floatValue;
+			//}
+			//else
+			//{ // No Arm
+			//  // Set Wheel Pos.
+			//	pos.x = 0.0f;
+			//	pos.y = Wheel_DistanceProp.floatValue / 2.0f;
+			//	pos.z = 0.0f;
+			//}
+			//// Create Wheels.
+			//Set_Drive_Wheel_Parent_Script();
+			//if (Static_FlagProp.boolValue == false)
+			//{ //Drive Wheel.
+			//	Remove_Static_Wheel_Parent_Script();
+			//	Create_Physics_Wheel("L", new Vector3(pos.x, pos.y, pos.z));
+			//	Create_Physics_Wheel("R", new Vector3(pos.x, -pos.y, pos.z));
+			//}
+			//else
+			//{ //Static Wheel.
+			//	Set_Static_Wheel_Parent_Script();
+			//	Create_Static_Wheel("L", new Vector3(pos.x, pos.y, pos.z));
+			//	Create_Static_Wheel("R", new Vector3(pos.x, -pos.y, pos.z));
+			//	Create_Invisible_Wheel("L", new Vector3(pos.x, pos.y, pos.z));
+			//	Create_Invisible_Wheel("R", new Vector3(pos.x, -pos.y, pos.z));
+			//}
 		}
 
 
-		void Create_Arm (string direction, Vector3 position)
-		{
-			//Create gameobject & Set transform
-			GameObject armObject = new GameObject ("TensionerArm_" + direction);
-			armObject.transform.parent = thisTransform;
-			armObject.transform.localPosition = position;
-			armObject.transform.localRotation = Quaternion.Euler (0.0f, Arm_AngleProp.floatValue, -90.0f);
-			// Add Mesh
-			if (direction == "L") { // Left
-				if (Arm_L_MeshProp.objectReferenceValue) {
-					MeshFilter meshFilter = armObject.AddComponent < MeshFilter > ();
-					meshFilter.mesh = Arm_L_MeshProp.objectReferenceValue as Mesh;
-				}
-			} else { //Right
-				if (Arm_R_MeshProp.objectReferenceValue) {
-					MeshFilter meshFilter = armObject.AddComponent < MeshFilter > ();
-					meshFilter.mesh = Arm_R_MeshProp.objectReferenceValue as Mesh;
-				}
-			}
-			MeshRenderer meshRenderer = armObject.AddComponent < MeshRenderer > ();
-			Material[] materials = new Material [ Arm_Materials_NumProp.intValue ];
-			for (int i = 0; i < materials.Length; i++) {
-				materials [i] = Arm_MaterialsProp.GetArrayElementAtIndex (i).objectReferenceValue as Material;
-			}
-			meshRenderer.materials = materials;
-		}
+		//void Create_Arm (string direction, Vector3 position)
+		//{
+		//	//Create gameobject & Set transform
+		//	GameObject armObject = new GameObject ("TensionerArm_" + direction);
+		//	armObject.transform.parent = thisTransform;
+		//	armObject.transform.localPosition = position;
+		//	armObject.transform.localRotation = Quaternion.Euler (0.0f, Arm_AngleProp.floatValue, -90.0f);
+		//	// Add Mesh
+		//	if (direction == "L") { // Left
+		//		if (Arm_L_MeshProp.objectReferenceValue) {
+		//			MeshFilter meshFilter = armObject.AddComponent < MeshFilter > ();
+		//			meshFilter.mesh = Arm_L_MeshProp.objectReferenceValue as Mesh;
+		//		}
+		//	} else { //Right
+		//		if (Arm_R_MeshProp.objectReferenceValue) {
+		//			MeshFilter meshFilter = armObject.AddComponent < MeshFilter > ();
+		//			meshFilter.mesh = Arm_R_MeshProp.objectReferenceValue as Mesh;
+		//		}
+		//	}
+		//	MeshRenderer meshRenderer = armObject.AddComponent < MeshRenderer > ();
+		//	Material[] materials = new Material [ Arm_Materials_NumProp.intValue ];
+		//	for (int i = 0; i < materials.Length; i++) {
+		//		materials [i] = Arm_MaterialsProp.GetArrayElementAtIndex (i).objectReferenceValue as Material;
+		//	}
+		//	meshRenderer.materials = materials;
+		//}
 
 
-		void Create_Physics_Wheel (string direction, Vector3 position)
-		{
-			GameObject wheelObject = Create_GameObject ("SprocketWheel", direction, position);
-			Add_Mesh (wheelObject);
-			Add_SphereCollider (wheelObject);
-			Add_DrivingComponents (wheelObject, direction);
-			// Wheel_Resize_CS
-			if (Wheel_ResizeProp.boolValue) {
-				Wheel_Resize_CS resizeScript;
-				resizeScript = wheelObject.AddComponent < Wheel_Resize_CS > ();
-				resizeScript.ScaleDown_Size = ScaleDown_SizeProp.floatValue;
-				resizeScript.Return_Speed = Return_SpeedProp.floatValue;
-			}
-			// Fix_Shaking_Rotation_CS
-			Fix_Shaking_Rotation_CS fixScript = wheelObject.AddComponent <Fix_Shaking_Rotation_CS>();
-			fixScript.Is_Left = (direction == "L");
-			fixScript.This_Transform = wheelObject.transform;
-			// Stabilizer_CS
-			Stabilizer_CS stabilizerScript = wheelObject.AddComponent <Stabilizer_CS>();
-			stabilizerScript.This_Transform = wheelObject.transform;
-			stabilizerScript.Is_Left = (direction == "L");
-			stabilizerScript.Initial_Pos_Y = wheelObject.transform.localPosition.y;
-			stabilizerScript.Initial_Angles = wheelObject.transform.localEulerAngles;
-		}
+		//void Create_Physics_Wheel (string direction, Vector3 position)
+		//{
+		//	GameObject wheelObject = Create_GameObject ("SprocketWheel", direction, position);
+		//	Add_Mesh (wheelObject);
+		//	Add_SphereCollider (wheelObject);
+		//	Add_DrivingComponents (wheelObject, direction);
+		//	// Wheel_Resize_CS
+		//	if (Wheel_ResizeProp.boolValue) {
+		//		Wheel_Resize_CS resizeScript;
+		//		resizeScript = wheelObject.AddComponent < Wheel_Resize_CS > ();
+		//		resizeScript.ScaleDown_Size = ScaleDown_SizeProp.floatValue;
+		//		resizeScript.Return_Speed = Return_SpeedProp.floatValue;
+		//	}
+		//	// Fix_Shaking_Rotation_CS
+		//	Fix_Shaking_Rotation_CS fixScript = wheelObject.AddComponent <Fix_Shaking_Rotation_CS>();
+		//	fixScript.Is_Left = (direction == "L");
+		//	fixScript.This_Transform = wheelObject.transform;
+		//	// Stabilizer_CS
+		//	Stabilizer_CS stabilizerScript = wheelObject.AddComponent <Stabilizer_CS>();
+		//	stabilizerScript.This_Transform = wheelObject.transform;
+		//	stabilizerScript.Is_Left = (direction == "L");
+		//	stabilizerScript.Initial_Pos_Y = wheelObject.transform.localPosition.y;
+		//	stabilizerScript.Initial_Angles = wheelObject.transform.localEulerAngles;
+		//}
 
 
-		void Set_Static_Wheel_Parent_Script()
-		{
-			// Set "Static_Wheel_Parent_CS" in this object.
-			Static_Wheel_Parent_CS staticWheelParentScript = thisTransform.GetComponent <Static_Wheel_Parent_CS>();
-			if (staticWheelParentScript == null) {
-				staticWheelParentScript = thisTransform.gameObject.AddComponent <Static_Wheel_Parent_CS>();
-			}
-			Mesh wheelMesh = Wheel_MeshProp.objectReferenceValue as Mesh;
-			float wheelRadius = wheelMesh.bounds.extents.x;
-			staticWheelParentScript.Wheel_Radius = wheelRadius + Radius_OffsetProp.floatValue;
-		}
+		//void Set_Static_Wheel_Parent_Script()
+		//{
+		//	// Set "Static_Wheel_Parent_CS" in this object.
+		//	Static_Wheel_Parent_CS staticWheelParentScript = thisTransform.GetComponent <Static_Wheel_Parent_CS>();
+		//	if (staticWheelParentScript == null) {
+		//		staticWheelParentScript = thisTransform.gameObject.AddComponent <Static_Wheel_Parent_CS>();
+		//	}
+		//	Mesh wheelMesh = Wheel_MeshProp.objectReferenceValue as Mesh;
+		//	float wheelRadius = wheelMesh.bounds.extents.x;
+		//	staticWheelParentScript.Wheel_Radius = wheelRadius + Radius_OffsetProp.floatValue;
+		//}
 
 
-		void Create_Static_Wheel (string direction, Vector3 position)
-		{
-			GameObject gameObject = Create_GameObject ("SprocketWheel", direction, position);
-			Add_Mesh (gameObject);
-			// Static_Wheel_CS script
-			Static_Wheel_CS staticWheelScript = gameObject.AddComponent <Static_Wheel_CS>();
-			staticWheelScript.Is_Left = (direction == "L");
-			staticWheelScript.Parent_Script = thisTransform.GetComponent <Static_Wheel_Parent_CS>();
-		}
+		//void Create_Static_Wheel (string direction, Vector3 position)
+		//{
+		//	GameObject gameObject = Create_GameObject ("SprocketWheel", direction, position);
+		//	Add_Mesh (gameObject);
+		//	// Static_Wheel_CS script
+		//	Static_Wheel_CS staticWheelScript = gameObject.AddComponent <Static_Wheel_CS>();
+		//	staticWheelScript.Is_Left = (direction == "L");
+		//	staticWheelScript.Parent_Script = thisTransform.GetComponent <Static_Wheel_Parent_CS>();
+		//}
 
 
-		void Create_Invisible_Wheel (string direction, Vector3 position)
-		{
-			GameObject gameObject = Create_GameObject ("Invisible_SprocketWheel", direction, position);
-			MeshFilter meshFilter = gameObject.AddComponent < MeshFilter > (); // Set only MeshFilter in order to get the mesh size.
-			meshFilter.mesh = Wheel_MeshProp.objectReferenceValue as Mesh;
-			Add_SphereCollider (gameObject);
-			Add_DrivingComponents (gameObject, direction);
-		}
+		//void Create_Invisible_Wheel (string direction, Vector3 position)
+		//{
+		//	GameObject gameObject = Create_GameObject ("Invisible_SprocketWheel", direction, position);
+		//	MeshFilter meshFilter = gameObject.AddComponent < MeshFilter > (); // Set only MeshFilter in order to get the mesh size.
+		//	meshFilter.mesh = Wheel_MeshProp.objectReferenceValue as Mesh;
+		//	Add_SphereCollider (gameObject);
+		//	Add_DrivingComponents (gameObject, direction);
+		//}
 
 
-		GameObject Create_GameObject (string name, string direction, Vector3 position)
-		{
-			GameObject gameObject = new GameObject (name + "_" + direction);
-			gameObject.transform.parent = thisTransform;
-			gameObject.transform.localPosition = position;
-			if (direction == "L") {
-				gameObject.transform.localRotation = Quaternion.Euler (Vector3.zero);
-			} else {
-				gameObject.transform.localRotation = Quaternion.Euler (0.0f, 0.0f, 180.0f);
-			}
-			gameObject.layer = Layer_Settings_CS.Wheels_Layer;
-            return gameObject;
-		}
+		//GameObject Create_GameObject (string name, string direction, Vector3 position)
+		//{
+		//	GameObject gameObject = new GameObject (name + "_" + direction);
+		//	gameObject.transform.parent = thisTransform;
+		//	gameObject.transform.localPosition = position;
+		//	if (direction == "L") {
+		//		gameObject.transform.localRotation = Quaternion.Euler (Vector3.zero);
+		//	} else {
+		//		gameObject.transform.localRotation = Quaternion.Euler (0.0f, 0.0f, 180.0f);
+		//	}
+		//	gameObject.layer = Layer_Settings_CS.Wheels_Layer;
+  //          return gameObject;
+		//}
 
 
-		void Add_Mesh (GameObject gameObject)
-		{
-			MeshFilter meshFilter = gameObject.AddComponent < MeshFilter > ();
-			meshFilter.mesh = Wheel_MeshProp.objectReferenceValue as Mesh;
-			MeshRenderer meshRenderer = gameObject.AddComponent < MeshRenderer > ();
-			Material[] materials = new Material [ Wheel_Materials_NumProp.intValue ];
-			for (int i = 0; i < materials.Length; i++) {
-				materials [i] = Wheel_MaterialsProp.GetArrayElementAtIndex (i).objectReferenceValue as Material;
-			}
-			meshRenderer.materials = materials;
-		}
+		//void Add_Mesh (GameObject gameObject)
+		//{
+		//	MeshFilter meshFilter = gameObject.AddComponent < MeshFilter > ();
+		//	meshFilter.mesh = Wheel_MeshProp.objectReferenceValue as Mesh;
+		//	MeshRenderer meshRenderer = gameObject.AddComponent < MeshRenderer > ();
+		//	Material[] materials = new Material [ Wheel_Materials_NumProp.intValue ];
+		//	for (int i = 0; i < materials.Length; i++) {
+		//		materials [i] = Wheel_MaterialsProp.GetArrayElementAtIndex (i).objectReferenceValue as Material;
+		//	}
+		//	meshRenderer.materials = materials;
+		//}
 
 
-		void Add_SphereCollider (GameObject gameObject)
-		{
-			SphereCollider sphereCollider = gameObject.AddComponent < SphereCollider > ();
-			sphereCollider.radius = Wheel_RadiusProp.floatValue;
-			sphereCollider.center = Vector3.zero;
-			sphereCollider.material = Collider_MaterialProp.objectReferenceValue as PhysicMaterial;
+		//void Add_SphereCollider (GameObject gameObject)
+		//{
+		//	SphereCollider sphereCollider = gameObject.AddComponent < SphereCollider > ();
+		//	sphereCollider.radius = Wheel_RadiusProp.floatValue;
+		//	sphereCollider.center = Vector3.zero;
+		//	sphereCollider.material = Collider_MaterialProp.objectReferenceValue as PhysicMaterial;
 
-		}
-
-
-		void Remove_Static_Wheel_Parent_Script()
-		{
-			// Remove "Static_Wheel_Parent_CS" in this object.
-			Static_Wheel_Parent_CS staticWheelParentScript = thisTransform.GetComponent <Static_Wheel_Parent_CS>();
-			if (staticWheelParentScript) {
-                EditorApplication.delayCall += () => DestroyImmediate(staticWheelParentScript);
-            }
-        }
+		//}
 
 
-		void Set_Drive_Wheel_Parent_Script()
-		{
-			// Set "Drive_Wheel_Parent_CS" in this object.
-			Drive_Wheel_Parent_CS driveWheelParentScript = thisTransform.GetComponent <Drive_Wheel_Parent_CS>();
-			if (driveWheelParentScript == null) {
-				driveWheelParentScript = thisTransform.gameObject.AddComponent <Drive_Wheel_Parent_CS>();
-			}
-			driveWheelParentScript.Drive_Flag = Drive_WheelProp.boolValue;
-			driveWheelParentScript.Radius = Wheel_RadiusProp.floatValue;
-			driveWheelParentScript.Use_BrakeTurn = true;
-		}
+		//void Remove_Static_Wheel_Parent_Script()
+		//{
+		//	// Remove "Static_Wheel_Parent_CS" in this object.
+		//	Static_Wheel_Parent_CS staticWheelParentScript = thisTransform.GetComponent <Static_Wheel_Parent_CS>();
+		//	if (staticWheelParentScript) {
+  //              EditorApplication.delayCall += () => DestroyImmediate(staticWheelParentScript);
+  //          }
+  //      }
 
 
-		void Add_DrivingComponents (GameObject gameObject, string direction)
-		{
-			// Rigidbody
-			Rigidbody rigidbody = gameObject.AddComponent <Rigidbody>();
-			rigidbody.mass = Wheel_MassProp.floatValue;
-			// HingeJoint
-			HingeJoint hingeJoint;
-			hingeJoint = gameObject.AddComponent <HingeJoint>();
-			hingeJoint.anchor = Vector3.zero;
-			hingeJoint.axis = new Vector3 (0.0f, 1.0f, 0.0f);
-			hingeJoint.connectedBody = thisTransform.parent.gameObject.GetComponent <Rigidbody>();
-			// Drive_Wheel_CS
-			Drive_Wheel_CS driveScript = gameObject.AddComponent <Drive_Wheel_CS>();
-			driveScript.This_Rigidbody = rigidbody;
-			driveScript.Is_Left = (direction == "L");
-			driveScript.Parent_Script = thisTransform.GetComponent <Drive_Wheel_Parent_CS>();
-		}
+		//void Set_Drive_Wheel_Parent_Script()
+		//{
+		//	// Set "Drive_Wheel_Parent_CS" in this object.
+		//	Drive_Wheel_Parent_CS driveWheelParentScript = thisTransform.GetComponent <Drive_Wheel_Parent_CS>();
+		//	if (driveWheelParentScript == null) {
+		//		driveWheelParentScript = thisTransform.gameObject.AddComponent <Drive_Wheel_Parent_CS>();
+		//	}
+		//	driveWheelParentScript.Drive_Flag = Drive_WheelProp.boolValue;
+		//	driveWheelParentScript.Radius = Wheel_RadiusProp.floatValue;
+		//	driveWheelParentScript.Use_BrakeTurn = true;
+		//}
+
+
+		//void Add_DrivingComponents (GameObject gameObject, string direction)
+		//{
+		//	// Rigidbody
+		//	Rigidbody rigidbody = gameObject.AddComponent <Rigidbody>();
+		//	rigidbody.mass = Wheel_MassProp.floatValue;
+		//	// HingeJoint
+		//	HingeJoint hingeJoint;
+		//	hingeJoint = gameObject.AddComponent <HingeJoint>();
+		//	hingeJoint.anchor = Vector3.zero;
+		//	hingeJoint.axis = new Vector3 (0.0f, 1.0f, 0.0f);
+		//	hingeJoint.connectedBody = thisTransform.parent.gameObject.GetComponent <Rigidbody>();
+		//	// Drive_Wheel_CS
+		//	Drive_Wheel_CS driveScript = gameObject.AddComponent <Drive_Wheel_CS>();
+		//	driveScript.This_Rigidbody = rigidbody;
+		//	driveScript.Is_Left = (direction == "L");
+		//	driveScript.Parent_Script = thisTransform.GetComponent <Drive_Wheel_Parent_CS>();
+		//}
 
 	}
 
