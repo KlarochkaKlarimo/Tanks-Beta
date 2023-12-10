@@ -1,18 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class thermalVision : MonoBehaviour
 {
-    [SerializeField] private Camera _normalCamera;
+    public static Action<bool> thermalVisionAction;
     [SerializeField] private GameObject _thermalCamera;
+    private bool _isOn;
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
             //_normalCamera.enabled = !_normalCamera.enabled;
-            _thermalCamera.SetActive(!_thermalCamera.activeInHierarchy);
+            _isOn = !_isOn;
+            _thermalCamera.SetActive(_isOn);
+            thermalVisionAction.Invoke(_isOn);
         }       
     }
 }
