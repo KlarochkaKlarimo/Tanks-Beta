@@ -23,11 +23,11 @@ public class ThemperatureTest : MonoBehaviour
     {
         if (_isHeatsUp)
         {
-            _themperature += 5 * Time.deltaTime;
+            _themperature += 25 * Time.deltaTime;
         }
         else
         {
-            _themperature -= 5 * Time.deltaTime;
+            _themperature -= 25 * Time.deltaTime;
         }
         foreach (var material in _thermalMaterials)
         {
