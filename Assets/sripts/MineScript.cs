@@ -53,7 +53,7 @@ public class MineScript : MonoBehaviour
                         {
                             Destroy(hitJoint);
                             wheel.gameObject.GetComponent<Drive_Wheel_CS>().enabled = false;
-                            wheel.gameObject.GetComponent<Fix_Shaking_Rotation_CS>().enabled = false;
+                            //wheel.gameObject.GetComponent<Fix_Shaking_Rotation_CS>().enabled = false;
                             wheel.gameObject.GetComponent<Stabilizer_CS>().enabled = false;
                         }
                     }

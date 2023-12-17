@@ -98,7 +98,8 @@ public class TankCreateEditor : EditorWindow
         FindTankElement(ref _turretMesh, ref _turretMaterials, "Turret");
         //  _turretOffset = (Vector3)EditorGUILayout.Vector3Field("позиция башни", _turretOffset);
         FindTankElement(ref _cannonMesh, ref _cannonMaterials, "Cannon");
-        FindTankElement(ref _mainBodyMesh, ref _mainBodyMaterials, "Body");
+        _mainBodyMesh = _meshew.transform.GetChild(0).GetComponent<MeshFilter>().mesh;
+        _mainBodyMaterials = _meshew.transform.GetChild(0).GetComponent<MeshRenderer>().materials;
 
         var crw = _vehicle.GetComponentInChildren<Create_RoadWheel_CS>();
         crw.Wheel_Mesh = _roadWheelsMesh;
@@ -156,7 +157,7 @@ public class TankCreateEditor : EditorWindow
     }
     private void FindTankElement(ref Mesh mesh, ref Material[] materials,string elementName)
     {
-       var element = _meshew.transform.Find(elementName);
+       var element = _meshew.transform.GetChild(0).Find(elementName);
         if (element != null)
         {
             mesh = element.GetComponent<MeshFilter>().mesh;
