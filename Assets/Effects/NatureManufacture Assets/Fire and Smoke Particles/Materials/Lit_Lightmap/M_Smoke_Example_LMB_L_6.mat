@@ -9,8 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Smoke_Example_LMB_L_6
   m_Shader: {fileID: 4800000, guid: aec3553a3f61b804da497aa2906ef148, type: 3}
-  m_ShaderKeywords: EMISSION_PROCEDURAL_MASK_ON USE_WIND_ON _BUILTIN_ALPHATEST_ON
-    _BUILTIN_AlphaClip _BUILTIN_SURFACE_TYPE_TRANSPARENT
+  m_ShaderKeywords: EMISSION_PROCEDURAL_MASK_ON USE_WIND_ON _ALPHATEST_ON _SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -241,17 +240,6 @@ Material:
     - _Alpha_Multiplier: 1
     - _Ambient_Occlusion: 1
     - _Anisotropy: 0
-    - _BUILTIN_AlphaClip: 1
-    - _BUILTIN_Blend: 0
-    - _BUILTIN_CullMode: 2
-    - _BUILTIN_DstBlend: 10
-    - _BUILTIN_QueueControl: 0
-    - _BUILTIN_QueueOffset: 0
-    - _BUILTIN_SrcBlend: 5
-    - _BUILTIN_Surface: 1
-    - _BUILTIN_ZTest: 4
-    - _BUILTIN_ZWrite: 0
-    - _BUILTIN_ZWriteControl: 0
     - _Bend_Strength: 2
     - _Blend: 0
     - _BlendMode: 0

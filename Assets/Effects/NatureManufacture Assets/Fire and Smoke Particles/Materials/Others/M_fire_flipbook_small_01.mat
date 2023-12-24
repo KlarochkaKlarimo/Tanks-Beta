@@ -22,7 +22,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: M_fire_flipbook_small_01
   m_Shader: {fileID: 4800000, guid: 0b96041736f3d3e4a91382b1dac91c96, type: 3}
-  m_ShaderKeywords: USE_WIND_ON _BUILTIN_SURFACE_TYPE_TRANSPARENT
+  m_ShaderKeywords: USE_WIND_ON _ALPHATEST_ON _SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 1
@@ -217,17 +217,6 @@ Material:
     - _Alpha_Multiply: 1
     - _Ambient_Occlusion: 1
     - _Anisotropy: 0
-    - _BUILTIN_AlphaClip: 0
-    - _BUILTIN_Blend: 0
-    - _BUILTIN_CullMode: 0
-    - _BUILTIN_DstBlend: 10
-    - _BUILTIN_QueueControl: 0
-    - _BUILTIN_QueueOffset: 0
-    - _BUILTIN_SrcBlend: 5
-    - _BUILTIN_Surface: 1
-    - _BUILTIN_ZTest: 4
-    - _BUILTIN_ZWrite: 0
-    - _BUILTIN_ZWriteControl: 0
     - _Bend_Strength: 2.06
     - _Blend: 2
     - _BlendMode: 1
@@ -388,7 +377,7 @@ Material:
     - _UseEmissiveIntensity: 0
     - _UseShadowThreshold: 0
     - _Use_Scene_Light_s_Direction: 1
-    - _Use_Texture_as_Alpha: 1
+    - _Use_Texture_as_Alpha: 0
     - _WINDCOLORMIX: 0
     - _WindColorThreshold: 0
     - _Wind_from_Center_T_Age_F: 1

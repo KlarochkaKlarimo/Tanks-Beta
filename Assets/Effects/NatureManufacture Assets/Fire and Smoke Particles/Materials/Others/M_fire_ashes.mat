@@ -22,7 +22,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: M_fire_ashes
   m_Shader: {fileID: 4800000, guid: 0b96041736f3d3e4a91382b1dac91c96, type: 3}
-  m_ShaderKeywords: _BUILTIN_SURFACE_TYPE_TRANSPARENT
+  m_ShaderKeywords: _ALPHATEST_ON _SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 1
@@ -222,17 +222,6 @@ Material:
     - _Alpha_Multiplier: 4.31
     - _Alpha_Multiply: 4.68
     - _Anisotropy: 0
-    - _BUILTIN_AlphaClip: 0
-    - _BUILTIN_Blend: 0
-    - _BUILTIN_CullMode: 0
-    - _BUILTIN_DstBlend: 10
-    - _BUILTIN_QueueControl: 0
-    - _BUILTIN_QueueOffset: 0
-    - _BUILTIN_SrcBlend: 5
-    - _BUILTIN_Surface: 1
-    - _BUILTIN_ZTest: 4
-    - _BUILTIN_ZWrite: 0
-    - _BUILTIN_ZWriteControl: 0
     - _Bend_Strength: 2
     - _Blend: 2
     - _BlendMode: 0
