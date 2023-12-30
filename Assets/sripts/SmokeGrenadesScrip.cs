@@ -6,7 +6,7 @@ public class SmokeGrenadesScrip : MonoBehaviour
 {
     public float launchForce = 10f;
     [SerializeField] private float _explosionTime;
-    [SerializeField] private GameObject _SmokeGrenade;
+    
     [SerializeField] private GameObject _explosionEffect;
 
     public void LaunchSmokeGrenade()
@@ -15,7 +15,7 @@ public class SmokeGrenadesScrip : MonoBehaviour
         if (rb != null)
         {
             rb.isKinematic = false;
-            Vector3 launchDirection = _SmokeGrenade.transform.forward;
+            Vector3 launchDirection = transform.forward;
 
             rb.AddForce(launchDirection * launchForce, ForceMode.Impulse);
             Invoke("Explosion", _explosionTime);

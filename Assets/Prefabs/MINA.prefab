@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _radius: 10
-  _explForse: 13000
+  _explForse: 20000
   _deadCollider: {fileID: 0}
   _vzrivatel: {fileID: 589883767227503541}
   _hasCollided: 0
