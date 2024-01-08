@@ -2,9 +2,8 @@
 using UnityEngine;
 using ChobiAssets.PTM;
 using UnityEngine.SceneManagement;
-using UnityEditor.Tanks;
-using UnityEngine.UIElements;
-using static UnityEditor.Rendering.FilterWindow;
+using System.Collections.Generic;
+using System.Linq;
 
 public class TankCreateEditor : EditorWindow
 {
@@ -28,7 +27,6 @@ public class TankCreateEditor : EditorWindow
 
     private Mesh _turretMesh;
     private Material[] _turretMaterials;
-    private Vector3 _turretOffset;
 
     private Mesh _cannonMesh;
     private Material[] _cannonMaterials;
@@ -36,50 +34,15 @@ public class TankCreateEditor : EditorWindow
     private Mesh _mainBodyMesh;
     public Material[] _mainBodyMaterials;
 
-    private SerializedObject serializedObject;
-    //private Mesh
-    //private Material
-
     [MenuItem("TankBeta/TankCreateEditor")]
     public static void ShowWindow()
     {
         GetWindow<TankCreateEditor>();
 
     }
-    private void OnEnable()
-    {
-        serializedObject = new SerializedObject(this);
-    }
+
     private void OnGUI()
     {
-        //_meshew = (GameObject)EditorGUILayout.ObjectField("новая модель", _roadWheelsMesh, typeof(GameObject), false);
-        //_roadWheelsMesh = (Mesh)EditorGUILayout.ObjectField("каток", _roadWheelsMesh, typeof(Mesh), false);
-        //_roadWheelsMaterial = (Material)EditorGUILayout.ObjectField("каток", _roadWheelsMaterial, typeof(Material), false);
-
-        //_IlderWheelMesh = (Mesh)EditorGUILayout.ObjectField("ведущий каток", _IlderWheelMesh, typeof(Mesh), false);
-        //_IlderWheelMaterial = (Material)EditorGUILayout.ObjectField("ведущий каток", _IlderWheelMaterial, typeof(Material), false);
-
-        //_sproketWheelMesh = (Mesh)EditorGUILayout.ObjectField("силовой каток", _sproketWheelMesh, typeof(Mesh), false);
-        //// _sproketWheelMaterial = (Material)EditorGUILayout.ObjectField("силовой каток", _sproketWheelMaterial, typeof(Material), false);
-        //serializedObject.GenerateEditorArray("_sproketWheelMaterial");
-
-        //_trackBeltMesh = (Mesh)EditorGUILayout.ObjectField("гусля", _trackBeltMesh, typeof(Mesh), false);
-        //serializedObject.GenerateEditorArray("_trackBeltMaterial"); 
-        ////_trackBeltMaterial = (Material)EditorGUILayout.ObjectField("гусля", _trackBeltMaterial, typeof(Material), false);
-
-        //_barrelMesh = (Mesh)EditorGUILayout.ObjectField("ствол пушки", _barrelMesh, typeof(Mesh), false);
-        //_barrelMaterial = (Material)EditorGUILayout.ObjectField("ствол пушки", _barrelMaterial, typeof(Material), false);
-
-        //_turretMesh = (Mesh)EditorGUILayout.ObjectField("башня", _turretMesh, typeof(Mesh), false);
-        //_turretMaterial = (Material)EditorGUILayout.ObjectField("башня", _turretMaterial, typeof(Material), false);
-        //_turretOffset = (Vector3)EditorGUILayout.Vector3Field("позиция башни", _turretOffset);
-        //_cannonMesh = (Mesh)EditorGUILayout.ObjectField("маска орудия", _cannonMesh, typeof(Mesh), false);
-        //_cannonMaterial = (Material)EditorGUILayout.ObjectField("маска орудия", _cannonMaterial, typeof(Material), false);
-
-        //_mainBodyMesh = (Mesh)EditorGUILayout.ObjectField("корпус", _mainBodyMesh, typeof(Mesh), false);
-        //serializedObject.GenerateEditorArray("_mainBodyMaterial");
-        //_mainBodyMaterial = (Material)EditorGUILayout.ObjectField("корпус", _mainBodyMaterial, typeof(Material), false);
-
         if (GUILayout.Button("Create"))
         {
             Create();
@@ -90,14 +53,21 @@ public class TankCreateEditor : EditorWindow
     {
         Find(ref _vehicle,"Tank");
         Find(ref _meshew, "TestTank");
+
         FindTankElement(ref _roadWheelsMesh,ref _roadWheelsMaterials, "Wheel");
         FindTankElement(ref _IlderWheelMesh, ref _IlderWheelMaterials, "IdlerWheel");
         FindTankElement(ref _sproketWheelMesh, ref _sproketWheelMaterial, "SpoketWheel");
         FindTankElement(ref _trackBeltMesh, ref _trackBeltMaterial, "Track");
+
         FindTankElement(ref _barrelMesh, ref _barrelMaterials, "Barrel");
         FindTankElement(ref _turretMesh, ref _turretMaterials, "Turret");
-        //  _turretOffset = (Vector3)EditorGUILayout.Vector3Field("позиция башни", _turretOffset);
         FindTankElement(ref _cannonMesh, ref _cannonMaterials, "Cannon");
+
+        var turretOffset = GetOffset("Turret");
+        var cannonOffset = GetOffset("Cannon");
+        var barrelOffset = GetOffset("Barrel");
+
+        SetElements(new List<string>() { "Wheel", "IdlerWheel", "SpoketWheel" , "Track" , "Barrel" , "Turret", "Cannon" },new List<string>() { "ERA" });
         _mainBodyMesh = _meshew.transform.GetChild(0).GetComponent<MeshFilter>().mesh;
         _mainBodyMaterials = _meshew.transform.GetChild(0).GetComponent<MeshRenderer>().materials;
 
@@ -132,21 +102,27 @@ public class TankCreateEditor : EditorWindow
         bb.Part_Mesh = _barrelMesh;
         bb.Part_Material = _barrelMaterials[0];
         bb.Materials = _barrelMaterials;
+        bb.Offset_X = barrelOffset.x;
+        bb.Offset_Y = barrelOffset.y;
+        bb.Offset_Z = barrelOffset.z;
         bb.Create();
 
         var ct = _vehicle.GetComponentInChildren<Turret_Base_CS>();
         ct.Part_Mesh = _turretMesh;
         ct.Materials = _turretMaterials;
         ct.Materials_Num = 1;
-        ct.Offset_X = _turretOffset.x;
-        ct.Offset_Y = _turretOffset.y;
-        ct.Offset_Z = _turretOffset.z;
+        ct.Offset_X = turretOffset.x;
+        ct.Offset_Y = turretOffset.y;
+        ct.Offset_Z = turretOffset.z;
         ct.Create();
 
         var cb = _vehicle.GetComponentInChildren<Cannon_Base_CS>();
         cb.Part_Mesh = _cannonMesh;
         cb.Materials = _cannonMaterials;
         cb.Part_Material = _cannonMaterials[0];
+        cb.Offset_X = cannonOffset.x;
+        cb.Offset_Y = cannonOffset.y;
+        cb.Offset_Z = cannonOffset.z;
         cb.Create();
 
         var mbs = _vehicle.GetComponentInChildren<MainBody_Setting_CS>();
@@ -154,37 +130,70 @@ public class TankCreateEditor : EditorWindow
         mbs.Materials = _mainBodyMaterials;
         mbs.Materials_Num = _mainBodyMaterials.Length;
         mbs.Create();
-    }
-    private void FindTankElement(ref Mesh mesh, ref Material[] materials,string elementName)
-    {
-       var element = _meshew.transform.GetChild(0).Find(elementName);
-        if (element != null)
+
+
+        Vector3 GetOffset(string name) { return _meshew.transform.GetChild(0).Find(name).transform.localPosition; }
+        void FindTankElement(ref Mesh mesh, ref Material[] materials, string elementName)
         {
-            mesh = element.GetComponent<MeshFilter>().mesh;
-            materials = element.GetComponent<MeshRenderer>().materials;
-            return;
-        }
-        Debug.Log("Ther is no " + elementName);
-    }
-    private void Find(ref GameObject _object, string objName)
-    {
-        for (int i = 0; i < SceneManager.sceneCount; i++)
-        {
-            var s = SceneManager.GetSceneAt(i);
-            if (s.isLoaded)
+            var element = _meshew.transform.GetChild(0).Find(elementName);
+            if (element != null)
             {
-                var allGameObjects = s.GetRootGameObjects();
-                foreach (var obj in allGameObjects)
+                mesh = element.GetComponent<MeshFilter>().mesh;
+                materials = element.GetComponent<MeshRenderer>().materials;
+                return;
+            }
+            Debug.Log("Ther is no " + elementName);
+        }
+        void Find(ref GameObject _object, string objName)
+        {
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                var s = SceneManager.GetSceneAt(i);
+                if (s.isLoaded)
                 {
-                    if (obj.name == objName)
+                    var allGameObjects = s.GetRootGameObjects();
+                    foreach (var obj in allGameObjects)
                     {
-                        _object = obj;
-                        return;
+                        if (obj.name == objName)
+                        {
+                            _object = obj;
+                            return;
+                        }
                     }
                 }
             }
+            Debug.Log("Cant find obj");
         }
-        Debug.Log("Cant find obj");
+        void SetElements(List<string> list , List<string> elementsNames)
+        {
+            for (int i = 0; i < _meshew.transform.GetChild(0).childCount; i++)
+            {
+                var obj = _meshew.transform.GetChild(0).GetChild(i).gameObject;    
+                if (!list.Contains(obj.name)&& obj.activeInHierarchy)
+                {
+                  var element = Instantiate(obj, _vehicle.transform.GetChild(0).transform);
+                  element.transform.localPosition = obj.transform.localPosition;
+                  element.transform.localEulerAngles = obj.transform.localEulerAngles;
+                  var words = obj.name.Split(' ');
+
+                    foreach (var word in words)
+                    {
+                        if (elementsNames.Contains(word))
+                        {
+                            switch (word)
+                            {
+                                case "ERA":
+                                    element.gameObject.AddComponent<ExplosiveReactiveArmour>();
+                                    element.gameObject.AddComponent<MeshCollider>();
+                                    break;
+                            }
+                        }
+                    }
+                 }
+            }
+
+        }
     }
+
 
 }
