@@ -18,6 +18,14 @@ namespace ChobiAssets.PTM
         [SerializeField] protected Transform _fragmentsParent;
         [SerializeField] protected int modulDamage;
         [SerializeField] protected int _penetrationDamage;
+
+        private Vector3 _destination;
+        private Transform _shootPoint;
+        [SerializeField] private float _noControlAtgmDistance;
+        [SerializeField] private float _rotationSpeed;
+        private bool isControlled = true;
+        [SerializeField] private float speed;
+
         // User options >>
         public int Type; // 0=AP , 1=HE.
 		public Transform This_Transform;
@@ -49,7 +57,30 @@ namespace ChobiAssets.PTM
 			Initialize();
 		}
 
-        
+        public void SetShootPoint(Transform shootPoint)
+        {
+            _shootPoint = shootPoint; 
+        }
+
+        private void FixedUpdate()
+        {
+            if (!isControlled)
+            {
+                return;
+            }
+            var distance = Vector3.Distance(transform.position, _shootPoint.position);
+            if (distance > _noControlAtgmDistance)
+            {
+                isControlled = false;
+                This_Rigidbody.AddForce(speed * transform.forward, ForceMode.Impulse);
+                return;
+            }
+            var ray = new Ray(_shootPoint.position, _shootPoint.forward);
+            _destination = ray.origin + ray.direction* 1000f;
+
+            This_Rigidbody.velocity = (_destination - transform.position).normalized * speed;
+        }
+
         void Initialize()
         {
             if (This_Transform == null)
@@ -102,9 +133,13 @@ namespace ChobiAssets.PTM
             {
                 return;
             }
-
+            if (Type == 2)
+            {
+                return;
+            }
             // Set the posture.
             This_Transform.LookAt(This_Rigidbody.position + This_Rigidbody.velocity);
+
         }
 
 
@@ -120,6 +155,10 @@ namespace ChobiAssets.PTM
                         break;
 
                     case 1: // HE
+                        HE_Hit_Process();
+                        break;
+
+                    case 2: // ATGM
                         HE_Hit_Process();
                         break;
                 }

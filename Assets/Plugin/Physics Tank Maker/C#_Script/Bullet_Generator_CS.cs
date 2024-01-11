@@ -15,11 +15,14 @@ namespace ChobiAssets.PTM
         // User options >>
         public GameObject AP_Bullet_Prefab;
         public GameObject HE_Bullet_Prefab;
+        public GameObject ATGM_Bullet_Prefab;
         public GameObject MuzzleFire_Object;
         public float Attack_Point = 500.0f;
         public float Attack_Point_HE = 500.0f;
+        public float Attack_Point_ATGM = 500.0f;
         public float Initial_Velocity = 500.0f;
         public float Initial_Velocity_HE = 500.0f;
+        public float Initial_Velocity_ATGM = 0.0f;
 
         public float Life_Time = 5.0f;
         public int Initial_Bullet_Type = 0;
@@ -58,7 +61,7 @@ namespace ChobiAssets.PTM
         public void Switch_Bullet_Type()
         { // Called from "Cannon_Fire_Input_##_##" scripts.
             currentBulletType += 1;
-            if (currentBulletType > 1)
+            if (currentBulletType > 2)
             {
                 currentBulletType = 0;
             }
@@ -72,6 +75,10 @@ namespace ChobiAssets.PTM
 
                 case 1: // HE
                     Current_Bullet_Velocity = Initial_Velocity_HE;
+                    break;
+
+                case 2: // ATGM
+                    Current_Bullet_Velocity = Initial_Velocity_ATGM;
                     break;
             }
         }
@@ -121,6 +128,16 @@ namespace ChobiAssets.PTM
                     attackPoint = Attack_Point_HE;
                     break;
 
+                case 2: // ATGM
+                    if (ATGM_Bullet_Prefab == null)
+                    {
+                        Debug.LogError("'ATGM_Bullet_Prefab' is not assigned in the 'Bullet_Generator'.");
+                        yield break;
+                    }
+                    bulletObject = Instantiate(ATGM_Bullet_Prefab, thisTransform.position + (thisTransform.forward * Offset), thisTransform.rotation) as GameObject;
+                    attackPoint = Attack_Point_ATGM;
+                    break;
+
                 default:
                     yield break;
             }
@@ -138,12 +155,17 @@ namespace ChobiAssets.PTM
 
             // Set the layer.
             bulletObject.layer = Layer_Settings_CS.Bullet_Layer;
-
+            if (currentBulletType == 2)
+            {
+                bulletScript.SetShootPoint(thisTransform.parent.parent.parent);
+                yield break;
+            }
             // Shoot.
             yield return new WaitForFixedUpdate();
             Rigidbody rigidbody = bulletObject.GetComponent<Rigidbody>();
             Vector3 currentVelocity = (bulletObject.transform.forward + _spread) * Current_Bullet_Velocity;
             rigidbody.velocity = currentVelocity;
+
         }
 
     }
