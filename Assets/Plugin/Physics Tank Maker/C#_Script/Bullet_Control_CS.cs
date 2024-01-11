@@ -20,7 +20,7 @@ namespace ChobiAssets.PTM
         [SerializeField] protected int _penetrationDamage;
 
         private Vector3 _destination;
-        private Transform _shootPoint;
+        [SerializeField] private Transform _shootPoint;
         [SerializeField] private float _noControlAtgmDistance;
         [SerializeField] private float _rotationSpeed;
         private bool isControlled = true;
@@ -64,6 +64,11 @@ namespace ChobiAssets.PTM
 
         private void FixedUpdate()
         {
+            if (Type != 2)
+            {
+                return;
+            }
+
             if (!isControlled)
             {
                 return;
@@ -75,7 +80,8 @@ namespace ChobiAssets.PTM
                 This_Rigidbody.AddForce(speed * transform.forward, ForceMode.Impulse);
                 return;
             }
-            var ray = new Ray(_shootPoint.position, _shootPoint.forward);
+            var ray = new Ray(_shootPoint.position, _shootPoint.forward);           
+            Debug.DrawRay(ray.origin, ray.direction, Color.cyan, 0f);
             _destination = ray.origin + ray.direction* 1000f;
 
             This_Rigidbody.velocity = (_destination - transform.position).normalized * speed;

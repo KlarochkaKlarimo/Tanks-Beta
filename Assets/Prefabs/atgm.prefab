@@ -93,10 +93,11 @@ MonoBehaviour:
   _fragmentsParent: {fileID: 0}
   modulDamage: 0
   _penetrationDamage: 0
-  _noControlAtgmDistance: 0
-  _rotationSpeed: 10
-  speed: 10
-  Type: 0
+  _shootPoint: {fileID: 0}
+  _noControlAtgmDistance: 1000
+  _rotationSpeed: 100
+  speed: 30
+  Type: 2
   This_Transform: {fileID: 6908804564711728867}
   This_Rigidbody: {fileID: -2230058843406628984}
   Impact_Object: {fileID: 0}

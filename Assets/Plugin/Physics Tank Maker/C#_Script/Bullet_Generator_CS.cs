@@ -157,7 +157,7 @@ namespace ChobiAssets.PTM
             bulletObject.layer = Layer_Settings_CS.Bullet_Layer;
             if (currentBulletType == 2)
             {
-                bulletScript.SetShootPoint(thisTransform.parent.parent.parent);
+                bulletScript.SetShootPoint(thisTransform);
                 yield break;
             }
             // Shoot.
