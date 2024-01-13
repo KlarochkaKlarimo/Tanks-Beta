@@ -27,7 +27,7 @@ namespace ChobiAssets.PTM
         [SerializeField] private float speed;
 
         // User options >>
-        public int Type; // 0=AP , 1=HE.
+        public int Type; // 0=AP , 1=HE, 2=ATGM, 3=KUMULITIV
 		public Transform This_Transform;
 		public Rigidbody This_Rigidbody;
 		// Only for AP
@@ -108,11 +108,11 @@ namespace ChobiAssets.PTM
         {
             Debug.Log("spawn fragments");
             int layerMask = LayerMask.GetMask("ignoreAll");
-            _fragmentsParent.DetachChildren();
+            //_fragmentsParent.DetachChildren();
             foreach (Transform fragment in fragments)
             {
                 RaycastHit hit;
-                if (Physics.Raycast(fragment.position, fragment.TransformDirection(Vector3.forward), out hit, 100f, layerMask))
+                if (Physics.Raycast(fragment.position, fragment.TransformDirection(Vector3.forward), out hit, 10f, layerMask))
                 {
                     Debug.DrawRay(fragment.position, fragment.TransformDirection(Vector3.forward) * hit.distance, Color.red, 14f);
                     Debug.Log("Did Hit "+ hit.transform.name);
@@ -126,7 +126,7 @@ namespace ChobiAssets.PTM
                 }
                 else
                 {
-                    Debug.DrawRay(fragment.position, fragment.TransformDirection(Vector3.forward) * 100f, Color.yellow, 14f);
+                    Debug.DrawRay(fragment.position, fragment.TransformDirection(Vector3.forward) * 10f, Color.yellow, 14f);
                     Debug.Log("Did not Hit");
                 }
             }
@@ -161,49 +161,48 @@ namespace ChobiAssets.PTM
                         break;
 
                     case 1: // HE
-                        HE_Hit_Process();
+                        HE_Hit_Process(collision, collision.relativeVelocity.magnitude, collision.contacts[0].normal);
                         break;
 
                     case 2: // ATGM
-                        HE_Hit_Process();
+                        HE_Hit_Process(collision, collision.relativeVelocity.magnitude, collision.contacts[0].normal);
+                        break;
+
+                    case 3: // HEAT
+                        HE_Hit_Process(collision, collision.relativeVelocity.magnitude, collision.contacts[0].normal);
                         break;
                 }
             }
         }
 
-
-        void AP_Hit_Process(Collision hitObject, float hitVelocity, Vector3 hitNormal)
+        private void DamageSystem(Collision hitObject, float hitVelocity, Vector3 hitNormal)
         {
-            isLiving = false;
-
-            // Set the collision detection mode.
-            This_Rigidbody.collisionDetectionMode = CollisionDetectionMode.Discrete;
-
-            if (hitObject.collider.gameObject == null)
-            { // The hit object had been removed from the scene.
-                return;
-            }
             var DZ = hitObject.collider.gameObject.GetComponent<ExplosiveReactiveArmour>();
             if (DZ != null)
             {
+
+                Debug.Log(_penetrationDamage);
                 hitObject.collider.enabled = false;
                 DamageReduction(DZ.GetModulDamage(Type), DZ.GetPenitrationDamage(Type));
+                Debug.Log(_penetrationDamage);
                 RaycastHit hit;
 
                 if (Physics.Raycast(gameObject.transform.position, gameObject.transform.TransformDirection(Vector3.forward), out hit, 10f/*, layerMask*/))
                 {
                     Debug.DrawRay(gameObject.transform.position, gameObject.transform.TransformDirection(Vector3.forward) * hit.distance, Color.red, 14f);
                     Debug.Log("Did Hit " + hit.transform.name);
-                    var armor = hit.transform.GetComponent<armor_panel>();     
-                    if(armor!=null)
+                    var armor = hit.transform.GetComponent<armor_panel>();
+                    if (armor!=null)
                     {
-                        var angle = Math.Abs( 90 - (Vector3.Angle(transform.forward, hit.point.normalized)));
 
-                          //  90 - Vector3.Angle(gameObject.transform.position + Vector3.forward, hit.point.normalized);
+                        var angle = Math.Abs(90 - (Vector3.Angle(transform.forward, hit.point.normalized)));
+
+                        //  90 - Vector3.Angle(gameObject.transform.position + Vector3.forward, hit.point.normalized);
                         var isPinetrate = (_penetrationDamage-(armor.GetThicknes()/ Math.Abs(Mathf.Cos(angle)))) > 0;
                         if (isPinetrate)
                         {
-                            _fragmentsParent.position = hit.transform.position;
+                            _fragmentsParent.position = hit.point;
+
                             SpawnFragments();
                         }
                         else
@@ -233,6 +232,7 @@ namespace ChobiAssets.PTM
                     Debug.Log("isPinetrate " + isPinetrate + " angle " + angle);
                     if (isPinetrate)
                     {
+                        _fragmentsParent.position = hitObject.GetContact(0).point;
                         SpawnFragments();
                     }
                     else
@@ -251,8 +251,22 @@ namespace ChobiAssets.PTM
             }
         }
 
+        void AP_Hit_Process(Collision hitObject, float hitVelocity, Vector3 hitNormal)
+        {
+            isLiving = false;
 
-        void HE_Hit_Process ()
+            // Set the collision detection mode.
+            This_Rigidbody.collisionDetectionMode = CollisionDetectionMode.Discrete;
+
+            if (hitObject.collider.gameObject == null)
+            { // The hit object had been removed from the scene.
+                return;
+            }
+            DamageSystem( hitObject,  hitVelocity,  hitNormal);
+        }
+
+
+        void HE_Hit_Process (Collision hitObject, float hitVelocity, Vector3 hitNormal)
         {
             isLiving = false;
 
@@ -261,6 +275,8 @@ namespace ChobiAssets.PTM
             {
                 Instantiate(Explosion_Object, This_Transform.position, Quaternion.identity);
             }
+
+            DamageSystem(hitObject, hitVelocity, hitNormal);
 
             // Remove the useless components.
             Destroy(GetComponent<Renderer>());

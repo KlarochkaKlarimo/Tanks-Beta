@@ -89,10 +89,10 @@ MonoBehaviour:
   - {fileID: 7144018392111937724}
   - {fileID: 8490860958292611345}
   - {fileID: 752433576439700335}
-  _fragmentsModulDamage: 0
-  _fragmentsParent: {fileID: 0}
-  modulDamage: 0
-  _penetrationDamage: 0
+  _fragmentsModulDamage: 3
+  _fragmentsParent: {fileID: 2128470768596004966}
+  modulDamage: 2
+  _penetrationDamage: 700
   _shootPoint: {fileID: 0}
   _noControlAtgmDistance: 1000
   _rotationSpeed: 100

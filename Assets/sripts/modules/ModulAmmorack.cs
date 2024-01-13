@@ -7,6 +7,7 @@ public class ModulAmmorack : ModulBase
     [SerializeField] private GameObject _ammorackExplosion;
     [SerializeField] private GameObject _ammorackFire;
     [SerializeField] private GameObject _tower;
+    [SerializeField] private float _turretMass;
 
     private Rigidbody _towerBody;
     
@@ -42,7 +43,8 @@ public class ModulAmmorack : ModulBase
         _tower.transform.parent = null;
 
         _towerBody = _tower.AddComponent<Rigidbody>();
-        _towerBody.AddForce(new Vector3(Random.Range(-100, 100), Random.Range(800, 1200), Random.Range(-100, 100)));
+        _towerBody.mass = _turretMass;
+        _towerBody.AddForce(new Vector3(Random.Range(-100, 100), Random.Range(1800, 2200), Random.Range(-100, 100)));
         _destroedTowerRotation = new Vector3(Random.Range(-360, 360), Random.Range(-360, 360), Random.Range(-360, 360));
         _tankDestroyed = true;
         base.TankDestroed();
