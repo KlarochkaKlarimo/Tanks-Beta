@@ -101,7 +101,7 @@ namespace ChobiAssets.PTM
             EditorGUILayout.Space();
             EditorGUILayout.HelpBox("Driving Wheels settings", MessageType.None, true);
             EditorGUILayout.Slider(TorqueProp, 0.0f, 500000.0f, "Torque");
-            EditorGUILayout.Slider(Max_SpeedProp, 0.0f, 50.0f, "Maximum Speed");
+            EditorGUILayout.Slider(Max_SpeedProp, 0.0f, 150f, "Maximum Speed");
             EditorGUILayout.Slider(Turn_Brake_DragProp, 0.0f, 5000.0f, "Turn Brake Drag");
             EditorGUILayout.Slider(Switch_Direction_LagProp, 0.0f, 5.0f, "Switch Direction Lag");
             Allow_Pivot_TurnProp.boolValue = EditorGUILayout.Toggle("Allow Pivot Turn", Allow_Pivot_TurnProp.boolValue);

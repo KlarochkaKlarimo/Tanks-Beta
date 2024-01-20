@@ -13,6 +13,10 @@ public class TankCreateEditor : EditorWindow
     private Mesh _roadWheelsMesh;
     private Material[] _roadWheelsMaterials;
 
+    private Mesh _leftSuspension;
+    private Mesh _rightSuspension;
+    public Material[] _suspensionMaterials;
+
     private Mesh _IlderWheelMesh;
     private Material[] _IlderWheelMaterials;
 
@@ -55,6 +59,10 @@ public class TankCreateEditor : EditorWindow
         Find(ref _meshew, "TestTank");
 
         FindTankElement(ref _roadWheelsMesh,ref _roadWheelsMaterials, "Wheel");
+
+        FindTankElement(ref _leftSuspension, ref _suspensionMaterials, "SuspentionL");
+        FindTankElement(ref _rightSuspension, ref _suspensionMaterials, "SuspentionR");
+
         FindTankElement(ref _IlderWheelMesh, ref _IlderWheelMaterials, "IdlerWheel");
         FindTankElement(ref _sproketWheelMesh, ref _sproketWheelMaterial, "SpoketWheel");
         FindTankElement(ref _trackBeltMesh, ref _trackBeltMaterial, "Track");
@@ -73,6 +81,9 @@ public class TankCreateEditor : EditorWindow
 
         var crw = _vehicle.GetComponentInChildren<Create_RoadWheel_CS>();
         crw.Wheel_Mesh = _roadWheelsMesh;
+        crw.Sus_L_Mesh = _leftSuspension;
+        crw.Sus_R_Mesh = _rightSuspension;
+        crw.Sus_Materials = _suspensionMaterials;
         crw.Wheel_Materials = _roadWheelsMaterials;
         crw.Wheel_Material = _roadWheelsMaterials[0];
         crw.Wheel_Materials_Num = _roadWheelsMaterials.Length;
