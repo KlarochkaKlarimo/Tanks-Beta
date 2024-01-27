@@ -13,6 +13,8 @@ namespace ChobiAssets.PTM
 		 * When the bullet hits the target, this script sends the damage value to the "Damage_Control_##_##_CS" script in the hit collider.
 		 * The damage value is calculated considering the hit angle.
 		*/
+        public BulletSettings settings;
+
         [SerializeField] protected Transform[] fragments;
         [SerializeField] protected int _fragmentsModulDamage;
         [SerializeField] protected Transform _fragmentsParent;
@@ -27,9 +29,7 @@ namespace ChobiAssets.PTM
         [SerializeField] private float speed;
 
         // User options >>
-        public int Type; // 0=AP , 1=HE, 2=ATGM, 3=KUMULITIV
-		public Transform This_Transform;
-		public Rigidbody This_Rigidbody;
+		private Rigidbody rigibody;
 		// Only for AP
 		public GameObject Impact_Object;
 		public GameObject Ricochet_Object;
@@ -38,11 +38,7 @@ namespace ChobiAssets.PTM
 		public float Explosion_Force;
 		public float Explosion_Radius;
 		// << User options
-
-
-		// Set by "Bullet_Generator_CS".
-		public float Attack_Point;
-		public float Initial_Velocity;
+		
 		public float Life_Time;
 		public float Attack_Multiplier = 1.0f;
 		public bool Debug_Flag = false;
@@ -64,7 +60,7 @@ namespace ChobiAssets.PTM
 
         private void FixedUpdate()
         {
-            if (Type != 2)
+            if (settings.bulletType != BulletType.ATGM)
             {
                 return;
             }
@@ -77,29 +73,26 @@ namespace ChobiAssets.PTM
             if (distance > _noControlAtgmDistance)
             {
                 isControlled = false;
-                This_Rigidbody.AddForce(speed * transform.forward, ForceMode.Impulse);
+                rigibody.AddForce(speed * transform.forward, ForceMode.Impulse);
                 return;
             }
             var ray = new Ray(_shootPoint.position, _shootPoint.forward);           
             Debug.DrawRay(ray.origin, ray.direction, Color.cyan, 0f);
             _destination = ray.origin + ray.direction* 1000f;
 
-            This_Rigidbody.velocity = (_destination - transform.position).normalized * speed;
+            rigibody.velocity = (_destination - transform.position).normalized * speed;
         }
 
         void Initialize()
         {
-            if (This_Transform == null)
+           
+            if (rigibody == null)
             {
-                This_Transform = transform;
-            }
-            if (This_Rigidbody == null)
-            {
-                This_Rigidbody = GetComponent<Rigidbody>();
+                rigibody = GetComponent<Rigidbody>();
             }
 
             // Set the collision detection mode.
-            This_Rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            rigibody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
 
             Destroy(this.gameObject, Life_Time);
         }
@@ -139,12 +132,12 @@ namespace ChobiAssets.PTM
             {
                 return;
             }
-            if (Type == 2)
+            if (settings.bulletType == BulletType.ATGM)
             {
                 return;
             }
             // Set the posture.
-            This_Transform.LookAt(This_Rigidbody.position + This_Rigidbody.velocity);
+            transform.LookAt(rigibody.position + rigibody.velocity);
         }
 
         void OnCollisionEnter(Collision collision)
@@ -152,22 +145,14 @@ namespace ChobiAssets.PTM
             if (isLiving)
             {
                 // Start the hit process.
-                switch (Type)
+                switch (settings.bulletType)
                 {
-                    case 0: // AP
-                        AP_Hit_Process(collision, collision.relativeVelocity.magnitude, collision.contacts[0].normal);
+                    case BulletType.APFSDS: // AP
+                        NonExplosiveProjectile(collision, collision.relativeVelocity.magnitude, collision.contacts[0].normal);
                         break;
 
-                    case 1: // HE
-                        HE_Hit_Process(collision, collision.relativeVelocity.magnitude, collision.contacts[0].normal);
-                        break;
-
-                    case 2: // ATGM
-                        HE_Hit_Process(collision, collision.relativeVelocity.magnitude, collision.contacts[0].normal);
-                        break;
-
-                    case 3: // HEAT
-                        HE_Hit_Process(collision, collision.relativeVelocity.magnitude, collision.contacts[0].normal);
+                    default: // Non rikoshet/explosive (HE, ATGM, HEAT, HESH, HERADIO)
+                        ExplosiveProjectile(collision, collision.relativeVelocity.magnitude, collision.contacts[0].normal);
                         break;
                 }
             }
@@ -178,37 +163,16 @@ namespace ChobiAssets.PTM
             var DZ = hitObject.collider.gameObject.GetComponent<ExplosiveReactiveArmour>();
             if (DZ != null)
             {
-
-                Debug.Log(_penetrationDamage);
                 hitObject.collider.enabled = false;
-                DamageReduction(DZ.GetModulDamage(Type), DZ.GetPenitrationDamage(Type));
-                Debug.Log(_penetrationDamage);
+                DamageReduction(DZ.GetModulDamage(settings.bulletType), DZ.GetPenitrationDamage(settings.bulletType));               
                 RaycastHit hit;
 
-                if (Physics.Raycast(gameObject.transform.position, gameObject.transform.TransformDirection(Vector3.forward), out hit, 10f/*, layerMask*/))
+                if (Physics.Raycast(gameObject.transform.position, gameObject.transform.TransformDirection(Vector3.forward), out hit, 10f))
                 {
                     Debug.DrawRay(gameObject.transform.position, gameObject.transform.TransformDirection(Vector3.forward) * hit.distance, Color.red, 14f);
                     Debug.Log("Did Hit " + hit.transform.name);
                     var armor = hit.transform.GetComponent<armor_panel>();
-                    if (armor!=null)
-                    {
-
-                        var angle = Math.Abs(90 - (Vector3.Angle(transform.forward, hit.point.normalized)));
-
-                        //  90 - Vector3.Angle(gameObject.transform.position + Vector3.forward, hit.point.normalized);
-                        var isPinetrate = (_penetrationDamage-(armor.GetThicknes()/ Math.Abs(Mathf.Cos(angle)))) > 0;
-                        if (isPinetrate)
-                        {
-                            _fragmentsParent.position = hit.point;
-
-                            SpawnFragments();
-                        }
-                        else
-                        {
-                            Debug.Log("Not penitrate");
-                        }
-                        Debug.Log("isPinetrate " + isPinetrate+" angle " + angle);
-                    }
+                    HitArmor(armor);
                 }
                 else
                 {
@@ -218,43 +182,43 @@ namespace ChobiAssets.PTM
                 Destroy(hitObject.collider.gameObject);
             }
             else
+            {              
+                var armor = hitObject.collider.gameObject.GetComponent<armor_panel>();
+                HitArmor(armor);
+            }
+            void HitArmor(armor_panel armor)
             {
-                // Get the "Damage_Control_##_##_CS" script in the hit object.
-                var damageScript = hitObject.collider.gameObject.GetComponent<armor_panel>();
-                if (damageScript != null)
-                { // The hit object has "Damage_Control_##_##_CS" script. >> It should be a breakable object.
-                    var angle = Math.Abs(90 - (Vector3.Angle(transform.forward, hitObject.contacts[0].normal)));
-
-                    var isPinetrate = (_penetrationDamage-(damageScript.GetThicknes() / Math.Abs(Mathf.Cos(angle)))) > 0;
-
-                    Debug.Log("isPinetrate " + isPinetrate + " angle " + angle);
-                    if (isPinetrate)
-                    {
-                        _fragmentsParent.position = hitObject.GetContact(0).point;
-                        SpawnFragments();
-                    }
-                    else
-                    {
-                        Debug.Log("Not penitrate");
-                    }
-                }
-                else
-                { // The hit object does not have "Damage_Control_##_##_CS" script. >> It should not be a breakable object.
-                  // Create the impact object.
+                if (armor == null)
+                {
                     if (Impact_Object)
                     {
-                        Instantiate(Impact_Object, This_Transform.position, Quaternion.identity);
+                        Instantiate(Impact_Object, transform.position, Quaternion.identity);
                     }
+                    return; 
+                }              
+                var angle = Math.Abs(90 - (Vector3.Angle(transform.forward, hitObject.contacts[0].normal)));
+                var isPinetrate = (_penetrationDamage-(armor.GetThicknes() / Math.Abs(Mathf.Cos(angle)))) > 0;
+
+                Debug.Log("isPinetrate " + isPinetrate + " angle " + angle);
+                if (isPinetrate)
+                {
+                    _fragmentsParent.position = hitObject.GetContact(0).point;
+                    SpawnFragments();
                 }
+                else
+                {
+                    Debug.Log("Not penitrate");
+                }
+                
             }
         }
 
-        void AP_Hit_Process(Collision hitObject, float hitVelocity, Vector3 hitNormal)
+        private void NonExplosiveProjectile(Collision hitObject, float hitVelocity, Vector3 hitNormal)
         {
             isLiving = false;
 
             // Set the collision detection mode.
-            This_Rigidbody.collisionDetectionMode = CollisionDetectionMode.Discrete;
+            rigibody.collisionDetectionMode = CollisionDetectionMode.Discrete;
 
             if (hitObject.collider.gameObject == null)
             { // The hit object had been removed from the scene.
@@ -264,14 +228,12 @@ namespace ChobiAssets.PTM
         }
 
 
-        void HE_Hit_Process (Collision hitObject, float hitVelocity, Vector3 hitNormal)
+        void ExplosiveProjectile (Collision hitObject, float hitVelocity, Vector3 hitNormal)
         {
             isLiving = false;
-
-            // Create the explosion effect object.
             if (Explosion_Object)
             {
-                Instantiate(Explosion_Object, This_Transform.position, Quaternion.identity);
+                Instantiate(Explosion_Object, transform.position, Quaternion.identity);
             }
 
             DamageSystem(hitObject, hitVelocity, hitNormal);
@@ -282,58 +244,60 @@ namespace ChobiAssets.PTM
             Destroy(GetComponent<Collider>());
 
             // Add the explosion force to the objects within the explosion radius.
-            var colliders = Physics.OverlapSphere(This_Transform.position, Explosion_Radius, Layer_Settings_CS.Layer_Mask);
+            var colliders = Physics.OverlapSphere(transform.position, Explosion_Radius, Layer_Settings_CS.Layer_Mask);
             for (int i = 0; i < colliders.Length; i++)
             {
                 Add_Explosion_Force(colliders[i]);
             }
 
-            Destroy(this.gameObject, 0.01f * Explosion_Radius);
-        }
+            Destroy(gameObject, 0.01f * Explosion_Radius);
 
-
-        void Add_Explosion_Force(Collider collider)
-        {
-            if (collider == null)
+            void Add_Explosion_Force(Collider collider)
             {
-                return;
-            }
-
-            Vector3 direction = (collider.transform.position - This_Transform.position).normalized;
-            var ray = new Ray();
-            ray.origin = This_Rigidbody.position;
-            ray.direction = direction;
-            if (Physics.Raycast(ray, out RaycastHit raycastHit, Explosion_Radius, Layer_Settings_CS.Layer_Mask))
-            {
-                if (raycastHit.collider != collider)
-                { // The collider should be behind an obstacle.
+                if (collider == null)
+                {
                     return;
                 }
 
-                // Calculate the distance loss rate.
-                var loss = Mathf.Pow((Explosion_Radius - raycastHit.distance) / Explosion_Radius, 2);
-
-                // Add force to the rigidbody.
-                Rigidbody rigidbody = collider.GetComponent<Rigidbody>();
-                if (rigidbody)
+                Vector3 direction = (collider.transform.position - transform.position).normalized;
+                var ray = new Ray();
+                ray.origin = rigibody.position;
+                ray.direction = direction;
+                if (Physics.Raycast(ray, out RaycastHit raycastHit, Explosion_Radius, Layer_Settings_CS.Layer_Mask))
                 {
-                    rigidbody.AddForce(direction * Explosion_Force * loss);
-                }
+                    if (raycastHit.collider != collider)
+                    { // The collider should be behind an obstacle.
+                        return;
+                    }
 
-                // Send the damage value to "Damage_Control_##_##_CS" script in the collider.
-                var damageScript = collider.GetComponent<Damage_Control_00_Base_CS>();
-                if (damageScript != null)
-                { // The collider should be a breakable object.
-                    var damageValue = Attack_Point * loss * Attack_Multiplier;
-                    damageScript.Get_Damage(damageValue, Type);
-                    // Output for debugging.
-                    if (Debug_Flag)
+                    // Calculate the distance loss rate.
+                    var loss = Mathf.Pow((Explosion_Radius - raycastHit.distance) / Explosion_Radius, 2);
+
+                    // Add force to the rigidbody.
+                    Rigidbody rigidbody = collider.GetComponent<Rigidbody>();
+                    if (rigidbody)
                     {
-                        Debug.Log("HE Damage " + damageValue + " on " + collider.name);
+                        rigidbody.AddForce(direction * Explosion_Force * loss);
+                    }
+
+                    // Send the damage value to "Damage_Control_##_##_CS" script in the collider.
+                    var damageScript = collider.GetComponent<Damage_Control_00_Base_CS>();
+                    if (damageScript != null)
+                    { // The collider should be a breakable object.
+                        var damageValue = settings.attackPoint * loss * Attack_Multiplier;
+                        damageScript.Get_Damage(damageValue, settings.bulletType);
+                        // Output for debugging.
+                        if (Debug_Flag)
+                        {
+                            Debug.Log("HE Damage " + damageValue + " on " + collider.name);
+                        }
                     }
                 }
             }
         }
+
+
+       
         public void DamageReduction(int modulReducation, int penetrationReducation)
         {
             modulDamage = Mathf.Clamp(modulDamage - modulReducation, 0, 10000);
@@ -342,7 +306,6 @@ namespace ChobiAssets.PTM
             if (_penetrationDamage <=0)
             {
                 Destroy(gameObject);
-                Debug.Log("boom");
             }
         }
     }

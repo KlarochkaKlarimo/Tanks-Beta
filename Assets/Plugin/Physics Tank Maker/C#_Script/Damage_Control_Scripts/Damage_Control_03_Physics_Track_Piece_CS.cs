@@ -10,7 +10,7 @@ namespace ChobiAssets.PTM
         public int Track_Index; // 0 = Left, 1 = Right.
 
 
-        public override bool Get_Damage(float damage, int bulletType)
+        public override bool Get_Damage(float damage, BulletType bulletType)
         { // Called from "Bullet_Control_CS", when the bullet hits this collider.
 
             // Send the damage value to the "Damage_Control_Center_CS".

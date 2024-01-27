@@ -10,6 +10,7 @@ public abstract class ModulBase : IPinetrtlbe
     [SerializeField] private int hp;
     [SerializeField] private int _damagedHp;
     [SerializeField] private Image _modulImage;
+    [SerializeField] private bool isTest;
     public bool isModelDamaged;
 
     public Cannon_Fire_CS cannonFire;
@@ -63,6 +64,10 @@ public abstract class ModulBase : IPinetrtlbe
 
     public virtual void GetDamage(int damage)
     {
+        if (isTest)
+        {
+            return;
+        }
         hp = Mathf.Clamp(hp - damage, 0, hp);
         print(hp);
 

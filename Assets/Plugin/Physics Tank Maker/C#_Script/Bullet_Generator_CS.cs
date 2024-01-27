@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.UI;
 
 namespace ChobiAssets.PTM
 {
@@ -8,7 +9,9 @@ namespace ChobiAssets.PTM
     public class BulletSettings
     {
         public GameObject prefab;
+        [Range(0f, 1000f)]
         public float attackPoint = 500f;
+        [Range(0f, 1000f)]
         public float initialVelocity = 500f;
         public BulletType bulletType;
         public string bulletName;
@@ -31,6 +34,8 @@ namespace ChobiAssets.PTM
 		 * This script instantiates the bullet prefab and shoot it from the muzzle.
 		 * Also you can create a prefab for the bullet using this script.
 		*/
+
+        [SerializeField] private Text _currentProjectileName;
      
         public GameObject MuzzleFire_Object;
 
@@ -40,7 +45,6 @@ namespace ChobiAssets.PTM
         public int Initial_Bullet_Type = 0;
         public float Offset = 0.5f;
         public bool Debug_Flag = false;
-        // << User options
 
         public float Attack_Multiplier = 1.0f; // Set by "Special_Settings_CS".
         public int Barrel_Type = 0; // Set by "Barrel_Base". (0 = Single barrel, 1 = Left of twins, 2 = Right of twins)
@@ -67,6 +71,7 @@ namespace ChobiAssets.PTM
                 currentBulletType = 0;
             }      
             Current_Bullet_Velocity = bullets[currentBulletType].initialVelocity;
+            _currentProjectileName.text = bullets[currentBulletType].bulletName;
         }
 
         public void Fire_Linkage(int direction, Vector3 spread)
@@ -90,8 +95,7 @@ namespace ChobiAssets.PTM
 
             // Set values of "Bullet_Control_CS" in the bullet.
             Bullet_Control_CS bulletScript = bulletObject.GetComponent<Bullet_Control_CS>();
-            bulletScript.Attack_Point = currentBullet.attackPoint;
-            bulletScript.Initial_Velocity = Current_Bullet_Velocity;
+            bulletScript.settings = currentBullet;            
             bulletScript.Life_Time = Life_Time;
             bulletScript.Attack_Multiplier = Attack_Multiplier;
             bulletScript.Debug_Flag = Debug_Flag;

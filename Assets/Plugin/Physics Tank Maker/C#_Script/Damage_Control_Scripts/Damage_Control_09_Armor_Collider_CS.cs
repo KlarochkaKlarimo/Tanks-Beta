@@ -13,43 +13,43 @@ namespace ChobiAssets.PTM
         Damage_Control_00_Base_CS parentDamageScript;
 
 
-        protected override void Start()
-        {
-            // Set the layer.
-            gameObject.layer = Layer_Settings_CS.Armor_Collider_Layer;
+        //protected override void Start()
+        //{
+        //    // Set the layer.
+        //    gameObject.layer = Layer_Settings_CS.Armor_Collider_Layer;
 
-            // Make this invisible.
-            MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
-            if (meshRenderer)
-            {
-                meshRenderer.enabled = false;
-            }
+        //    // Make this invisible.
+        //    MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
+        //    if (meshRenderer)
+        //    {
+        //        meshRenderer.enabled = false;
+        //    }
 
-            // Find the "Damage_Control_##_##_CS" script in the parent object.
-            parentDamageScript = transform.parent.GetComponent<Damage_Control_00_Base_CS>();
-            if (parentDamageScript == null)
-            {
-                Destroy(this.gameObject);
-            }
-        }
+        //    // Find the "Damage_Control_##_##_CS" script in the parent object.
+        //    parentDamageScript = transform.parent.GetComponent<Damage_Control_00_Base_CS>();
+        //    if (parentDamageScript == null)
+        //    {
+        //        Destroy(this.gameObject);
+        //    }
+        //}
 
 
-        public override bool Get_Damage(float damage, int bulletType)
-        { // Called from "Bullet_Control_CS".
+        //public override bool Get_Damage(float damage, int bulletType)
+        //{ // Called from "Bullet_Control_CS".
 
-            // Apply the multiplier.
-            if (bulletType == 0)
-            { // AP
-                damage *= Damage_Multiplier;
-            }
+        //    // Apply the multiplier.
+        //    if (bulletType == 0)
+        //    { // AP
+        //        damage *= Damage_Multiplier;
+        //    }
 
-            // Send the damage value to the parent "Damage_Control_##_##_CS" script.
-            if (parentDamageScript == null)
-            {
-                return false;
-            }
-            return parentDamageScript.Get_Damage(damage, bulletType);
-        }
+        //    // Send the damage value to the parent "Damage_Control_##_##_CS" script.
+        //    if (parentDamageScript == null)
+        //    {
+        //        return false;
+        //    }
+        //    return parentDamageScript.Get_Damage(damage, bulletType);
+        //}
 
 
         void MainBody_Destroyed_Linkage()

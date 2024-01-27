@@ -16,7 +16,7 @@ namespace ChobiAssets.PTM
 		}
 
 
-		public virtual bool Get_Damage(float damage, int bulletType)
+		public virtual bool Get_Damage(float damage, BulletType bulletType)
 		{
 			return false;
 		}

@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using ChobiAssets.PTM;
 public class ExplosiveReactiveArmour : MonoBehaviour
 {
     [SerializeField] private int _heatDamagePenetrationReduction;
@@ -7,22 +7,20 @@ public class ExplosiveReactiveArmour : MonoBehaviour
     [SerializeField] private int _kineticDamagePenetrationReduction;
     [SerializeField] private int _kineticDamageModulReduction;
 
-    public int GetModulDamage(int type )
+    public int GetModulDamage(BulletType type)
     {
         switch (type) 
         {
-        case 0: return _kineticDamageModulReduction;
-        case 1: return _heatDamageModulReduction;
-        }
-        return 0;
+        case BulletType.APFSDS: return _kineticDamageModulReduction;
+        default: return _heatDamageModulReduction;
+        }       
     }
-    public int GetPenitrationDamage(int type)
+    public int GetPenitrationDamage(BulletType type)
     {
         switch (type)
         {
-            case 0: return _kineticDamagePenetrationReduction;
-            case 1: return _heatDamagePenetrationReduction;
+            case BulletType.APFSDS: return _kineticDamagePenetrationReduction;
+            default: return _heatDamagePenetrationReduction;
         }
-        return 0;
     }
 }

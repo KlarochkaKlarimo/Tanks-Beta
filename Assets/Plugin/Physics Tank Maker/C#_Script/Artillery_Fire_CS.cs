@@ -91,9 +91,12 @@ namespace ChobiAssets.PTM
 
                 // Add Scripts
                 Bullet_Control_CS bulletScript = shellObject.AddComponent<Bullet_Control_CS>();
-                bulletScript.Type = 1; // HE
+
+                // TODO nada fixet!!!!!!!!!!!!!
+
+                //bulletScript.Type = 1; // HE
                 bulletScript.Life_Time = Life_Time;
-                bulletScript.Attack_Point = Attack_Point;
+                //bulletScript.Attack_Point = Attack_Point;
                 bulletScript.Explosion_Force = Explosion_Force;
                 bulletScript.Explosion_Radius = Explosion_Radius;
                 bulletScript.Explosion_Object = Explosion_Object;
