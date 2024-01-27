@@ -145,9 +145,7 @@ namespace ChobiAssets.PTM
             }
             // Set the posture.
             This_Transform.LookAt(This_Rigidbody.position + This_Rigidbody.velocity);
-
         }
-
 
         void OnCollisionEnter(Collision collision)
         { // The collision has been detected by the physics engine.
