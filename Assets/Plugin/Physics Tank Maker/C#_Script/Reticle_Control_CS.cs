@@ -9,40 +9,16 @@ namespace ChobiAssets.PTM
 
 	public class Reticle_Control_CS : MonoBehaviour
 	{
-		/*
-		 * This script is attached to the "Gun_Camera" under the "Barrel_Base" in the tank.
-		 * This script controls the reticle image displayed in the gun camera.
-		*/
+        [SerializeField] private GameObject reticleObject;
+        [SerializeField] private GameObject thirdPersonAim;
+        [SerializeField] private RectTransform reticleImage;
 
-		// User options >>
-		public string Reticle_Name = "Reticle";
-		public Gun_Camera_CS Gun_Camera_Script;
-        // << User options
-
-        Image reticleImage;
-
+        public Gun_Camera_CS Gun_Camera_Script;
+              
         bool isSelected;
 
-
         void Start()
-        {
-            // Get the reticle image in the scene.
-            if (string.IsNullOrEmpty(Reticle_Name))
-            {
-                return;
-            }
-            GameObject reticleObject = GameObject.Find(Reticle_Name);
-            if (reticleObject)
-            {
-                reticleImage = reticleObject.GetComponent<Image>();
-            }
-            if (reticleImage == null)
-            {
-                Debug.LogWarning(Reticle_Name + " cannot be found in the scene.");
-                Destroy(this);
-            }
-
-            // Get the "Gun_Camera_CS" script in the tank.
+        {            
             if (Gun_Camera_Script == null)
             {
                 Gun_Camera_Script = GetComponent<Gun_Camera_CS>();
@@ -57,15 +33,14 @@ namespace ChobiAssets.PTM
                 return;
             }
 
-            // Set the appearance.
-            reticleImage.enabled = Gun_Camera_Script.Gun_Camera.enabled;
+            reticleObject.SetActive(Gun_Camera_Script.Gun_Camera.enabled);
+            thirdPersonAim.SetActive(!Gun_Camera_Script.Gun_Camera.enabled);
 
-            // Set the scale.
-            if (reticleImage.enabled)
+            if (reticleObject.activeInHierarchy)
             {
                 // Change the scale according to the FOV.
                 var currentScale = Gun_Camera_Script.Maximum_FOV / Gun_Camera_Script.Gun_Camera.fieldOfView;
-                reticleImage.rectTransform.localScale = Vector3.one * currentScale;
+                reticleImage.localScale = Vector3.one * currentScale;
             }
         }
 
@@ -81,7 +56,7 @@ namespace ChobiAssets.PTM
                 if (this.isSelected)
                 { // This tank is selected until now.
                     this.isSelected = false;
-                    reticleImage.enabled = false;
+                    reticleObject.SetActive(false);
                 }
             }
         }
@@ -93,7 +68,7 @@ namespace ChobiAssets.PTM
             // Turn off the image.
             if (isSelected)
             {
-                reticleImage.enabled = false;
+                reticleObject.SetActive(false);
             }
 
             Destroy(this);

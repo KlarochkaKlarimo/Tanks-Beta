@@ -5,7 +5,7 @@ using UnityEditor;
 namespace ChobiAssets.PTM
 {
 
-	[ CustomEditor (typeof(Reticle_Control_CS))]
+	//[ CustomEditor (typeof(Reticle_Control_CS))]
 	public class Reticle_Control_CSEditor : Editor
 	{
 
