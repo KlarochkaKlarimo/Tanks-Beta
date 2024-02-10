@@ -17,6 +17,11 @@ public class LaserRangeFinder : MonoBehaviour
             {
                 Debug.DrawRay(_raycastestartPoint.position, _raycastestartPoint.TransformDirection(Vector3.forward) * hit.distance, Color.green, 14f);
                 _rangeFinderDistance.text = hit.distance.ToString();
+                var lws = hit.transform.gameObject.GetComponent<LWSSector>();
+                if (lws != null)
+                {
+                    lws.LaserWarning();
+                }
             }
             else
             {
