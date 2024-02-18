@@ -16,7 +16,8 @@ public class LaserRangeFinder : MonoBehaviour
             if (Physics.Raycast(_raycastestartPoint.position, _raycastestartPoint.TransformDirection(Vector3.forward), out hit, 1000f))
             {
                 Debug.DrawRay(_raycastestartPoint.position, _raycastestartPoint.TransformDirection(Vector3.forward) * hit.distance, Color.green, 14f);
-                _rangeFinderDistance.text = hit.distance.ToString();
+                int metrDist = (int)hit.distance;               
+                _rangeFinderDistance.text = metrDist.ToString();
                 var lws = hit.transform.gameObject.GetComponent<LWSSector>();
                 if (lws != null)
                 {

@@ -9,7 +9,7 @@ public class ModulCaptain : CharacterBase
     public override void modulDamaged()
     {
         base.modulDamaged();
-        _enemyVision.distance /=2;
+        //_enemyVision.distance /=2;
     }
 
     public override void modulDestroyed()
@@ -17,10 +17,10 @@ public class ModulCaptain : CharacterBase
         base.modulDestroyed();
         if (isModelDamaged)
         {
-            _enemyVision.distance /= 2;
+            //_enemyVision.distance /= 2;
             return;
         }
-        _enemyVision.distance /= 2;
+        //_enemyVision.distance /= 2;
     }
 
     

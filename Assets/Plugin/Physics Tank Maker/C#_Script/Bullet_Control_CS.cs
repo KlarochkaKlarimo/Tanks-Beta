@@ -20,7 +20,13 @@ namespace ChobiAssets.PTM
         [SerializeField] protected Transform _fragmentsParent;
         [SerializeField] protected int modulDamage;
         [SerializeField] protected int _penetrationDamage;
-
+        [SerializeField] protected float distanceWithoutPenetrationReductionByDistance;
+        [SerializeField] protected float penetrationReductionByDistance; // X mm for 100 meterts
+        [SerializeField] protected float _minimalPenetrationDamage = 100f;
+        [SerializeField] protected float _fragmentDistance = 10;
+        protected float _penetrationKoeficent = 5;
+        private float _maximumDamageForAllFragments;
+        
         private Vector3 _destination;
         [SerializeField] private Transform _shootPoint;
         [SerializeField] private float _noControlAtgmDistance;
@@ -28,8 +34,12 @@ namespace ChobiAssets.PTM
         private bool isControlled = true;
         [SerializeField] private float speed;
 
+        public Vector3 collisionPosition;
+        public Vector3 startPosition;
+        private float _shotDis;
+
         // User options >>
-		private Rigidbody rigibody;
+        private Rigidbody rigibody;
 		// Only for AP
 		public GameObject Impact_Object;
 		public GameObject Ricochet_Object;
@@ -50,8 +60,10 @@ namespace ChobiAssets.PTM
 
         void Start()
 		{
-			Initialize();
-		}
+            startPosition = transform.position;
+            Initialize();
+            _maximumDamageForAllFragments = _penetrationDamage/_penetrationKoeficent;
+        }
 
         public void SetShootPoint(Transform shootPoint)
         {
@@ -97,15 +109,22 @@ namespace ChobiAssets.PTM
             Destroy(this.gameObject, Life_Time);
         }
 
-        private void SpawnFragments()
+        private void SpawnFragments(float damageDone)
         {
             Debug.Log("spawn fragments");
             int layerMask = LayerMask.GetMask("ignoreAll");
             //_fragmentsParent.DetachChildren();
+            var i = 0f;
+            var fragmentsCount = damageDone / (_maximumDamageForAllFragments/fragments.Length);
+            var finelFragmentDistance = damageDone/(_maximumDamageForAllFragments/_fragmentDistance);
             foreach (Transform fragment in fragments)
             {
+                if (i>fragmentsCount)
+                {
+                    break;
+                }
                 RaycastHit hit;
-                if (Physics.Raycast(fragment.position, fragment.TransformDirection(Vector3.forward), out hit, 10f, layerMask))
+                if (Physics.Raycast(fragment.position, fragment.TransformDirection(Vector3.forward), out hit, finelFragmentDistance, layerMask))
                 {
                     Debug.DrawRay(fragment.position, fragment.TransformDirection(Vector3.forward) * hit.distance, Color.red, 14f);
                     Debug.Log("Did Hit "+ hit.transform.name);
@@ -119,9 +138,10 @@ namespace ChobiAssets.PTM
                 }
                 else
                 {
-                    Debug.DrawRay(fragment.position, fragment.TransformDirection(Vector3.forward) * 10f, Color.yellow, 14f);
+                    Debug.DrawRay(fragment.position, fragment.TransformDirection(Vector3.forward) * finelFragmentDistance, Color.yellow, 14f);
                     Debug.Log("Did not Hit");
                 }
+                i++;
             }
             // DestroyBullet();
         }
@@ -144,7 +164,11 @@ namespace ChobiAssets.PTM
         { // The collision has been detected by the physics engine.
             if (isLiving)
             {
-                // Start the hit process.
+                collisionPosition = transform.position;                                               
+                var shotDis = Vector3.Distance(startPosition, collisionPosition);
+                Debug.Log(shotDis);
+                _shotDis = shotDis;               
+                //Start the hit process.
                 switch (settings.bulletType)
                 {
                     case BulletType.APFSDS: // AP
@@ -156,6 +180,17 @@ namespace ChobiAssets.PTM
                         break;
                 }
             }
+        }
+       
+        private float CaculatePenetratiomDamage()
+        {
+            //tut budet samo snijenie penetracii
+            if (_shotDis > distanceWithoutPenetrationReductionByDistance)
+            {                
+                float _raznost = _shotDis - distanceWithoutPenetrationReductionByDistance;
+                return Mathf.Clamp(_penetrationDamage - ((_raznost/100f) * penetrationReductionByDistance), _minimalPenetrationDamage, 100000f);
+            }
+            return 0;
         }
 
         private void DamageSystem(Collision hitObject, float hitVelocity, Vector3 hitNormal)
@@ -195,15 +230,18 @@ namespace ChobiAssets.PTM
                         Instantiate(Impact_Object, transform.position, Quaternion.identity);
                     }
                     return; 
-                }              
-                var angle = Math.Abs(90 - (Vector3.Angle(transform.forward, hitObject.contacts[0].normal)));
-                var isPinetrate = (_penetrationDamage-(armor.GetThicknes() / Math.Abs(Mathf.Cos(angle)))) > 0;
+                }
+                //SISTEMA RASCHETA UGLA, VLAD JDEM FIX!!!!!!!
 
-                Debug.Log("isPinetrate " + isPinetrate + " angle " + angle);
-                if (isPinetrate)
+                //var angle = Math.Abs(90 - (Vector3.Angle(transform.forward, hitObject.contacts[0].normal)));
+                //var isPinetrate = (_penetrationDamage-(armor.GetThicknes() / Math.Abs(Mathf.Cos(angle)))) > 0;
+                var isPinetrate = CaculatePenetratiomDamage()-armor.GetThicknes();
+                
+                Debug.Log("isPinetrate " + isPinetrate  /*" angle " + angle*/);
+                if (isPinetrate>0)
                 {
                     _fragmentsParent.position = hitObject.GetContact(0).point;
-                    SpawnFragments();
+                    SpawnFragments(isPinetrate);
                 }
                 else
                 {

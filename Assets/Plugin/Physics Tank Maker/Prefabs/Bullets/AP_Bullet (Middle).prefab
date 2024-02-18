@@ -49,6 +49,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c915da268e2a0e445a7e5361247aba1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settings:
+    prefab: {fileID: 0}
+    attackPoint: 500
+    initialVelocity: 500
+    bulletType: 0
+    bulletName: 
   fragments:
   - {fileID: 4391957750913259182}
   - {fileID: 7535678161491671980}
@@ -75,20 +81,21 @@ MonoBehaviour:
   _fragmentsParent: {fileID: 315111657562301401}
   modulDamage: 10
   _penetrationDamage: 600
+  distanceWithoutPenetrationReductionByDistance: 100
+  penetrationReductionByDistance: 25
+  _minimalPenetrationDamage: 0
+  _fragmentDistance: 5
   _shootPoint: {fileID: 0}
   _noControlAtgmDistance: 0
   _rotationSpeed: 0
   speed: 0
-  Type: 0
-  This_Transform: {fileID: 4498786755513422}
-  This_Rigidbody: {fileID: 54414218098899862}
+  collisionPosition: {x: 0, y: 0, z: 0}
+  startPosition: {x: 0, y: 0, z: 0}
   Impact_Object: {fileID: 100002, guid: 72030033b64967e4bbec5567f3b85265, type: 3}
   Ricochet_Object: {fileID: 100002, guid: a51a6509c21644941812537f2bbaaff1, type: 3}
   Explosion_Object: {fileID: 0}
   Explosion_Force: 0
   Explosion_Radius: 0
-  Attack_Point: 0
-  Initial_Velocity: 0
   Life_Time: 0
   Attack_Multiplier: 1
   Debug_Flag: 0

@@ -15,6 +15,7 @@ namespace ChobiAssets.PTM
         public float initialVelocity = 500f;
         public BulletType bulletType;
         public string bulletName;
+
     }
 
     [Serializable]
@@ -39,7 +40,7 @@ namespace ChobiAssets.PTM
      
         public GameObject MuzzleFire_Object;
 
-        public BulletSettings [] bullets;
+        public BulletSettings [] bullets;        
 
         public float Life_Time = 5.0f;
         public int Initial_Bullet_Type = 0;
@@ -85,13 +86,15 @@ namespace ChobiAssets.PTM
         }
 
         IEnumerator Generate_Bullet()
-        {           
+        {
+            
             if (MuzzleFire_Object)
             {
                 Instantiate(MuzzleFire_Object, transform.position, transform.rotation, transform);
             }     
             var currentBullet = bullets[currentBulletType];
-            var bulletObject = Instantiate(currentBullet.prefab, transform.position + (transform.forward * Offset), transform.rotation) as GameObject;                      
+            var bulletObject = Instantiate(currentBullet.prefab, transform.position + (transform.forward * Offset), transform.rotation) as GameObject;
+            
 
             // Set values of "Bullet_Control_CS" in the bullet.
             Bullet_Control_CS bulletScript = bulletObject.GetComponent<Bullet_Control_CS>();
