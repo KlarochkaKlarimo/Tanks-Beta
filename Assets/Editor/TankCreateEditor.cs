@@ -146,6 +146,7 @@ public class TankCreateEditor : EditorWindow
         Vector3 GetOffset(string name) { return _meshew.transform.GetChild(0).Find(name).transform.localPosition; }
         void FindTankElement(ref Mesh mesh, ref Material[] materials, string elementName)
         {
+            var parent = _meshew.transform.GetChild(0);
             var element = _meshew.transform.GetChild(0).Find(elementName);
             if (element != null)
             {
