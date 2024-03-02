@@ -3,7 +3,6 @@ using UnityEngine;
 using ChobiAssets.PTM;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
-using System.Linq;
 
 public class TankCreateEditor : EditorWindow
 {
@@ -158,6 +157,18 @@ public class TankCreateEditor : EditorWindow
         }
         void Find(ref GameObject _object, string objName)
         {
+            var objs = FindObjectsOfType<ObjectToFind>();
+            Debug.Log("lenght " + objs.Length);
+            foreach (var obj in objs) 
+            {
+                if (obj.GetResources().type == ObjectType.body)
+                {
+                    var resours = obj.GetResources();
+                    _mainBodyMesh = resours._mesh;
+                    _mainBodyMaterials = resours._materials;
+                    Debug.Log("obj type " + resours.type);
+                }
+            }
             for (int i = 0; i < SceneManager.sceneCount; i++)
             {
                 var s = SceneManager.GetSceneAt(i);
