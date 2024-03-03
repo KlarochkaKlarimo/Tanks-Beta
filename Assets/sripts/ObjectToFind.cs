@@ -26,5 +26,14 @@ public class ObjectResources
 public enum ObjectType
 {
     body,
-    tower
+    turret,
+    cannon,
+    barrel,
+    track,
+    spoketWheel,
+    idlerWheel,
+    suspentionR,
+    suspentionL,
+    Wheel
+
 }
