@@ -18,9 +18,16 @@ public class ObjectResources
     public ObjectType type;
     public ObjectResources(GameObject resourceObject, ObjectType _type)
     {
-        _mesh = resourceObject.GetComponent<MeshFilter>().mesh;
-        _materials = resourceObject.GetComponent<MeshRenderer>().materials;
-        type = _type;
+        try 
+        {
+            _mesh = resourceObject.GetComponent<MeshFilter>().mesh;
+            _materials = resourceObject.GetComponent<MeshRenderer>().materials;
+            type = _type;
+        }
+        catch 
+        {
+            Debug.Log(resourceObject.name);
+        }
     }
 }
 public enum ObjectType

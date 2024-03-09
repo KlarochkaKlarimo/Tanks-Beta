@@ -73,8 +73,8 @@ MonoBehaviour:
   Impact_Object: {fileID: 0}
   Ricochet_Object: {fileID: 0}
   Explosion_Object: {fileID: 100006, guid: 7fdd24647c3016946841cfd2c48c2f3e, type: 3}
-  Explosion_Force: 9000000
-  Explosion_Radius: 10
+  Explosion_Force: 90000000
+  Explosion_Radius: 30
   Life_Time: 0
   Attack_Multiplier: 1
   Debug_Flag: 0
