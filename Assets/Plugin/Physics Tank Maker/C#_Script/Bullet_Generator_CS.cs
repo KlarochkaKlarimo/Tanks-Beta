@@ -106,7 +106,7 @@ namespace ChobiAssets.PTM
             bulletObject.tag = "Finish"; // (Note.) The ray cast for aiming does not hit any object with "Finish" tag.
 
             bulletObject.layer = Layer_Settings_CS.Bullet_Layer;
-            if (currentBulletType == 2)
+            if (bullets[currentBulletType].bulletType == BulletType.ATGM)
             {
                 bulletScript.SetShootPoint(transform);
                 yield break;

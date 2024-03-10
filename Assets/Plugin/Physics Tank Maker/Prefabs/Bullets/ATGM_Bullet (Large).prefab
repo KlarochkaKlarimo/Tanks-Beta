@@ -104,8 +104,8 @@ MonoBehaviour:
   _minimalPenetrationDamage: 100
   _fragmentDistance: 10
   _shootPoint: {fileID: 0}
-  _noControlAtgmDistance: 1000
-  _rotationSpeed: 100
+  _noControlAtgmDistance: 4000
+  _rotationSpeed: 30
   speed: 300
   collisionPosition: {x: 0, y: 0, z: 0}
   startPosition: {x: 0, y: 0, z: 0}
