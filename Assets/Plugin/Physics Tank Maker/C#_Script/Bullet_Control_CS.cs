@@ -190,7 +190,7 @@ namespace ChobiAssets.PTM
                 float _raznost = _shotDis - distanceWithoutPenetrationReductionByDistance;
                 return Mathf.Clamp(_penetrationDamage - ((_raznost/100f) * penetrationReductionByDistance), _minimalPenetrationDamage, 100000f);
             }
-            return 0;
+            return _penetrationDamage;
         }
 
         private void DamageSystem(Collision hitObject, float hitVelocity, Vector3 hitNormal)
@@ -207,7 +207,7 @@ namespace ChobiAssets.PTM
                     Debug.DrawRay(gameObject.transform.position, gameObject.transform.TransformDirection(Vector3.forward) * hit.distance, Color.red, 14f);
                     Debug.Log("Did Hit " + hit.transform.name);
                     var armor = hit.transform.GetComponent<armor_panel>();
-                    HitArmor(armor);
+                    HitArmor(armor, hitObject);
                 }
                 else
                 {
@@ -219,14 +219,14 @@ namespace ChobiAssets.PTM
             else
             {              
                 var armor = hitObject.collider.gameObject.GetComponent<armor_panel>();
-                HitArmor(armor);
+                HitArmor(armor, hitObject);
             }
-            void HitArmor(armor_panel armor)
+            void HitArmor(armor_panel armor, Collision collision)
             {
                 if (armor == null)
                 {
                     if (Impact_Object)
-                    {
+                    {                      
                         Instantiate(Impact_Object, transform.position, Quaternion.identity);
                     }
                     return; 
@@ -235,8 +235,16 @@ namespace ChobiAssets.PTM
 
                 //var angle = Math.Abs(90 - (Vector3.Angle(transform.forward, hitObject.contacts[0].normal)));
                 //var isPinetrate = (_penetrationDamage-(armor.GetThicknes() / Math.Abs(Mathf.Cos(angle)))) > 0;
-                var isPinetrate = CaculatePenetratiomDamage()-armor.GetThicknes();
-                
+                var contactNormal = collision.contacts[0].normal;
+                var bulletTraektractor = gameObject.transform.TransformDirection(Vector3.back);
+
+                Debug.DrawRay(collision.contacts[0].point, contactNormal * 10, Color.cyan, 14f);
+                Debug.DrawRay(collision.contacts[0].point, bulletTraektractor * 10, Color.green, 14f);
+
+                var angle = Vector3.Angle(contactNormal, bulletTraektractor);
+                var privedennayaArmor = Math.Abs(armor.GetThicknes() / Mathf.Cos(angle));
+                var isPinetrate = CaculatePenetratiomDamage()-privedennayaArmor;
+                Debug.Log("ugol" + angle);
                 Debug.Log("isPinetrate " + isPinetrate  /*" angle " + angle*/);
                 if (isPinetrate>0)
                 {
