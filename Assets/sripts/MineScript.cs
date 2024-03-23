@@ -24,7 +24,6 @@ public class MineScript : MonoBehaviour
             _hasCollided = true;
             StartCoroutine(ExplodeAfterDelay());            
         }
-
     }
     
     private IEnumerator ExplodeAfterDelay()
