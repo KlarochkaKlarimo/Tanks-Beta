@@ -193,12 +193,13 @@ namespace ChobiAssets.PTM
             return _penetrationDamage;
         }
 
-        private void DamageSystem(Collision hitObject, float hitVelocity, Vector3 hitNormal)
+        private void DamageSystem(Collision collision, float hitVelocity, Vector3 hitNormal)
         {
-            var DZ = hitObject.collider.gameObject.GetComponent<ExplosiveReactiveArmour>();
+            var hitObject = collision.collider;
+            var DZ = hitObject.gameObject.GetComponent<ExplosiveReactiveArmour>();
             if (DZ != null)
             {
-                hitObject.collider.enabled = false;
+                hitObject.enabled = false;
                 DamageReduction(DZ.GetModulDamage(settings.bulletType), DZ.GetPenitrationDamage(settings.bulletType));               
                 RaycastHit hit;
 
@@ -207,19 +208,19 @@ namespace ChobiAssets.PTM
                     Debug.DrawRay(gameObject.transform.position, gameObject.transform.TransformDirection(Vector3.forward) * hit.distance, Color.red, 14f);
                     Debug.Log("Did Hit " + hit.transform.name);
                     var armor = hit.transform.GetComponent<armor_panel>();
-                    HitArmor(armor, hitObject);
+                    HitArmor(armor, collision);
                 }
                 else
                 {
                     Debug.DrawRay(gameObject.transform.position, gameObject.transform.TransformDirection(Vector3.forward) * 100f, Color.yellow, 14f);
                     Debug.Log("Did not Hit");
                 }
-                Destroy(hitObject.collider.gameObject);
+                Destroy(hitObject.gameObject);
             }
             else
             {              
-                var armor = hitObject.collider.gameObject.GetComponent<armor_panel>();
-                HitArmor(armor, hitObject);
+                var armor = hitObject.gameObject.GetComponent<armor_panel>();
+                HitArmor(armor, collision);
             }
             void HitArmor(armor_panel armor, Collision collision)
             {
@@ -248,7 +249,7 @@ namespace ChobiAssets.PTM
                 Debug.Log("isPinetrate " + isPinetrate  /*" angle " + angle*/);
                 if (isPinetrate>0)
                 {
-                    _fragmentsParent.position = hitObject.GetContact(0).point;
+                    _fragmentsParent.position = collision.GetContact(0).point;
                     SpawnFragments(isPinetrate);
                 }
                 else
