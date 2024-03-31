@@ -243,8 +243,16 @@ namespace ChobiAssets.PTM
                 Debug.DrawRay(collision.contacts[0].point, bulletTraektractor * 10, Color.green, 14f);
 
                 var angle = Vector3.Angle(contactNormal, bulletTraektractor);
-                var privedennayaArmor = Math.Abs(armor.GetThicknes() / (Mathf.Cos(90-angle))); //Z = A/Cos(90-B) A=Armor, B=Ugol
+
+                float privedennayaArmor = armor.GetThicknes();
+                if (angle != 0)
+                {
+                    var radianAngle = Mathf.Deg2Rad * angle;
+                    var cos = Mathf.Cos(radianAngle);
+                    privedennayaArmor /= cos; //Z = A/Cos(90-B) A=Armor, B=Ugol
+                }
                 var isPinetrate = CaculatePenetratiomDamage()-privedennayaArmor;
+
                 Debug.Log("privedenka" + privedennayaArmor);
                 Debug.Log("isPinetrate " + isPinetrate  /*" angle " + angle*/);
                 if (isPinetrate>0)
