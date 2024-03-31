@@ -1,0 +1,2 @@
+Minor Fix:
+* Removed /Assets/DestroyIt/Scripts/Helpers/HideFlagsUtility.cs to prevent build errors. This file was not needed for DestroyIt users, it was only used by me during development to show hidden files in the scene.

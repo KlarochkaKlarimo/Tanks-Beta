@@ -377,7 +377,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3296114561043696449}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: 'OBPS '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1159,7 +1159,7 @@ GameObject:
   - component: {fileID: 2180878029622310994}
   - component: {fileID: 7280445520937474011}
   - component: {fileID: 8270643242438897295}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: model_477
   m_TagString: Untagged
   m_Icon: {fileID: 0}
