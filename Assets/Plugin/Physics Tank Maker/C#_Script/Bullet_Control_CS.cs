@@ -33,6 +33,7 @@ namespace ChobiAssets.PTM
         [SerializeField] private float _rotationSpeed;
         private bool isControlled = true;
         [SerializeField] private float speed;
+        [SerializeField] private GameObject _ricochetEffect;
 
         public Vector3 collisionPosition;
         public Vector3 startPosition;
@@ -127,6 +128,30 @@ namespace ChobiAssets.PTM
                 if (Physics.Raycast(fragment.position, fragment.TransformDirection(Vector3.forward), out hit, finelFragmentDistance, layerMask))
                 {
                     Debug.DrawRay(fragment.position, fragment.TransformDirection(Vector3.forward) * hit.distance, Color.red, 14f);
+                    var ASA = hit.transform.GetComponent<AntiSplinterArmor>();
+                    if (ASA != null)
+                    {
+                        if (ASA.IsBulletStopped() == false)
+                        {
+                            RaycastHit hitASA;
+                            if (Physics.Raycast(hit.point, fragment.TransformDirection(Vector3.forward), out hitASA, finelFragmentDistance, hit.transform.gameObject.layer))
+                            {
+                                Debug.DrawRay(fragment.position, fragment.TransformDirection(Vector3.forward) * hit.distance, Color.magenta, 14f);
+                                var modul2 = hit.transform.GetComponent<ModulBase>();
+                                if (modul2 != null)
+                                {
+                                    Debug.Log("Modul Hit " + modul2.name);
+                                    modul2.setBullet(this);
+                                    modul2.GetDamage(_fragmentsModulDamage);
+                                }
+                            }
+                            else
+                            {
+                                Debug.DrawRay(hit.point, fragment.TransformDirection(Vector3.forward) * finelFragmentDistance, Color.white, 14f);
+                                Debug.Log("Did not Hit");
+                            }
+                        }
+                    }
                     Debug.Log("Did Hit "+ hit.transform.name);
                     var modul = hit.transform.GetComponent<ModulBase>();
                     if (modul != null)
@@ -243,6 +268,11 @@ namespace ChobiAssets.PTM
                 Debug.DrawRay(collision.contacts[0].point, bulletTraektractor * 10, Color.green, 14f);
 
                 var angle = Vector3.Angle(contactNormal, bulletTraektractor);
+                if (settings.bulletType == BulletType.APFSDS && angle >= 70)
+                {
+                    Instantiate(_ricochetEffect, transform.position, Quaternion.identity);
+                    return;
+                }
 
                 float privedennayaArmor = armor.GetThicknes();
                 if (angle != 0)
@@ -264,7 +294,7 @@ namespace ChobiAssets.PTM
                 {
                     Debug.Log("Not penitrate");
                 }
-                
+                DestroyProjectile();
             }
         }
 
@@ -286,17 +316,13 @@ namespace ChobiAssets.PTM
         void ExplosiveProjectile (Collision hitObject, float hitVelocity, Vector3 hitNormal)
         {
             isLiving = false;
-            if (Explosion_Object)
-            {
-                Instantiate(Explosion_Object, transform.position, Quaternion.identity);
-            }
-
+            
             DamageSystem(hitObject, hitVelocity, hitNormal);
 
             // Remove the useless components.
-            Destroy(GetComponent<Renderer>());
-            Destroy(GetComponent<Rigidbody>());
-            Destroy(GetComponent<Collider>());
+            //Destroy(GetComponent<Renderer>());
+            //Destroy(GetComponent<Rigidbody>());
+            //Destroy(GetComponent<Collider>());
 
             // Add the explosion force to the objects within the explosion radius.
             var colliders = Physics.OverlapSphere(transform.position, Explosion_Radius, Layer_Settings_CS.Layer_Mask);
@@ -305,7 +331,7 @@ namespace ChobiAssets.PTM
                 Add_Explosion_Force(colliders[i]);
             }
 
-            Destroy(gameObject, 0.01f * Explosion_Radius);
+            DestroyProjectile();
 
             void Add_Explosion_Force(Collider collider)
             {
@@ -349,10 +375,7 @@ namespace ChobiAssets.PTM
                     }
                 }
             }
-        }
-
-
-       
+        }      
         public void DamageReduction(int modulReducation, int penetrationReducation)
         {
             modulDamage = Mathf.Clamp(modulDamage - modulReducation, 0, 10000);
@@ -360,9 +383,17 @@ namespace ChobiAssets.PTM
             Debug.Log("Modul damaged" + modulDamage + "penetration damage" + _penetrationDamage);
             if (_penetrationDamage <=0)
             {
-                Destroy(gameObject);
+                DestroyProjectile();
             }
         }
-    }
 
+        private void DestroyProjectile()
+        {
+            if (Explosion_Object)
+            {
+                Instantiate(Explosion_Object, transform.position, Quaternion.identity);
+            }
+            Destroy(gameObject);
+        }
+    }
 }

@@ -89,11 +89,12 @@ MonoBehaviour:
   _noControlAtgmDistance: 0
   _rotationSpeed: 0
   speed: 0
+  _ricochetEffect: {fileID: 100002, guid: a51a6509c21644941812537f2bbaaff1, type: 3}
   collisionPosition: {x: 0, y: 0, z: 0}
   startPosition: {x: 0, y: 0, z: 0}
   Impact_Object: {fileID: 100002, guid: 72030033b64967e4bbec5567f3b85265, type: 3}
   Ricochet_Object: {fileID: 100002, guid: a51a6509c21644941812537f2bbaaff1, type: 3}
-  Explosion_Object: {fileID: 0}
+  Explosion_Object: {fileID: 100006, guid: 0bb6a1fd7fd4ad142a123234c430dcd6, type: 3}
   Explosion_Force: 0
   Explosion_Radius: 0
   Life_Time: 0
