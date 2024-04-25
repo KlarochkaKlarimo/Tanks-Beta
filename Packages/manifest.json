@@ -13,6 +13,7 @@
     "com.unity.postprocessing": "3.2.2",
     "com.unity.probuilder": "5.2.0",
     "com.unity.progrids": "3.0.3-preview.4",
+    "com.unity.render-pipelines.high-definition": "14.0.9",
     "com.unity.render-pipelines.universal": "14.0.9",
     "com.unity.shadergraph": "14.0.9",
     "com.unity.terrain-tools": "5.0.1",
