@@ -2,16 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ChobiAssets.PTM;
+using System;
 
 public class TrackSystem : MonoBehaviour
 {
     [SerializeField] private GameObject[] _tracks;  
     [SerializeField] private Rigidbody _rb;
-    [SerializeField] private float _maxTankSpeedForTrackReap;
+    [SerializeField] private float _XmaxTankSpeedForTrackReap;
+    [SerializeField] private float _YmaxTankSpeedForTrackReap;
     private bool _isReaped;
     private Collision _collision;
     [SerializeField] private Static_Track_Parent_CS _trackParent;
-
+    [SerializeField] Vector3 _velocity;
     [SerializeField] private Collider[] _collidersToIgnore;
 
     private void Awake()
@@ -25,6 +27,8 @@ public class TrackSystem : MonoBehaviour
 
     void Update()
     {
+        _velocity = _rb.velocity;
+
         if (_isReaped)
         {
             return;
@@ -71,9 +75,24 @@ public class TrackSystem : MonoBehaviour
             return;
         }
 
-        if (_rb.velocity.sqrMagnitude > _maxTankSpeedForTrackReap)
+        if (_collision.relativeVelocity.magnitude > _XmaxTankSpeedForTrackReap)
         {
             DestroyTrack();
         }
+
+        //if (Mathf.Abs(_rb.velocity.x) > _XmaxTankSpeedForTrackReap)
+        //{
+        //    DestroyTrack();
+        //}
+
+        //if (Mathf.Abs(_rb.velocity.y)> _YmaxTankSpeedForTrackReap)
+        //{
+        //    DestroyTrack();
+        //}
+
+        //if (Mathf.Abs(_rb.velocity.z) > _XmaxTankSpeedForTrackReap)
+        //{
+        //    DestroyTrack();
+        //}
     }
 }
