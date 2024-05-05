@@ -88,14 +88,20 @@ public class TankCreateEditor : EditorWindow
         csw.Create();
 
 
-        var ctb = _vehicle.GetComponentInChildren<Create_TrackBelt_CS>();
-        if (ctb != null)
+        //   var ctb = _vehicle.GetComponentInChildren<Create_TrackBelt_CS>();
+        var tracs = _vehicle.GetComponentInChildren<Static_Track_Parent_CS>().GetComponentsInChildren<Static_Track_Piece_CS>();
+        foreach (var track in tracs)
         {
-            ctb.Track_L_Mesh = _trackBeltMesh;
-            ctb.Track_Materials = _trackBeltMaterial;
-            ctb.Track_Materials_Num = _trackBeltMaterial.Length;
-            ctb.Create();
+            var mesh = track.gameObject.GetComponent<MeshFilter>().mesh = _trackBeltMesh;
+            track.gameObject.GetComponent<MeshRenderer>().materials = _trackBeltMaterial;
         }
+        //if (ctb != null)
+        //{
+        //    ctb.Track_L_Mesh = _trackBeltMesh;
+        //    ctb.Track_Materials = _trackBeltMaterial;
+        //    ctb.Track_Materials_Num = _trackBeltMaterial.Length;
+        //    ctb.Create();
+        //}
        
         var bb = _vehicle.GetComponentInChildren<Barrel_Base_CS>();
         bb.Part_Mesh = _barrelMesh;
