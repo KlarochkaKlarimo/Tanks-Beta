@@ -13,20 +13,20 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - Lighting
-  - Ground
-  - Postprocessing
   - modul
-  - bullet
   - bulletIgnore
-  - armor
+  - Lighting
+  - Wheels
+  - Reinforce
+  - mainBody
+  - bullet
+  - trackCollider
+  - ExtraCollier
   - heat
-  - ignorevse
-  - vrag
   - ignoreAll
+  - Ground
   - Post processig
+  - IgnorGround
   - SPO
   - Laser
   - DestroyItDebris
