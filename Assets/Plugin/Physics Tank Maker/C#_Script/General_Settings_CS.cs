@@ -94,7 +94,7 @@ namespace ChobiAssets.PTM
 
         // Aim Keyboard + Mouse settings.
         public static KeyCode Aim_Mode_Switch_Key = KeyCode.Mouse2;
-        public static KeyCode Turret_Cancel_Key = KeyCode.Space;
+        public static KeyCode Turret_Cancel_Key = KeyCode.LeftBracket;
         public static KeyCode Aim_Lock_On_Left_Key = KeyCode.Q;
         public static KeyCode Aim_Lock_On_Right_Key = KeyCode.E;
         public static KeyCode Aim_Lock_On_Front_Key = KeyCode.Alpha2;
