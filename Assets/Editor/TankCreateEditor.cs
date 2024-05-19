@@ -80,9 +80,8 @@ public class TankCreateEditor : EditorWindow
 
         var ciw = _vehicle.GetComponentInChildren<Create_IdlerWheel_CS>();
         ciw.Wheel_Mesh = _IdlerWheelMesh;
-        ciw.Wheel_Materials[0] = _IdlerWheelMaterials[0];
+        ciw.Wheel_Materials = _IdlerWheelMaterials;
         ciw.Wheel_Materials_Num = _IdlerWheelMaterials.Length;
-        ciw.Wheel_Material = _IdlerWheelMaterials[0];
         ciw.Create();
 
         var csw = _vehicle.GetComponentInChildren<Create_SprocketWheel_CS>();

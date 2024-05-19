@@ -18,7 +18,7 @@ public class MineScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        var wheel = collision.collider.gameObject.GetComponent<Damage_Control_03_Physics_Track_Piece_CS>();
+        var wheel = collision.collider.gameObject.GetComponent<TrackColider>();
         if (!_hasCollided && wheel!=null)
         {
             _hasCollided = true;
