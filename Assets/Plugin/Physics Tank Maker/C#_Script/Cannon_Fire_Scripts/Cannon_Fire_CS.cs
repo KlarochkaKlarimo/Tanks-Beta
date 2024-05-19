@@ -43,7 +43,6 @@ namespace ChobiAssets.PTM
         public void CannonDamage()
         {
             _isCannonDamaged = true;
-
         }
 
         public void DamagedBreachGun()
