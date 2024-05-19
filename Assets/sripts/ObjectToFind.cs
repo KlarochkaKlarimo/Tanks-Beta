@@ -1,7 +1,4 @@
 using UnityEngine;
-
-[RequireComponent(typeof(MeshFilter))]
-[RequireComponent(typeof(MeshRenderer))]
 public class ObjectToFind : MonoBehaviour
 {
     [SerializeField] private ObjectType type;
@@ -9,6 +6,8 @@ public class ObjectToFind : MonoBehaviour
     {
         Destroy(this);
     }
+    public ObjectType GetType() { return type; }
+    
     public ObjectResources GetResources(){return new ObjectResources(gameObject, type);}
 }
 public class ObjectResources
@@ -41,6 +40,9 @@ public enum ObjectType
     idlerWheel,
     suspentionR,
     suspentionL,
-    Wheel
+    Wheel,
+    Tank,
+    ERA,
+    newTank
 
 }

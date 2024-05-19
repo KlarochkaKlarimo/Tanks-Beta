@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class TankCreateEditor : EditorWindow
 {
     private GameObject _vehicle;
-    private GameObject _meshew;
+    private Transform _newVenicle;
 
     private Mesh _roadWheelMesh;
     private Material[] _roadWheelMaterials;
@@ -37,6 +37,8 @@ public class TankCreateEditor : EditorWindow
     private Mesh _mainBodyMesh;
     public Material[] _mainBodyMaterials;
 
+    private Vector3 _wheelsInitialAngles;
+
     [MenuItem("TankBeta/TankCreateEditor")]
     public static void ShowWindow()
     {
@@ -54,16 +56,19 @@ public class TankCreateEditor : EditorWindow
 
     private void Create()
     {
-        Find(ref _vehicle,"Tank");
+        Find();
+        if (_vehicle == null)
+        {
+            Debug.LogError("cant find veicle");
+            return; 
+        }
+
         var turretOffset = GetOffset(ObjectType.turret);
         var cannonOffset = GetOffset(ObjectType.cannon);
         var barrelOffset = GetOffset(ObjectType.barrel);
 
-        //SetElements(new List<string>() { "Wheel", "IdlerWheel", "SpoketWheel", "Track", "Barrel", "Turret", "Cannon" }, new List<string>() { "ERA" });
-        //_mainBodyMesh = _meshew.transform.GetChild(0).GetComponent<MeshFilter>().mesh;
-        //_mainBodyMaterials = _meshew.transform.GetChild(0).GetComponent<MeshRenderer>().materials;
-
         var crw = _vehicle.GetComponentInChildren<Create_RoadWheel_CS>();
+        crw.wheelsInitialAngles = _wheelsInitialAngles;
         crw.Wheel_Mesh = _roadWheelMesh;
         crw.Sus_L_Mesh = _suspensionLMesh;
         crw.Sus_R_Mesh = _suspensionRMesh;
@@ -87,22 +92,15 @@ public class TankCreateEditor : EditorWindow
         csw.Wheel_Materials = _spoketWheelMaterial;
         csw.Create();
 
-
-        //   var ctb = _vehicle.GetComponentInChildren<Create_TrackBelt_CS>();
         var tracs = _vehicle.GetComponentInChildren<Static_Track_Parent_CS>().GetComponentsInChildren<Static_Track_Piece_CS>();
-        foreach (var track in tracs)
+        if (tracs != null)
         {
-            var mesh = track.gameObject.GetComponent<MeshFilter>().mesh = _trackBeltMesh;
-            track.gameObject.GetComponent<MeshRenderer>().materials = _trackBeltMaterial;
+            foreach (var track in tracs)
+            {
+                track.gameObject.GetComponent<MeshFilter>().mesh = _trackBeltMesh;
+                track.gameObject.GetComponent<MeshRenderer>().materials = _trackBeltMaterial;
+            }
         }
-        //if (ctb != null)
-        //{
-        //    ctb.Track_L_Mesh = _trackBeltMesh;
-        //    ctb.Track_Materials = _trackBeltMaterial;
-        //    ctb.Track_Materials_Num = _trackBeltMaterial.Length;
-        //    ctb.Create();
-        //}
-       
         var bb = _vehicle.GetComponentInChildren<Barrel_Base_CS>();
         bb.Part_Mesh = _barrelMesh;
         bb.Part_Material = _barrelMaterials[0];
@@ -139,7 +137,6 @@ public class TankCreateEditor : EditorWindow
 
         Vector3 GetOffset(ObjectType type)
         {
-            /*_meshew.transform.GetChild(0).Find(name).transform.localPosition; */
             var objs = FindObjectsOfType<ObjectToFind>();          
             foreach (var obj in objs)
             {
@@ -151,127 +148,76 @@ public class TankCreateEditor : EditorWindow
             }
             return Vector3.zero;
         }
-        void FindTankElement(ref Mesh mesh, ref Material[] materials, string elementName)
-        {
-            var parent = _meshew.transform.GetChild(0);
-            var element = _meshew.transform.GetChild(0).Find(elementName);
-            if (element != null)
-            {
-                mesh = element.GetComponent<MeshFilter>().mesh;
-                materials = element.GetComponent<MeshRenderer>().materials;
-                return;
-            }
-            Debug.Log("Ther is no " + elementName);
-        }
-        void Find(ref GameObject _object, string objName)
+        void Find()
         {
             var objs = FindObjectsOfType<ObjectToFind>();
-            Debug.Log("lenght " + objs.Length);
             foreach (var obj in objs) 
             {
-                var resours = obj.GetResources();
-                switch (obj.GetResources().type)
+                switch (obj.GetType())
                 {
-                    case ObjectType.body:                      
-                        _mainBodyMesh = resours._mesh;
-                        _mainBodyMaterials = resours._materials;
+                    case ObjectType.body:  
+                        
+                        _mainBodyMesh = obj.GetResources()._mesh;
+                        _mainBodyMaterials = obj.GetResources()._materials;
                         break;
-
                     case ObjectType.turret:                       
-                        _turretMesh = resours._mesh;
-                        _turretMaterials = resours._materials;
+                        _turretMesh = obj.GetResources()._mesh;
+                        _turretMaterials = obj.GetResources()._materials;
                         break;
-
                     case ObjectType.cannon:
-                        _cannonMesh = resours._mesh;
-                        _cannonMaterials = resours._materials;
+                        _cannonMesh = obj.GetResources()._mesh;
+                        _cannonMaterials = obj.GetResources()._materials;
                         break;
-
                     case ObjectType.barrel:
-                        _barrelMesh = resours._mesh;
-                        _barrelMaterials = resours._materials;
+                        _barrelMesh = obj.GetResources()._mesh;
+                        _barrelMaterials = obj.GetResources()._materials;
                         break;
-
                     case ObjectType.track:
-                        _trackBeltMesh = resours._mesh;
-                        _trackBeltMaterial = resours._materials;
+                        _trackBeltMesh = obj.GetResources()._mesh;
+                        _trackBeltMaterial = obj.GetResources()._materials;
                         break;
-
                     case ObjectType.spoketWheel:
-                        _spoketWheelMesh = resours._mesh;
-                        _spoketWheelMaterial = resours._materials;
+                        _spoketWheelMesh = obj.GetResources()._mesh;
+                        _spoketWheelMaterial = obj.GetResources()._materials;
                         break;
-
                     case ObjectType.idlerWheel:
-                        _IdlerWheelMesh = resours._mesh;
-                        _IdlerWheelMaterials = resours._materials;
+                        _IdlerWheelMesh = obj.GetResources()._mesh;
+                        _IdlerWheelMaterials = obj.GetResources()._materials;
                         break;
-
                     case ObjectType.suspentionR:
-                        _suspensionRMesh = resours._mesh;
-                        _suspensionMaterials = resours._materials;
+                        _suspensionRMesh = obj.GetResources()._mesh;
+                        _suspensionMaterials = obj.GetResources()._materials;
                         break;
-
                     case ObjectType.suspentionL:
-                        _suspensionLMesh = resours._mesh;
-                        _suspensionMaterials = resours._materials;
+                        _suspensionLMesh = obj.GetResources()._mesh;
+                        _suspensionMaterials = obj.GetResources()._materials;
                         break;
-
                     case ObjectType.Wheel:
-                        _roadWheelMesh = resours._mesh;
-                        _roadWheelMaterials = resours._materials;
+                        _wheelsInitialAngles = obj.transform.localEulerAngles;
+                        _roadWheelMesh = obj.GetResources()._mesh;
+                        _roadWheelMaterials = obj.GetResources()._materials;
+                        break;
+                    case ObjectType.Tank:
+                        _vehicle = obj.gameObject;
+                        break;
+                    case ObjectType.ERA:
+                        obj.gameObject.AddComponent<ExplosiveReactiveArmour>();
+                        obj.gameObject.AddComponent<MeshCollider>();
+                        break;
+                    case ObjectType.newTank:
+                        _newVenicle = obj.transform;
                         break;
                 }
                 
             }
-            for (int i = 0; i < SceneManager.sceneCount; i++)
+            for (int i = 0; i < _newVenicle.GetChild(0).childCount; i++)
             {
-                var s = SceneManager.GetSceneAt(i);
-                if (s.isLoaded)
-                {
-                    var allGameObjects = s.GetRootGameObjects();
-                    foreach (var obj in allGameObjects)
-                    {
-                        if (obj.name == objName)
-                        {
-                            _object = obj;
-                            return;
-                        }
-                    }
-                }
+                var obj = _newVenicle.transform.GetChild(0).GetChild(i).gameObject;
+                if (obj.GetComponent<ObjectToFind>() != null) continue;
+                var element = Instantiate(obj, _vehicle.transform.GetChild(0).transform).transform;
+                element.localPosition = obj.transform.localPosition;
+                element.localEulerAngles = obj.transform.localEulerAngles;
             }
-            Debug.Log("Cant find obj");
-        }
-        void SetElements(List<string> list , List<string> elementsNames)
-        {
-            for (int i = 0; i < _meshew.transform.GetChild(0).childCount; i++)
-            {
-                var obj = _meshew.transform.GetChild(0).GetChild(i).gameObject;    
-                if (!list.Contains(obj.name)&& obj.activeInHierarchy)
-                {
-                  var element = Instantiate(obj, _vehicle.transform.GetChild(0).transform);
-                  element.transform.localPosition = obj.transform.localPosition;
-                  element.transform.localEulerAngles = obj.transform.localEulerAngles;
-                  var words = obj.name.Split(' ');
-
-                    foreach (var word in words)
-                    {
-                        if (elementsNames.Contains(word))
-                        {
-                            switch (word)
-                            {
-                                case "ERA":
-                                    element.gameObject.AddComponent<ExplosiveReactiveArmour>();
-                                    element.gameObject.AddComponent<MeshCollider>();
-                                    break;
-                            }
-                        }
-                    }
-                 }
-            }
-
         }
     }
-
-
 }
