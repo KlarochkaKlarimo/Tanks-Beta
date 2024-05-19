@@ -21,7 +21,7 @@ namespace ChobiAssets.PTM
 		*/
 
 		public bool Fit_ST_Flag = false;
-
+		public Vector3 wheelsInitialAngles;
 		public float Sus_Distance = 2.06f;
 		public int Num = 6;
 		public float Spacing = 0.88f;
@@ -306,9 +306,10 @@ namespace ChobiAssets.PTM
 			stabilizerScript.This_Transform = wheelObject.transform;
 			stabilizerScript.Is_Left = (direction == "L");
 			stabilizerScript.Initial_Pos_Y = wheelObject.transform.localPosition.y;
-			stabilizerScript.Initial_Angles = wheelObject.transform.localEulerAngles;
-			// Set Layer
-			wheelObject.layer = Layer_Settings_CS.Wheels_Layer;
+			stabilizerScript.Initial_Angles = wheelsInitialAngles;// wheelObject.transform.localEulerAngles;
+            // Set Layer
+            wheelObject.layer = Layer_Settings_CS.Wheels_Layer;
+
 		}
 	}
 
