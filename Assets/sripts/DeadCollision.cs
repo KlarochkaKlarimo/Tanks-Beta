@@ -10,7 +10,7 @@ public class DeadCollision : MonoBehaviour
         var ammorack = other.gameObject.GetComponent<ModulAmmorack>();
         if (ammorack!=null)
         {
-            ammorack.modulDestroyed();
+            ammorack.ModulDestroyed();
         }
     }
 

@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class ModulRadiator : ModulBase
 {
-    public override void modulDamaged()
+    public override void ModulDamaged()
     {
-        base.modulDamaged();
+        base.ModulDamaged();
     }
 
-    public override void modulDestroyed()
+    public override void ModulDestroyed()
     {
-        base.modulDestroyed();
+        base.ModulDestroyed();
     }
 }

@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class ModulBreachGun : ModulBase
 {
-    public override void modulDamaged()
+    public override void ModulDamaged()
     {
-        base.modulDamaged();
+        base.ModulDamaged();
         cannonFire.DamagedBreachGun();
     }
 
-    public override void modulDestroyed()
+    public override void ModulDestroyed()
     {
-        base.modulDestroyed();
+        base.ModulDestroyed();
         cannonFire.enabled = false;
     }
 }

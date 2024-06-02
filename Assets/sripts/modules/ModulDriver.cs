@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class ModulDriver : CharacterBase
 {
-    public override void modulDamaged()
+    public override void ModulDamaged()
     {
-        base.modulDamaged();
+        base.ModulDamaged();
         //tankWheelControl. /=4;
     }
 
-    public override void modulDestroyed()
+    public override void ModulDestroyed()
     {
-        base.modulDestroyed();
+        base.ModulDestroyed();
         //tankWheelControl.enabled = false;
     }
 

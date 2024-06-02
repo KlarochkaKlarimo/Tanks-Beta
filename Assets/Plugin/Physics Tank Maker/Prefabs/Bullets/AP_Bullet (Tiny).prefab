@@ -63,7 +63,7 @@ MonoBehaviour:
   - {fileID: 0}
   _fragmentsModulDamage: 1
   _fragmentsParent: {fileID: 6282947911675255549}
-  modulDamage: 1
+  _modulDamage: 2
   _penetrationDamage: 15
   distanceWithoutPenetrationReductionByDistance: 0
   penetrationReductionByDistance: 0

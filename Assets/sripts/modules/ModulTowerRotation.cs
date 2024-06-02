@@ -6,15 +6,15 @@ using ChobiAssets.PTM;
 public class ModulTowerRotation : ModulBase
 {
     [SerializeField] private Turret_Horizontal_CS _horizontalControl;
-    public override void modulDamaged()
+    public override void ModulDamaged()
     {
-        base.modulDamaged();
+        base.ModulDamaged();
         _horizontalControl.Speed_Mag /= 2;
     }
 
-    public override void modulDestroyed()
+    public override void ModulDestroyed()
     {
-        base.modulDestroyed();
+        base.ModulDestroyed();
         _horizontalControl.Speed_Mag = 0;
     }
 

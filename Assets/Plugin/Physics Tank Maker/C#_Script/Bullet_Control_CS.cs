@@ -18,7 +18,7 @@ namespace ChobiAssets.PTM
         [SerializeField] protected Transform[] fragments;
         [SerializeField] protected int _fragmentsModulDamage;
         [SerializeField] protected Transform _fragmentsParent;
-        [SerializeField] protected int modulDamage;
+        [SerializeField] protected int _modulDamage;
         [SerializeField] protected int _penetrationDamage;
         [SerializeField] protected float distanceWithoutPenetrationReductionByDistance;
         [SerializeField] protected float penetrationReductionByDistance; // X mm for 100 meterts
@@ -221,6 +221,14 @@ namespace ChobiAssets.PTM
         private void DamageSystem(Collision collision, float hitVelocity, Vector3 hitNormal)
         {
             var hitObject = collision.collider;
+            var modul = hitObject.gameObject.GetComponent<ModulBase>();
+            if (modul != null)
+            {
+                Debug.Log("Modul Hit " + modul.name);
+                modul.setBullet(this);
+                modul.GetDamage(_modulDamage);
+            }
+
             var DZ = hitObject.gameObject.GetComponent<ExplosiveReactiveArmour>();
             if (DZ != null)
             {
@@ -257,10 +265,6 @@ namespace ChobiAssets.PTM
                     }
                     return; 
                 }
-                //SISTEMA RASCHETA UGLA, VLAD JDEM FIX!!!!!!!
-
-                //var angle = Math.Abs(90 - (Vector3.Angle(transform.forward, hitObject.contacts[0].normal)));
-                //var isPinetrate = (_penetrationDamage-(armor.GetThicknes() / Math.Abs(Mathf.Cos(angle)))) > 0;
                 var contactNormal = collision.contacts[0].normal;
                 var bulletTraektractor = gameObject.transform.TransformDirection(Vector3.back);
 
@@ -378,9 +382,9 @@ namespace ChobiAssets.PTM
         }      
         public void DamageReduction(int modulReducation, int penetrationReducation)
         {
-            modulDamage = Mathf.Clamp(modulDamage - modulReducation, 0, 10000);
+            _modulDamage = Mathf.Clamp(_modulDamage - modulReducation, 0, 10000);
             _penetrationDamage = Mathf.Clamp(_penetrationDamage - penetrationReducation, 0, 10000);
-            Debug.Log("Modul damaged" + modulDamage + "penetration damage" + _penetrationDamage);
+            Debug.Log("Modul damaged" + _modulDamage + "penetration damage" + _penetrationDamage);
             if (_penetrationDamage <=0)
             {
                 DestroyProjectile();

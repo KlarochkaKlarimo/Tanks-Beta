@@ -293,7 +293,8 @@ MonoBehaviour:
   _vzrivatel: {fileID: 589883767227503541}
   _hasCollided: 0
   _explosionDelay: 0.3
-  explosion: {fileID: 588928797126424450}
+  explosion: {fileID: 4618672182275008679, guid: c737b21f022e5434ca5b1898b5756a37,
+    type: 3}
   _otorvatKotokDistancia: 1
   _mine: {fileID: 355461083727951350}
 --- !u!54 &3483371663834037790
@@ -512,12 +513,6 @@ PrefabInstance:
 --- !u!4 &585511452501929486 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4388947112716342, guid: e1b08032bec16ba4eb1ae23cbd572664,
-    type: 3}
-  m_PrefabInstance: {fileID: 589883767353214520}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &588928797126424450 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1121192042590650, guid: e1b08032bec16ba4eb1ae23cbd572664,
     type: 3}
   m_PrefabInstance: {fileID: 589883767353214520}
   m_PrefabAsset: {fileID: 0}

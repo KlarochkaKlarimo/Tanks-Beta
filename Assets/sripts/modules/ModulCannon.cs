@@ -5,15 +5,15 @@ using UnityEngine;
 public class ModulCannon : ModulBase
 {
     
-    public override void modulDamaged()
+    public override void ModulDamaged()
     {
-        base.modulDamaged();
+        base.ModulDamaged();
         cannonFire.CannonDamage();
     }
 
-    public override void modulDestroyed()
+    public override void ModulDestroyed()
     {
-        base.modulDestroyed();
+        base.ModulDestroyed();
         cannonFire.enabled = false;
     }
 }

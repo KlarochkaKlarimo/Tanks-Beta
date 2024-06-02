@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class ModulGunner : CharacterBase
 {
-    public override void modulDamaged()
+    public override void ModulDamaged()
     {
-        base.modulDamaged();
-        tankTowerController.Turret_Speed_Multiplier /=2;
+        base.ModulDamaged();
+        aimingControl.Turret_Speed_Multiplier /=2;
     }
 
-    public override void modulDestroyed()
+    public override void ModulDestroyed()
     {
-        base.modulDestroyed();
-        tankTowerController.Turret_Speed_Multiplier = 0;
+        base.ModulDestroyed();
+        aimingControl.Turret_Speed_Multiplier = 0;
     }
 
     

@@ -6,15 +6,15 @@ public class ModulCaptain : CharacterBase
 {
     [SerializeField] private EnemyVision _enemyVision;
 
-    public override void modulDamaged()
+    public override void ModulDamaged()
     {
-        base.modulDamaged();
+        base.ModulDamaged();
         //_enemyVision.distance /=2;
     }
 
-    public override void modulDestroyed()
+    public override void ModulDestroyed()
     {
-        base.modulDestroyed();
+        base.ModulDestroyed();
         if (isModelDamaged)
         {
             //_enemyVision.distance /= 2;

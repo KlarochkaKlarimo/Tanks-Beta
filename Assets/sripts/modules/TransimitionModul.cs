@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class TransimitionModul : ModulBase
 {
-    public override void modulDamaged()
+    public override void ModulDamaged()
     {
-        base.modulDamaged();
+        base.ModulDamaged();
         //tankWheelControl.steerTorque /=5;
     }
 
-    public override void modulDestroyed()
+    public override void ModulDestroyed()
     {
-        base.modulDestroyed();
+        base.ModulDestroyed();
        // tankWheelControl.enabled = false;
     }
     private void Awake()
     {
         
-        tankWheelControl.turnDivider = 0;
+        driveControl.turnDivider = 0;
     }
 }

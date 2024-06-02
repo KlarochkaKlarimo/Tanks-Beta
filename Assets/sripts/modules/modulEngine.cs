@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class modulEngine : ModulBase
 {
-    public override void modulDamaged()
+    public override void ModulDamaged()
     {
-        base.modulDamaged();
-        tankWheelControl.Torque /=5;
+        base.ModulDamaged();
+        driveControl.Torque /=5;
     }
 
-    public override void modulDestroyed()
+    public override void ModulDestroyed()
     {
-        base.modulDestroyed();
-        tankWheelControl.enabled = false;
+        base.ModulDestroyed();
+        driveControl.enabled = false;
     }
 
 }

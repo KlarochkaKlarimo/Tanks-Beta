@@ -14,15 +14,15 @@ public class ModulFuelTank : ModulBase
 
     }
 
-    public override void modulDamaged()
+    public override void ModulDamaged()
     {
-        base.modulDamaged();
+        base.ModulDamaged();
         BurnWithChance(70/bullet._burningModificator);
     }
 
-    public override void modulDestroyed()
+    public override void ModulDestroyed()
     {
-        base.modulDestroyed();
+        base.ModulDestroyed();
         BurnWithChance(0);
     }
 

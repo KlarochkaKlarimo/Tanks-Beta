@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using ChobiAssets.PTM;
@@ -13,9 +11,9 @@ public abstract class ModulBase : IPinetrtlbe
     [SerializeField] private bool isTest;
     public bool isModelDamaged;
 
-    public Cannon_Fire_CS cannonFire;
-    public Aiming_Control_CS tankTowerController;
-    public Drive_Control_CS tankWheelControl;
+    [SerializeField] protected Cannon_Fire_CS cannonFire;
+    [SerializeField] protected Aiming_Control_CS aimingControl;
+    [SerializeField] protected Drive_Control_CS driveControl;
     protected Bullet_Control_CS bullet;
 
     public static Action isTankDestroyed;
@@ -24,39 +22,21 @@ public abstract class ModulBase : IPinetrtlbe
     {
         bullet = _bullet;
     }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        bullet = null;
-         bullet = collision.gameObject.GetComponentInParent<Bullet_Control_CS>();
-        if (bullet == null)
-        {
-            return;
-        }
-        if (hp == 0)
-        {
-            gameObject.GetComponent<Collider>().enabled = false;
-            
-        }
-        //GetDamage(bullet.GetModulDamage()); FIX
-    }
-
+  
     private void ChangeModulImageColor(Color _color)
     {
         if(_modulImage != null)
         {
             _modulImage.color = _color;
-            
-
         }
     }
 
-    public virtual void modulDamaged()
+    public virtual void ModulDamaged()
     {
         ChangeModulImageColor(Color.yellow);
     }
 
-    public virtual void modulDestroyed()
+    public virtual void ModulDestroyed()
     {
         ChangeModulImageColor(Color.red);
         gameObject.GetComponent<Collider>().enabled = false;
@@ -69,13 +49,11 @@ public abstract class ModulBase : IPinetrtlbe
             return;
         }
         hp = Mathf.Clamp(hp - damage, 0, hp);
-        print(hp);
 
         switch (hp)
         {
-            case 0:
-                //print("Modul destroed" + gameObject.name);
-                modulDestroyed();          
+            case 0:            
+                ModulDestroyed();          
                 break;
 
             case int n when (n <= _damagedHp):
@@ -84,20 +62,17 @@ public abstract class ModulBase : IPinetrtlbe
                     return;
                 }
                 isModelDamaged = true;
-                //print("Modul damaged" + gameObject.name);
-                modulDamaged();
+                ModulDamaged();
                 break;
-
-
         }
     }
 
     public virtual void TankDestroed()
     {
-        tankTowerController.enabled = false;
-        tankWheelControl.enabled = false;
-        Destroy(tankTowerController);
-        Destroy(tankWheelControl);
+        aimingControl.enabled = false;
+        driveControl.enabled = false;
+        Destroy(aimingControl);
+        Destroy(driveControl);
         isTankDestroyed?.Invoke();
     }
 
