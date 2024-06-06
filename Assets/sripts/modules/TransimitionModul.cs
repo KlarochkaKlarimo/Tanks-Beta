@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class TransimitionModul : ModulBase
 {
@@ -16,8 +13,7 @@ public class TransimitionModul : ModulBase
        // tankWheelControl.enabled = false;
     }
     private void Awake()
-    {
-        
+    {      
         driveControl.turnDivider = 0;
     }
 }

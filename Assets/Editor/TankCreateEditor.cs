@@ -112,7 +112,7 @@ public class TankCreateEditor : EditorWindow
         var ct = _vehicle.GetComponentInChildren<Turret_Base_CS>();
         ct.Part_Mesh = _turretMesh;
         ct.Materials = _turretMaterials;
-        ct.Materials_Num = 1;
+        ct.Materials_Num = _turretMaterials.Length;
         ct.Offset_X = turretOffset.x;
         ct.Offset_Y = turretOffset.y;
         ct.Offset_Z = turretOffset.z;

@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class ModulGunner : CharacterBase
 {
@@ -15,6 +12,4 @@ public class ModulGunner : CharacterBase
         base.ModulDestroyed();
         aimingControl.Turret_Speed_Multiplier = 0;
     }
-
-    
 }

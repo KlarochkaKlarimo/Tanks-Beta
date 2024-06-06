@@ -13,7 +13,7 @@ public class ModulDriver : CharacterBase
     public override void ModulDestroyed()
     {
         base.ModulDestroyed();
-        //tankWheelControl.enabled = false;
+        driveControl.enabled = false;
     }
 
 }

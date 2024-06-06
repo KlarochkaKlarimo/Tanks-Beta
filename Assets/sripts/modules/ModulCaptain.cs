@@ -9,7 +9,7 @@ public class ModulCaptain : CharacterBase
     public override void ModulDamaged()
     {
         base.ModulDamaged();
-        //_enemyVision.distance /=2;
+        //damage komander igrok
     }
 
     public override void ModulDestroyed()
@@ -17,11 +17,8 @@ public class ModulCaptain : CharacterBase
         base.ModulDestroyed();
         if (isModelDamaged)
         {
-            //_enemyVision.distance /= 2;
+            // igrok umiraet 
             return;
         }
-        //_enemyVision.distance /= 2;
     }
-
-    
 }
