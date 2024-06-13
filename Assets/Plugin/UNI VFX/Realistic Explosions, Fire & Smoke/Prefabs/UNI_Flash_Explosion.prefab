@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1146005180355615263}
   - component: {fileID: 446409351254650372}
   - component: {fileID: 2435536367943921448}
+  - component: {fileID: 6046400332550103523}
   m_Layer: 0
   m_Name: UNI_Flash_Explosion
   m_TagString: Untagged
@@ -114,3 +115,15 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &6046400332550103523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2831810376215119914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e763abf2492ccfb4088dc49ba0909eb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

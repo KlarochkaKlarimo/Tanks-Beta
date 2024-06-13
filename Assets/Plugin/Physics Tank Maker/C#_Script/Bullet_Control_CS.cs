@@ -113,7 +113,7 @@ namespace ChobiAssets.PTM
         private void SpawnFragments(float damageDone)
         {
             Debug.Log("spawn fragments");
-            int layerMask = LayerMask.GetMask("ignoreAll");
+            int layerMask = LayerMask.GetMask("modul");
             //_fragmentsParent.DetachChildren();
             var i = 0f;
             var fragmentsCount = damageDone / (_maximumDamageForAllFragments/fragments.Length);

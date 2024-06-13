@@ -55,6 +55,7 @@ MonoBehaviour:
     initialVelocity: 500
     bulletType: 0
     bulletName: 
+    ammoCount: 0
   fragments:
   - {fileID: 4391957750913259182}
   - {fileID: 7535678161491671980}
@@ -162,7 +163,7 @@ GameObject:
   - component: {fileID: 6125823457713233807}
   - component: {fileID: 4702759761218279312}
   - component: {fileID: 6287509590291536145}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fragment.011
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -297,7 +298,7 @@ GameObject:
   - component: {fileID: 1807878132866901082}
   - component: {fileID: 1311608788755882352}
   - component: {fileID: 9190694873645212418}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fragment.014
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -412,7 +413,7 @@ GameObject:
   - component: {fileID: 8207055285118624203}
   - component: {fileID: 6451294169902767132}
   - component: {fileID: 2195249525387943186}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fragment_Group 2.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -495,7 +496,7 @@ GameObject:
   - component: {fileID: 6067602169404198061}
   - component: {fileID: 9129993240339560657}
   - component: {fileID: 6172232605298764305}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fragment.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -578,7 +579,7 @@ GameObject:
   - component: {fileID: 6488775887512646472}
   - component: {fileID: 5282490680355582857}
   - component: {fileID: 2352684934486818114}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fragment.010
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -661,7 +662,7 @@ GameObject:
   - component: {fileID: 6887738802110536753}
   - component: {fileID: 1026606057615596225}
   - component: {fileID: 8356587322824590744}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fragment.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -744,7 +745,7 @@ GameObject:
   - component: {fileID: 7535678161491671980}
   - component: {fileID: 9021343304979081141}
   - component: {fileID: 6565868730833518843}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fragment.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -828,7 +829,7 @@ GameObject:
   - component: {fileID: 3222792511106529419}
   - component: {fileID: 1682141797798684016}
   - component: {fileID: 8266537820594552744}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fragment.015
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -911,7 +912,7 @@ GameObject:
   - component: {fileID: 8035406137471600728}
   - component: {fileID: 8632321879937313816}
   - component: {fileID: 9217171278189530223}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fragment.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -994,7 +995,7 @@ GameObject:
   - component: {fileID: 1494143959680007584}
   - component: {fileID: 535559330153543010}
   - component: {fileID: 3500502033391605148}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fragment.013
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1077,7 +1078,7 @@ GameObject:
   - component: {fileID: 4391957750913259182}
   - component: {fileID: 5103275048926840799}
   - component: {fileID: 384484569597828043}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fragment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1243,7 +1244,7 @@ GameObject:
   - component: {fileID: 5885833241526228274}
   - component: {fileID: 7305441055964171741}
   - component: {fileID: 5895788806979529111}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fragment_Group 2.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1326,7 +1327,7 @@ GameObject:
   - component: {fileID: 4582091931933509666}
   - component: {fileID: 7470047986437142059}
   - component: {fileID: 3498855481637526387}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fragment.012
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1409,7 +1410,7 @@ GameObject:
   - component: {fileID: 1166890016078597515}
   - component: {fileID: 8560024188545032692}
   - component: {fileID: 1710386784791879626}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fragment.009
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1575,7 +1576,7 @@ GameObject:
   - component: {fileID: 7885775937591553111}
   - component: {fileID: 4022366102784773184}
   - component: {fileID: 5595408541991925574}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fragment.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1658,7 +1659,7 @@ GameObject:
   - component: {fileID: 6028186093650838621}
   - component: {fileID: 3775191432792426716}
   - component: {fileID: 6253384211063032565}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fragment.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1741,7 +1742,7 @@ GameObject:
   - component: {fileID: 1244874008315313989}
   - component: {fileID: 2108387879707123276}
   - component: {fileID: 3385160298181356462}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fragment.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1824,7 +1825,7 @@ GameObject:
   - component: {fileID: 47277286000582744}
   - component: {fileID: 5764639149410827020}
   - component: {fileID: 1919639956643867095}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fragment_Group 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1907,7 +1908,7 @@ GameObject:
   - component: {fileID: 7922293643508319058}
   - component: {fileID: 2866905730870943276}
   - component: {fileID: 4789228115918658944}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fragment.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1990,7 +1991,7 @@ GameObject:
   - component: {fileID: 6471533452853397286}
   - component: {fileID: 2189076879385148505}
   - component: {fileID: 5554573735860247690}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fragment_Group 2.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2073,7 +2074,7 @@ GameObject:
   - component: {fileID: 8530988552194597099}
   - component: {fileID: 2014934163662851635}
   - component: {fileID: 7027605901774373620}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fragment_Group 2.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}

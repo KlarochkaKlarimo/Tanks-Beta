@@ -10,6 +10,7 @@ public class AnotherWeapon : MonoBehaviour
     [SerializeField] bool _isAutoFire;
     [SerializeField] private float _recoil_Force;
     [SerializeField] private Rigidbody _bodyRigidbody;
+    [SerializeField] private KeyCode _anotherWeaponFire;
     private float _reloadTimer;
     private bool _isCannonDamaged;
     
@@ -22,7 +23,7 @@ public class AnotherWeapon : MonoBehaviour
 
         if (_isAutoFire)
         {
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKey(_anotherWeaponFire))
             {
                 Shoot();
             }
@@ -30,7 +31,7 @@ public class AnotherWeapon : MonoBehaviour
 
         else
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(_anotherWeaponFire))
             {
                 Shoot();
             }

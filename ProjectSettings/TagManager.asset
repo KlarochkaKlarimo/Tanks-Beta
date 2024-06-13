@@ -10,7 +10,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
   - modul
@@ -23,15 +23,15 @@ TagManager:
   - trackCollider
   - ExtraCollier
   - heat
-  - ignoreAll
-  - Ground
-  - Post processig
+  - Armor
   - IgnorGround
+  - Post processig
+  - 
   - SPO
   - Laser
   - DestroyItDebris
-  - IgnorGround
-  - ground
+  - 
+  - 
   - 
   - 
   - 

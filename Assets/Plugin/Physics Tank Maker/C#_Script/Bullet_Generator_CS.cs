@@ -9,13 +9,13 @@ namespace ChobiAssets.PTM
     public class BulletSettings
     {
         public GameObject prefab;
-        [Range(0f, 1000f)]
+        [Range(0f, 10000f)]
         public float attackPoint = 500f;
-        [Range(0f, 1000f)]
+        [Range(0f, 10000f)]
         public float initialVelocity = 500f;
         public BulletType bulletType;
         public string bulletName;
-
+        public int ammoCount;
     }
 
     [Serializable]
@@ -87,15 +87,18 @@ namespace ChobiAssets.PTM
 
         IEnumerator Generate_Bullet()
         {
-            
+            var currentBullet = bullets[currentBulletType];
+            if(currentBullet.ammoCount == 0)
+            {
+                yield break;
+            }
+
             if (MuzzleFire_Object)
             {
                 Instantiate(MuzzleFire_Object, transform.position, transform.rotation, transform);
-            }     
-            var currentBullet = bullets[currentBulletType];
+            }
+            currentBullet.ammoCount--;
             var bulletObject = Instantiate(currentBullet.prefab, transform.position + (transform.forward * Offset), transform.rotation) as GameObject;
-            
-
             // Set values of "Bullet_Control_CS" in the bullet.
             Bullet_Control_CS bulletScript = bulletObject.GetComponent<Bullet_Control_CS>();
             bulletScript.settings = currentBullet;            

@@ -57,6 +57,7 @@ MonoBehaviour:
     initialVelocity: 500
     bulletType: 0
     bulletName: 
+    ammoCount: 0
   fragments:
   - {fileID: 3487159039172934696}
   - {fileID: 0}
@@ -67,7 +68,7 @@ MonoBehaviour:
   _penetrationDamage: 15
   distanceWithoutPenetrationReductionByDistance: 0
   penetrationReductionByDistance: 0
-  _minimalPenetrationDamage: 100
+  _minimalPenetrationDamage: 2
   _fragmentDistance: 10
   _shootPoint: {fileID: 0}
   _noControlAtgmDistance: 0
@@ -341,7 +342,7 @@ GameObject:
   - component: {fileID: 3487159039172934696}
   - component: {fileID: 2905468713868706241}
   - component: {fileID: 6039608945739523768}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fragment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
