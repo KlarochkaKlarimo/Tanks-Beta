@@ -14,7 +14,5 @@ namespace ChobiAssets.PTM
                 managerScript.Switch_Camera_Point();
             }
 		}
-
 	}
-
 }
