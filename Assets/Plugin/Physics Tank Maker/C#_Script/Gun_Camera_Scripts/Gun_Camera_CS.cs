@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System;
 
 namespace ChobiAssets.PTM
 {
@@ -19,17 +20,20 @@ namespace ChobiAssets.PTM
 
 		// User options >>
 		public Camera Gun_Camera;
-		public Camera_Points_Manager_CS Camera_Manager_Script;
-		public float Minimum_FOV = 2.0f;
-		public float Maximum_FOV = 10.0f;
+        public CommanderCamera _comanderGunCamera;
+        public Camera_Points_Manager_CS Camera_Manager_Script;
+        [Range(0f, 100f)]
+        public float Minimum_FOV = 2.0f;
+        [Range(0f, 100f)]
+        public float Maximum_FOV = 10.0f;
 		// << User options
 
 
 		// Set by "inputType_Settings_CS".
-		public int inputType = 0;
+		[HideInInspector]public int inputType = 0;
 
-		//Set by "Gun_Camera_Input_##_##_CS" scripts.
-		public float Zoom_Input;
+        //Set by "Gun_Camera_Input_##_##_CS" scripts.
+        [HideInInspector] public float Zoom_Input;
 
         Transform thisTransform;
         float targetFOV;
@@ -131,10 +135,10 @@ namespace ChobiAssets.PTM
 
             inputScript.Get_Input();
 
-            if (Gun_Camera.enabled)
-            {
-                Zoom();
-            }
+            //if (Gun_Camera.enabled)
+            //{
+            //    Zoom();
+            //}
         }
 
 
@@ -163,7 +167,7 @@ namespace ChobiAssets.PTM
                         lookAtPos = thisTransform.position + (thisTransform.forward * 2048.0f);
                     }
                     Camera_Manager_Script.SendMessage("Enable_Camera", lookAtPos, SendMessageOptions.DontRequireReceiver);
-
+                    if (_comanderGunCamera != null) _comanderGunCamera.OffCamera();
                     // Disable the gun camera.
                     Gun_Camera.enabled = false;
                     thisListener.enabled = false;
@@ -171,6 +175,7 @@ namespace ChobiAssets.PTM
                     break;
 
                 case 2: // On
+                    if(_comanderGunCamera != null) _comanderGunCamera.OffCamera();
                     // Call "Camera_Points_Manager_CS" to disable the main camera.
                     Camera_Manager_Script.SendMessage("Disable_Camera", SendMessageOptions.DontRequireReceiver);
                     

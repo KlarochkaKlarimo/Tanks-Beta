@@ -28,7 +28,7 @@ namespace ChobiAssets.PTM
 
 
             // Adjust aiming.
-            if (gunCameraScript && gunCameraScript.Gun_Camera.enabled)
+            if (GetGunCamera() && GetGunCamera().Gun_Camera.enabled)
             { // The gun camera is enabled now.
 
                 // Set the adjust angle.

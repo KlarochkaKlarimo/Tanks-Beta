@@ -7,10 +7,17 @@ namespace ChobiAssets.PTM
 	public class Aiming_Control_Input_01_Mouse_Keyboard_CS : Aiming_Control_Input_00_Base_CS
 	{
 
-        protected Gun_Camera_CS gunCameraScript;
         protected int thisRelationship;
 		protected Vector3 screenCenter = Vector3.zero;
-
+        protected Gun_Camera_CS[] gunCamerasScript;
+        protected Gun_Camera_CS GetGunCamera()
+        {
+            foreach (var camera in gunCamerasScript)
+            {
+                if (camera.Gun_Camera.enabled) return camera;
+            }
+            return null;
+        }
 
         public override void Prepare(Aiming_Control_CS aimingScript)
         {
@@ -20,8 +27,7 @@ namespace ChobiAssets.PTM
             aimingScript.Use_Auto_Turn = true;
 
             // Get the "Gun_Camera_CS".
-            gunCameraScript = GetComponentInChildren<Gun_Camera_CS>();
-
+            gunCamerasScript = GetComponentsInChildren<Gun_Camera_CS>();
             // Set the relationship.
             ID_Settings_CS idScript = GetComponentInParent<ID_Settings_CS>();
             if (idScript)
@@ -54,9 +60,8 @@ namespace ChobiAssets.PTM
                 aimingScript.Switch_Mode();
             }
 
-
             // Adjust aiming.
-            if (gunCameraScript && gunCameraScript.Gun_Camera.enabled)
+            if (GetGunCamera() && GetGunCamera().Gun_Camera.enabled)
             { // The gun camera is enabled now.
 
                 // Set the adjust angle.
