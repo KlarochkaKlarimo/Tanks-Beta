@@ -1,14 +1,16 @@
 using UnityEngine;
 public class ObjectToFind : MonoBehaviour
 {
-    [SerializeField] private ObjectType type;
+    public bool isLeft;
+    public int trackNumber;
     public ObjectToFind wheel;
+    [SerializeField] private ObjectType type;
+    
     private void Awake()
     {
         Destroy(this);
     }
     public ObjectType GetType() { return type; }
-    
     public ObjectResources GetResources(){return new ObjectResources(gameObject, type);}
 }
 public class ObjectResources
@@ -42,5 +44,6 @@ public enum ObjectType
     idlerWheel,
     suspentionR,
     suspentionL,
-    Wheel
+    wheel,
+    supportWheel
 }
