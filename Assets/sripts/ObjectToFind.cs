@@ -2,6 +2,7 @@ using UnityEngine;
 public class ObjectToFind : MonoBehaviour
 {
     [SerializeField] private ObjectType type;
+    public ObjectToFind wheel;
     private void Awake()
     {
         Destroy(this);
@@ -15,6 +16,7 @@ public class ObjectResources
     public Mesh _mesh;
     public Material[] _materials;
     public ObjectType type;
+
     public ObjectResources(GameObject resourceObject, ObjectType _type)
     {
         try 
@@ -40,9 +42,5 @@ public enum ObjectType
     idlerWheel,
     suspentionR,
     suspentionL,
-    Wheel,
-    Tank,
-    ERA,
-    newTank
-
+    Wheel
 }
