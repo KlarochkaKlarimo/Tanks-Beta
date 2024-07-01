@@ -94,7 +94,10 @@ namespace ChobiAssets.PTM
             }
 
             // Set the input script.
-            Set_Input_Script(inputType);
+            if (_comanderGunCamera != null)
+            {
+                Set_Input_Script(inputType);
+            }
 
             // Prepare the input script.
             if (inputScript != null)
@@ -132,8 +135,10 @@ namespace ChobiAssets.PTM
             {
                 return;
             }
-
-            inputScript.Get_Input();
+            if (inputScript != null)
+            {
+                inputScript.Get_Input();
+            }
 
             //if (Gun_Camera.enabled)
             //{
@@ -154,8 +159,12 @@ namespace ChobiAssets.PTM
                     break;
 
                 case 1: // Off
-                    // Call "Camera_Points_Manager_CS" to enable the main camera.
-                    // Call "Camera_Rotation_CS" to point the camera in the same direction. 
+                        // Call "Camera_Points_Manager_CS" to enable the main camera.
+                        // Call "Camera_Rotation_CS" to point the camera in the same direction. 
+                    if (_comanderGunCamera != null)
+                    {
+                        _comanderGunCamera.OffCamera();
+                    }
                     Vector3 lookAtPos;
                     var ray = new Ray(thisTransform.position, thisTransform.forward);
                     if (Physics.Raycast(ray, out RaycastHit raycastHit, 2048.0f, Layer_Settings_CS.Aiming_Layer_Mask))
@@ -167,7 +176,7 @@ namespace ChobiAssets.PTM
                         lookAtPos = thisTransform.position + (thisTransform.forward * 2048.0f);
                     }
                     Camera_Manager_Script.SendMessage("Enable_Camera", lookAtPos, SendMessageOptions.DontRequireReceiver);
-                    if (_comanderGunCamera != null) _comanderGunCamera.OffCamera();
+
                     // Disable the gun camera.
                     Gun_Camera.enabled = false;
                     thisListener.enabled = false;
