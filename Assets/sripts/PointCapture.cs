@@ -1,135 +1,147 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Teams
-{
-    None,
-    Blue,
-    Red
-}
 
 public class PointCapture : MonoBehaviour
 {
+    private List<PlayerTeamControll> _playersInPointTrigger = new List<PlayerTeamControll>();
+
+    private Dictionary<PlayerTeam, float> _teamsScore = new Dictionary<PlayerTeam, float>();
+
     [SerializeField] private int _pointsToCapturePoint;
     [SerializeField] private float _captureRate;
-    [SerializeField] private int _currentBluePoints;
-    [SerializeField] private int _currentRedPoints;
-    [SerializeField] private Teams _pointCaptureTeam;
+    [SerializeField] private PlayerTeam _pointCaptureTeam;
+    [SerializeField] private PlayerTeam _leadingTeam;
 
     [SerializeField] private GameObject _nonFlag;
     [SerializeField] private GameObject _blueFlag;
     [SerializeField] private GameObject _redFlag;
 
-    private int _blueLayer;
-    private int _redLayer;
-
-    private bool _isBlueCapturing = false;
-    private bool _isRedCapturing = false;
-    private bool _isInTrigger = false;
-
-    public Teams GetPointCaptureTeam()
+    public PlayerTeam GetPointCaptureTeam()
     {
         return _pointCaptureTeam;
     }
 
-    private void Start()
+    private void Update()
     {
-        _blueLayer = LayerMask.NameToLayer("Ally");
-        _redLayer = LayerMask.NameToLayer("Enemy");
+        if (_leadingTeam != PlayerTeam.None)
+        {
+            if (!_teamsScore.ContainsKey(_leadingTeam))
+            {
+                _teamsScore[_leadingTeam] = 0;
+            }
+
+            var isPointFree = true;
+
+            foreach (var team in _teamsScore)
+            {
+                if (team.Key != _leadingTeam && team.Value > 0)
+                {
+                    _teamsScore[team.Key] -= Time.deltaTime * _captureRate;
+                    isPointFree = false;
+                }
+            }
+
+            if (isPointFree && _pointCaptureTeam != _leadingTeam)
+            {
+                _teamsScore[_leadingTeam] += Time.deltaTime * _captureRate;                
+            }
+            CheckCapture();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        int ktoVoshel = other.gameObject.layer;
 
-        if (ktoVoshel == _blueLayer)
+        PlayerTeamControll ktoVoshel = other.GetComponent<PlayerTeamControll>();
+
+        if(ktoVoshel != null)
         {
-            _isInTrigger = true;
-            _isBlueCapturing = true;
-            _isRedCapturing = false;
-            StartCoroutine(PointCaptureCoruetine());
-        }
+            if (!_playersInPointTrigger.Contains(ktoVoshel))
+            {
+                _playersInPointTrigger.Add(ktoVoshel);
 
-        else if (ktoVoshel == _redLayer)
-        {
-            _isInTrigger = true;
-            _isRedCapturing = true;
-            _isBlueCapturing = false;
-            StartCoroutine(PointCaptureCoruetine());           
+                CheckTeamAdvantage();
+            }        
         }
-
     }
 
     private void OnTriggerExit(Collider other)
     {
-        int ktoVishel = other.gameObject.layer;
+        PlayerTeamControll ktoVishel = other.GetComponent<PlayerTeamControll>();
 
-        if (ktoVishel == _blueLayer || ktoVishel == _redLayer)
+        if (ktoVishel != null)
         {
-            _isInTrigger = false;
+            if (_playersInPointTrigger.Contains(ktoVishel))
+            {
+                _playersInPointTrigger.Remove(ktoVishel);
+                CheckTeamAdvantage();
+            }
         }
     }
 
-    private IEnumerator PointCaptureCoruetine()
+    private PlayerTeam CheckTeamAdvantage()
     {
-        while (_isInTrigger)
+        if(_playersInPointTrigger.Count == 0)
         {
-            if (_isBlueCapturing)
-            {
-                if (_currentRedPoints > 0)
-                {
-                    _currentRedPoints--;
-                }
-                else if (_currentBluePoints < _pointsToCapturePoint)
-                {
-                    _currentBluePoints++;
-                    CheckCapture();
-                }
-            }
-
-            else if (_isRedCapturing)
-            {
-                if (_currentBluePoints > 0)
-                {
-                    _currentBluePoints--;
-                }
-
-                else if (_currentRedPoints < _pointsToCapturePoint)
-                {
-                    _currentRedPoints++;
-                    CheckCapture();
-                }
-            }
-
-            else
-            {
-                CheckCapture();
-                break;
-            }
-
-            yield return new WaitForSeconds(_captureRate);
+            return PlayerTeam.None;
         }
+
+        Dictionary<PlayerTeam, int> teamCounts = new Dictionary<PlayerTeam, int>();
+
+        foreach(var player in _playersInPointTrigger)
+        {
+            if (!teamCounts.ContainsKey(player._playerTeam))
+            {
+                teamCounts[player._playerTeam] = 0;
+            }
+            teamCounts[player._playerTeam]++;
+        }
+
+        int maxCount = 0;
+        bool isTie = false;
+
+        foreach(var team in teamCounts)
+        {
+            if(team.Value > maxCount)
+            {
+                _leadingTeam = team.Key;
+                maxCount = team.Value;
+                isTie = false;
+            }
+
+            else if (team.Value == maxCount)
+            {
+                isTie = true;
+            }
+        }
+
+        if (isTie)
+        {
+            _leadingTeam = PlayerTeam.None;
+            return _leadingTeam;
+        }
+
+        return _leadingTeam;
     }
 
     private void CheckCapture()
     {
-        if (_currentBluePoints >= _pointsToCapturePoint)
+        if (_teamsScore[_leadingTeam] >= _pointsToCapturePoint)
         {
-            _pointCaptureTeam = Teams.Blue;
+            _pointCaptureTeam = _leadingTeam;
             _nonFlag.SetActive(false);
-            _redFlag.SetActive(false);
-            _blueFlag.SetActive(true);
-            Debug.Log("Pont is captured by blue");
+            _redFlag.SetActive(_pointCaptureTeam == PlayerTeam.Red);
+            _blueFlag.SetActive(_pointCaptureTeam == PlayerTeam.Blue);
         }
 
-        if (_currentRedPoints >= _pointsToCapturePoint)
+        else
         {
-            _pointCaptureTeam = Teams.Red;
-            _nonFlag.SetActive(false);
+            _pointCaptureTeam = PlayerTeam.None;
+            _nonFlag.SetActive(true);
+            _redFlag.SetActive(false);
             _blueFlag.SetActive(false);
-            _redFlag.SetActive(true);
-            Debug.Log("Pont is captured by red");
         }
     }
 }

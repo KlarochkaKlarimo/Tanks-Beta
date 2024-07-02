@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ConquestGameModeController : MonoBehaviour
 {
+    private Dictionary<PlayerTeam, float> _teamsGlobalScore = new Dictionary<PlayerTeam, float>();
+
     [SerializeField] private PointCapture[] _points;
 
     [SerializeField] private int _scoreForWin;
-    [SerializeField] private float _blueScore;
-    [SerializeField] private float _redScore;
 
     private bool _isWin;
 
@@ -21,28 +21,31 @@ public class ConquestGameModeController : MonoBehaviour
 
         foreach(var point in _points)
         {
-            switch (point.GetPointCaptureTeam())
+            if (point.GetPointCaptureTeam() == PlayerTeam.None)
             {
-                case Teams.Blue:
-                    _blueScore += Time.fixedDeltaTime;
-                    break;
-
-                case Teams.Red:
-                    _redScore += Time.fixedDeltaTime;
-                    break;
+                continue;
             }
+
+            if (!_teamsGlobalScore.ContainsKey(point.GetPointCaptureTeam()))
+            {
+                _teamsGlobalScore[point.GetPointCaptureTeam()] = 0;
+            }
+
+            _teamsGlobalScore[point.GetPointCaptureTeam()] += Time.deltaTime;
         }
 
-        if (_blueScore > _scoreForWin)
+        if (_teamsGlobalScore.Count == 0)
         {
-            Debug.Log("Blue wins");
-            _isWin = true;
+            return;
         }
 
-        else if (_redScore > _scoreForWin)
+        foreach (var score in _teamsGlobalScore)
         {
-            Debug.Log("Red wins");
-            _isWin = true;
+            if (score.Value > _scoreForWin)
+            {
+                _isWin = true;
+                Debug.Log(score.Key.ToString() + " wins");
+            }
         }
     }
 }

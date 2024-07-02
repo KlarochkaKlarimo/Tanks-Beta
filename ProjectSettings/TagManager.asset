@@ -26,12 +26,12 @@ TagManager:
   - Armor
   - IgnorGround
   - Post processig
-  - pointTrigger
+  - PointTrigger
   - SPO
   - Laser
   - DestroyItDebris
-  - Ally
-  - Enemy
+  - 
+  - 
   - 
   - 
   - 
