@@ -45,6 +45,7 @@ namespace ChobiAssets.PTM
 
         void Start()
         {
+            This_Transform = transform;
             switch (Type)
             {
                 case 0: // Static.
