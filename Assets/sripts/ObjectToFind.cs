@@ -8,7 +8,7 @@ public class ObjectToFind : MonoBehaviour
     
     private void Awake()
     {
-        Destroy(this);
+        //Destroy(this);
     }
     public ObjectType GetType() { return type; }
     public ObjectResources GetResources(){return new ObjectResources(gameObject, type);}
