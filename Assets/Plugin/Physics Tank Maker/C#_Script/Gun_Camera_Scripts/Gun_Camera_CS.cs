@@ -140,10 +140,10 @@ namespace ChobiAssets.PTM
                 inputScript.Get_Input();
             }
 
-            //if (Gun_Camera.enabled)
-            //{
-            //    Zoom();
-            //}
+            if (Gun_Camera.enabled&& _comanderGunCamera != null)
+            {
+                Zoom();
+            }
         }
 
 
