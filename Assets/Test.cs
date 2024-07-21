@@ -42,6 +42,7 @@ public class Test : MonoBehaviour
             // Get the hit point by casting a ray.
             if (Physics.Linecast(previousPos, currentPos, out RaycastHit raycastHit, Layer_Settings_CS.Aiming_Layer_Mask))
             {
+                Debug.DrawRay(muzzlePos, currentPos, Color.cyan, 3.0f);
                 currentPos = raycastHit.point;
                 VisualImage();
                 break;
@@ -61,7 +62,7 @@ public class Test : MonoBehaviour
 
         void VisualImage()
         {
-            // Convert the hit point to the screen point.
+            // Convert the hit point to the screen point.           
             var screenPos = Camera.main.WorldToScreenPoint(currentPos);
             if (screenPos.z < 0.0f)
             { // The hit point is behind the camera.

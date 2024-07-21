@@ -16,39 +16,40 @@ namespace ChobiAssets.PTM
 		*/
 
         // User options >>
+        [Range(0, 360)]
         public float OpenFire_Angle = 180.0f;
         // << User options
 
 
         int inputType;
-        Turret_Horizontal_CS[] turretHorizontalScripts;
-        Cannon_Vertical_CS[] cannonVerticalScripts;
-		public bool Use_Auto_Turn; // Referred to from "Turret_Horizontal_CS" and "Cannon_Vertical_CS".
-        public bool Use_Auto_Lead; // Referred to from "Turret_Horizontal_CS".
-        public float Aiming_Blur_Multiplier = 1.0f; // Referred to from "Turret_Horizontal_CS".
-        public bool reticleAimingFlag; // Controlled from "Aiming_Control_Input_##_###", and referred to from "UI_Aim_Marker_Control_CS".
+        [SerializeField] private Turret_Horizontal_CS[] turretHorizontalScripts;
+        [SerializeField] private Cannon_Vertical_CS[] cannonVerticalScripts;
+		[HideInInspector] public bool Use_Auto_Turn; // Referred to from "Turret_Horizontal_CS" and "Cannon_Vertical_CS".
+        [HideInInspector] public bool Use_Auto_Lead; // Referred to from "Turret_Horizontal_CS".
+        [HideInInspector] public float Aiming_Blur_Multiplier = 1.0f; // Referred to from "Turret_Horizontal_CS".
+        [HideInInspector] public bool reticleAimingFlag; // Controlled from "Aiming_Control_Input_##_###", and referred to from "UI_Aim_Marker_Control_CS".
 
         // For auto-turn.
-        public int Mode; // Referred to from "UI_Aim_Marker_Control_CS". // 0 => Keep the initial positon, 1 => Free aiming,  2 => Locking on.
-        Transform rootTransform;
-        Rigidbody thisRigidbody;
-        public Vector3 Target_Position; // Referred to from "Turret_Horizontal_CS", "Cannon_Vertical_CS", "UI_Aim_Marker_Control_CS", "ReticleWheel_Control_CS".
-        public Transform Target_Transform; // Referred to from "UI_Aim_Marker_Control_CS", "UI_HP_Bars_Target_CS".
-        Vector3 targetOffset;
-        public Rigidbody Target_Rigidbody; // Referred to from "Turret_Horizontal_CS".
-        public Vector3 Adjust_Angle; // Referred to from "Turret_Horizontal_CS" and "Cannon_Vertical_CS".
+        [HideInInspector] public int Mode; // Referred to from "UI_Aim_Marker_Control_CS". // 0 => Keep the initial positon, 1 => Free aiming,  2 => Locking on.
+        private Transform rootTransform;
+        private Rigidbody thisRigidbody;
+        [HideInInspector] public Vector3 Target_Position; // Referred to from "Turret_Horizontal_CS", "Cannon_Vertical_CS", "UI_Aim_Marker_Control_CS", "ReticleWheel_Control_CS".
+        [HideInInspector] public Transform Target_Transform; // Referred to from "UI_Aim_Marker_Control_CS", "UI_HP_Bars_Target_CS".
+        private Vector3 targetOffset;
+        [HideInInspector] public Rigidbody Target_Rigidbody; // Referred to from "Turret_Horizontal_CS".
+        [HideInInspector] public Vector3 Adjust_Angle; // Referred to from "Turret_Horizontal_CS" and "Cannon_Vertical_CS".
         const float spherecastRadius = 3.0f;
-        Camera_Rotation_CS cameraRotationScript;
-        public float Turret_Speed_Multiplier; // Referred to from "Turret_Horizontal_CS" and "Cannon_Vertical_CS".
+        private Camera_Rotation_CS cameraRotationScript;
+        [HideInInspector] public float Turret_Speed_Multiplier; // Referred to from "Turret_Horizontal_CS" and "Cannon_Vertical_CS".
 
         // For manual-turn.
-        public float Turret_Turn_Rate; // Referred to from "Turret_Horizontal_CS".
-        public float Cannon_Turn_Rate; // Referred to from "Cannon_Vertical_CS".
+        [HideInInspector] public float Turret_Turn_Rate; // Referred to from "Turret_Horizontal_CS".
+        [HideInInspector] public float Cannon_Turn_Rate; // Referred to from "Cannon_Vertical_CS".
 
 
 		protected Aiming_Control_Input_00_Base_CS inputScript;
 
-        public bool Is_Selected; // Referred to from "UI_HP_Bars_Target_CS".
+        [HideInInspector] public bool Is_Selected; // Referred to from "UI_HP_Bars_Target_CS".
 
 
         void Start()
@@ -71,8 +72,8 @@ namespace ChobiAssets.PTM
             }
             
             // Get the "Turret_Horizontal_CS" and "Cannon_Vertical_CS" scripts in the tank.
-            turretHorizontalScripts = GetComponentsInChildren<Turret_Horizontal_CS>();
-            cannonVerticalScripts = GetComponentsInChildren<Cannon_Vertical_CS>();
+            //turretHorizontalScripts = GetComponentsInChildren<Turret_Horizontal_CS>();
+            //cannonVerticalScripts = GetComponentsInChildren<Cannon_Vertical_CS>();
 
             // Get the "Camera_Rotation_CS" script in the tank.
             cameraRotationScript = transform.parent.GetComponentInChildren<Camera_Rotation_CS>();
