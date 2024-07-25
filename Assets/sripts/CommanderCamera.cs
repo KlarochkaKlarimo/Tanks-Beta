@@ -10,6 +10,7 @@ public class CommanderCamera : MonoBehaviour
     [SerializeField] private Turret_Horizontal_CS _turretHorizontalCS;
     [SerializeField] private Cannon_Vertical_CS _cannonVerticalCS;
     [SerializeField] private bool _isCommanderControl;
+    [SerializeField] private Gun_Camera_CS _comanderGunCameraScript;
     [SerializeField] private Gun_Camera_CS _gunCameraScript;
     [SerializeField] private AudioListener _audioListener;
     private Camera _commanderCamera;
@@ -17,7 +18,7 @@ public class CommanderCamera : MonoBehaviour
     private Camera _camera;
     private void Awake()
     {
-        _gunCameraScript = GetComponent<Gun_Camera_CS>();
+        _comanderGunCameraScript = GetComponent<Gun_Camera_CS>();
         _camera = GetComponent<Camera>();
         _audioListener = GetComponent<AudioListener>();
         _commanderCamera = GetComponent<Camera>();
@@ -49,14 +50,14 @@ public class CommanderCamera : MonoBehaviour
             Debug.Log("_mode " + _mode);
             if (_mode)
             {
-                _gunCameraScript.Switch_Mode(1);
+                _comanderGunCameraScript.Switch_Mode(1);
                 _mode = false;
             }
             else
             {
-                //_gunCameraScript.Switch_Mode(1);
-                OffCamera();
-                _gunCameraScript.Switch_Mode(2);
+                _gunCameraScript.Switch_Mode(1);
+               // OffCamera();
+                _comanderGunCameraScript.Switch_Mode(2);
                 _mode = true;
             }
 
