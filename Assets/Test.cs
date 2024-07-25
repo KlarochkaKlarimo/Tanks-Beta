@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class Test : MonoBehaviour
 {
-     Transform bulletGeneratorTransform;
+    Transform bulletGeneratorTransform;
     [SerializeField] Aiming_Control_CS aimingScript;
     [SerializeField] Bullet_Generator_CS Bullet_Generator_Script;
     [SerializeField] float Calculation_Time = 2f;
@@ -34,15 +34,12 @@ public class Test : MonoBehaviour
         var count = 0.0f;
         while (count < Calculation_Time)
         {
-            // Get the current position.
             var virtualPos = bulletVelocity * count;
             virtualPos.y -= 0.5f * -Physics.gravity.y * Mathf.Pow(count, 2.0f);
             currentPos = virtualPos + muzzlePos;
 
-            // Get the hit point by casting a ray.
             if (Physics.Linecast(previousPos, currentPos, out RaycastHit raycastHit, Layer_Settings_CS.Aiming_Layer_Mask))
-            {
-                Debug.DrawRay(muzzlePos, currentPos, Color.cyan, 3.0f);
+            {               
                 currentPos = raycastHit.point;
                 VisualImage();
                 break;
