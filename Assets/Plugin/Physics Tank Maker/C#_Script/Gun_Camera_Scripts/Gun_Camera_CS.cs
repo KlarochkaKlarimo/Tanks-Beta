@@ -26,8 +26,11 @@ namespace ChobiAssets.PTM
         public float Minimum_FOV = 2.0f;
         [Range(0f, 100f)]
         public float Maximum_FOV = 10.0f;
-		// << User options
 
+        [SerializeField] private float[] _zoomPoints;
+        // << User options
+
+        private int _zoomPointIndex;
 
 		// Set by "inputType_Settings_CS".
 		[HideInInspector]public int inputType = 0;
@@ -200,12 +203,28 @@ namespace ChobiAssets.PTM
         float currentZoomVelocity;
         void Zoom()
         {
-            targetFOV *= 1.0f + Zoom_Input;
+            if(_zoomPoints.Length > 0 && Zoom_Input != 0)
+            {
+                if (Zoom_Input >0 && _zoomPointIndex < _zoomPoints.Length-1)
+                {
+                    _zoomPointIndex++;
+                }
+
+                else if (Zoom_Input <0 && _zoomPointIndex > 0)
+                {
+                    _zoomPointIndex--;
+                }
+
+                Gun_Camera.fieldOfView = _zoomPoints[_zoomPointIndex];
+                return;
+            }
+
+            targetFOV *= 1f + Zoom_Input;
             targetFOV = Mathf.Clamp(targetFOV, Minimum_FOV, Maximum_FOV);
 
             if (currentFOV != targetFOV)
             {
-                currentFOV = Mathf.SmoothDamp(currentFOV, targetFOV, ref currentZoomVelocity, 2.0f * Time.deltaTime);
+                currentFOV = Mathf.SmoothDamp(currentFOV, targetFOV, ref currentZoomVelocity, 0.1f);
                 Gun_Camera.fieldOfView = currentFOV;
             }
         }

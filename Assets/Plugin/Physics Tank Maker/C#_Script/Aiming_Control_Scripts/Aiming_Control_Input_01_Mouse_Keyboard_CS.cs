@@ -61,6 +61,7 @@ namespace ChobiAssets.PTM
             }
 
             // Adjust aiming.
+            
             if (GetGunCamera() && GetGunCamera().Gun_Camera.enabled)
             { // The gun camera is enabled now.
 
@@ -68,36 +69,18 @@ namespace ChobiAssets.PTM
                 aimingScript.Adjust_Angle.x += Input.GetAxis("Mouse X") * General_Settings_CS.Aiming_Sensibility;
                 aimingScript.Adjust_Angle.y += Input.GetAxis("Mouse Y") * General_Settings_CS.Aiming_Sensibility;
 
-                // Check it is locking-on now.
-                if (aimingScript.Target_Transform)
-                { // Now locking-on the target.
-                    // Cancel the lock-on.
-                    if (Input.GetKeyDown(General_Settings_CS.Turret_Cancel_Key))
-                    {
-                        aimingScript.Target_Transform = null;
-                        aimingScript.Target_Rigidbody = null;
-                    }
+                screenCenter.x = Screen.width * 0.5f;
+                screenCenter.y = Screen.height * 0.5f;
+                aimingScript.RaycastFirstCam(screenCenter, thisRelationship);
 
-                    // Control "reticleAimingFlag" in "Aiming_Control_CS".
-                    aimingScript.reticleAimingFlag = false;
-                }
-                else
-                { // Now not locking-on.
-                    // Try to find a new target.
-                    if (Input.GetKey(General_Settings_CS.Turret_Cancel_Key) == false)
-                    {
-                        screenCenter.x = Screen.width * 0.5f;
-                        screenCenter.y = Screen.height * 0.5f;
-                        aimingScript.Reticle_Aiming(screenCenter, thisRelationship);
-                    }
 
-                    // Control "reticleAimingFlag" in "Aiming_Control_CS".
-                    aimingScript.reticleAimingFlag = true;
-                }
+                // Control "reticleAimingFlag" in "Aiming_Control_CS".
+                aimingScript.reticleAimingFlag = true;
 
                 // Reset the "Turret_Speed_Multiplier".
                 aimingScript.Turret_Speed_Multiplier = 1.0f;
             }
+
             else
             { // The gun camera is disabled now.
 
@@ -122,34 +105,12 @@ namespace ChobiAssets.PTM
                     // Find the target.
                     screenCenter.x = Screen.width * 0.5f;
                     screenCenter.y = Screen.height * (0.5f + General_Settings_CS.Aiming_Offset);
-                    aimingScript.Cast_Ray_Free(screenCenter);
+                    aimingScript.RaycastThirdCam(screenCenter);
                 }
 
                 // Control "reticleAimingFlag" in "Aiming_Control_CS".
                 aimingScript.reticleAimingFlag = false;
             }
-
-            
-            /*
-            // Left lock on.
-            if (Input.GetKeyDown(General_Settings_CS.Aim_Lock_On_Left_Key))
-            {
-                aimingScript.Auto_Lock(0, thisRelationship);
-                return;
-            }
-            // Right lock on.
-            if (Input.GetKeyDown(General_Settings_CS.Aim_Lock_On_Right_Key))
-            {
-                aimingScript.Auto_Lock(1, thisRelationship);
-                return;
-            }
-            // Front lock on.
-            if (Input.GetKeyDown(General_Settings_CS.Aim_Lock_On_Front_Key))
-            {
-                aimingScript.Auto_Lock(2, thisRelationship);
-                return;
-			}
-            */
             
         }
 

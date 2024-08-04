@@ -5,13 +5,17 @@ using UnityEngine.UI;
 namespace ChobiAssets.PTM
 {
 
-	[ RequireComponent (typeof(Camera))]
+    [RequireComponent(typeof(Camera))]
 
-	public class Reticle_Control_CS : MonoBehaviour
-	{
+    public class Reticle_Control_CS : MonoBehaviour
+    {
         [SerializeField] private GameObject reticleObject;
         [SerializeField] private GameObject thirdPersonAim;
         [SerializeField] private RectTransform reticleImage;
+
+        [SerializeField] private Image _sight;
+        [SerializeField] private Sprite _minSightNet;
+        [SerializeField] private Sprite _maxSightNet;
 
         public Gun_Camera_CS Gun_Camera_Script;
               
@@ -41,6 +45,16 @@ namespace ChobiAssets.PTM
                 // Change the scale according to the FOV.
                 var currentScale = Gun_Camera_Script.Maximum_FOV / Gun_Camera_Script.Gun_Camera.fieldOfView;
                 reticleImage.localScale = Vector3.one * currentScale;
+
+                if(Gun_Camera_Script.Maximum_FOV == Gun_Camera_Script.Gun_Camera.fieldOfView)
+                {
+                    _sight.sprite = _maxSightNet;
+                }
+
+                else
+                {
+                    _sight.sprite = _minSightNet;
+                }
             }
         }
 

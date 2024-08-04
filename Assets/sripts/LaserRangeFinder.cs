@@ -43,11 +43,13 @@ public class LaserRangeFinder : MonoBehaviour
         var previousPos = muzzlePos;
         var currentPos = previousPos;
         var count = 0.0f;
+
         while (count < Calculation_Time)
         {
             var virtualPos = bulletVelocity * count;
             virtualPos.y -= 0.5f * -Physics.gravity.y * Mathf.Pow(count, 2.0f);
             currentPos = virtualPos + muzzlePos;
+            Debug.DrawLine(previousPos, currentPos, Color.green, 20f);
 
             if (Physics.Linecast(previousPos, currentPos, out RaycastHit raycastHit, Layer_Settings_CS.Aiming_Layer_Mask))
             {
@@ -57,12 +59,12 @@ public class LaserRangeFinder : MonoBehaviour
             }
 
             // Check the ray has exceeded the target.
-            var currenBase = Vector2.Distance(Vector2.zero, new Vector2(virtualPos.x, virtualPos.z));
-            if (currenBase > targetBase)
-            {
-                VisualImage();
-                break;
-            }
+            //var currenBase = Vector2.Distance(Vector2.zero, new Vector2(virtualPos.x, virtualPos.z));
+            //if (currenBase > targetBase)
+            //{
+            //    VisualImage();
+            //    break;
+            //}
 
             previousPos = currentPos;
             count += Time.fixedDeltaTime;

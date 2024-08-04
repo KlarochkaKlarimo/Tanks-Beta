@@ -202,89 +202,10 @@ namespace ChobiAssets.PTM
                     break;
             }
         }
+      
 
 
-        public void Cast_Ray_Lock(Vector3 screenPos)
-        { // Called from "Aiming_Control_Input_##_###".
-
-            // Find a target by casting a ray from the camera.
-            var mainCamera = Camera.main;
-            var ray = mainCamera.ScreenPointToRay(screenPos);
-            if (Physics.Raycast(ray, out RaycastHit raycastHit, 2048.0f, Layer_Settings_CS.Aiming_Layer_Mask))
-            {
-                var colliderTransform = raycastHit.collider.transform;
-
-                // Check the hit collider is not a part of itself.
-                if (colliderTransform.root != rootTransform)
-                {
-                    // Check the hit object has a rigidbody.
-                    // (Note.) When the hit collider has no rigidbody, and its parent has a rigidbody, then the parent's rigidbody is set as 'RaycastHit.rigidbody'.
-                    if (raycastHit.rigidbody)
-                    {
-                        // Set the hit collider as the target.
-                        Target_Transform = colliderTransform;
-
-                        // Set the offset from the pivot.
-                        targetOffset = Target_Transform.InverseTransformPoint(raycastHit.point);
-                        if (Target_Transform.localScale != Vector3.one)
-                        { // The hit collider should be an "Armor_Collider".
-                            targetOffset.x *= Target_Transform.localScale.x;
-                            targetOffset.y *= Target_Transform.localScale.y;
-                            targetOffset.z *= Target_Transform.localScale.z;
-                        }
-
-                        // Store the rigidbody of the target.
-                        Target_Rigidbody = raycastHit.rigidbody;
-                    }
-                    else
-                    { // The hit object does not have a rigidbody.
-
-                        // Clear the target.
-                        Target_Transform = null;
-                        Target_Rigidbody = null;
-
-                        // Store the hit point.
-                        Target_Position = raycastHit.point;
-                    }
-
-                    // Switch the aiming mode.
-                    Mode = 2; // Lock on.
-                    Switch_Mode();
-                    return;
-                }
-                else
-                { // The hit collider is a part of itself.
-
-                    // Clear the target.
-                    Target_Transform = null;
-                    Target_Rigidbody = null;
-
-                    // Switch the aiming mode.
-                    Mode = 0; // Keep the initial position.
-                    Switch_Mode();
-                    return;
-                }
-            }
-            else
-            { // The ray does not hit anythig.
-
-                // Clear the target.
-                Target_Transform = null;
-                Target_Rigidbody = null;
-
-                // Set the position through the camera.
-                screenPos.z = 1024.0f;
-                Target_Position = mainCamera.ScreenToWorldPoint(screenPos);
-
-                // Switch the aiming mode.
-                Mode = 2; // Lock on.
-                Switch_Mode();
-                return;
-            }
-        }
-
-
-        public void Cast_Ray_Free(Vector3 screenPos)
+        public void RaycastThirdCam(Vector3 screenPos)
         { // Called from "Aiming_Control_Input_##_###".
 
             // Find a target by casting a ray from the camera.
@@ -342,12 +263,13 @@ namespace ChobiAssets.PTM
         }
 
 
-        public void Reticle_Aiming(Vector3 screenPos, int thisRelationship)
+        public void RaycastFirstCam(Vector3 screenPos, int thisRelationship)
         { // Called from "Aiming_Control_Input_##_###".
 
             // Find a target by casting a sphere from the camera.
             var ray = Camera.main.ScreenPointToRay(screenPos);
-            var raycastHits = Physics.SphereCastAll(ray, spherecastRadius, 2048.0f, Layer_Settings_CS.Aiming_Layer_Mask);
+            var raycastHits = Physics.SphereCastAll(ray, spherecastRadius, 5000.0f, Layer_Settings_CS.Aiming_Layer_Mask);
+            Debug.DrawRay(ray.origin, ray.direction * 5000, Color.cyan);
             for (int i = 0; i < raycastHits.Length; i++)
             {
                 Transform colliderTransform = raycastHits[i].collider.transform;
@@ -368,12 +290,6 @@ namespace ChobiAssets.PTM
 
                 // Check the target is a MainBody. 
                 if (targetRigidbody.gameObject.layer != Layer_Settings_CS.Body_Layer)
-                {
-                    continue;
-                }
-
-                // Check the hit object is not a destroyed tank.
-                if (colliderTransform.root.tag == "Finish")
                 {
                     continue;
                 }
