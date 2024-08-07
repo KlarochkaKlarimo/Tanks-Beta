@@ -269,7 +269,14 @@ namespace ChobiAssets.PTM
             // Find a target by casting a sphere from the camera.
             var ray = Camera.main.ScreenPointToRay(screenPos);
             var raycastHits = Physics.SphereCastAll(ray, spherecastRadius, 5000.0f, Layer_Settings_CS.Aiming_Layer_Mask);
-            Debug.DrawRay(ray.origin, ray.direction * 5000, Color.cyan);
+
+            //Debug.DrawRay(ray.origin, ray.direction * 5000, Color.cyan);
+
+            if (raycastHits != null)
+            {
+                Debug.DrawLine(ray.origin, raycastHits[0].point, Color.cyan);
+            }
+            
             for (int i = 0; i < raycastHits.Length; i++)
             {
                 Transform colliderTransform = raycastHits[i].collider.transform;
