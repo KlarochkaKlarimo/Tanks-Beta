@@ -60,6 +60,7 @@ namespace ChobiAssets.PTM
         void Start()
         {
             // Switch the bullet type at the first time.
+            bullets = Resources.Load<TanksSettings>("Tanks Settings").settings[0].bullets;
             currentBulletType = Initial_Bullet_Type - 1; // (Note.) The "currentBulletType" value is added by 1 soon in the "Switch_Bullet_Type()".
             Switch_Bullet_Type();
         }

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46d37afc4da6267418abdef1f428d6e0, type: 3}
+  m_Name: Tanks Settings
+  m_EditorClassIdentifier: 
+  settings:
+  - tankName: "\u0422\u0438\u0433\u043E\u0440"
+    bullets:
+    - prefab: {fileID: 1459669234869594, guid: 15599cac06feb654b9e218710f17eec3, type: 3}
+      attackPoint: 1300
+      initialVelocity: 1300
+      bulletType: 0
+      bulletName: apfsds
+      ammoCount: 10
+    - prefab: {fileID: 21630175310231115, guid: 46ff5fb318f292c45bd34e72eb55c5d3,
+        type: 3}
+      attackPoint: 1300
+      initialVelocity: 1300
+      bulletType: 2
+      bulletName: atgm
+      ammoCount: 10
+    maxAmmorack: 30
