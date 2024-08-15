@@ -6,7 +6,8 @@ using ChobiAssets.PTM;
 
 public class LaserRangeFinder : MonoBehaviour
 {
-    [SerializeField] private Text _rangeFinderDistance;
+    [SerializeField] private Text _rangeFinderDistanceSight;
+    [SerializeField] private Text _rangeFinderDistanceSmall;
 
     [SerializeField] private Transform bulletGeneratorTransform;
     [SerializeField] private Aiming_Control_CS aimingScript;
@@ -102,12 +103,13 @@ public class LaserRangeFinder : MonoBehaviour
             if (screenPos.z < 0.0f)
             { // The hit point is behind the camera.
                 markerImage.enabled = false;
-                _rangeFinderDistance.text = "9999";
+                _rangeFinderDistanceSight.text = "9999";
                 return;
             }
 
             int metrDist = (int)Vector3.Distance(muzzlePos, currentPos);
-            _rangeFinderDistance.text = metrDist.ToString();
+            _rangeFinderDistanceSight.text = metrDist.ToString();
+            _rangeFinderDistanceSmall.text = metrDist.ToString() + " meters";
 
             // Set the position.
             markerImage.enabled = true;
