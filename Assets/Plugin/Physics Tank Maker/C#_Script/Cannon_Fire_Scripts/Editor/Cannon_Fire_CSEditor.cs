@@ -5,7 +5,7 @@ using UnityEditor;
 namespace ChobiAssets.PTM
 {
 
-	[ CustomEditor (typeof(Cannon_Fire_CS))]
+	//[ CustomEditor (typeof(Cannon_Fire_CS))]
 	public class Cannon_Fire_CSEditor : Editor
 	{
 	

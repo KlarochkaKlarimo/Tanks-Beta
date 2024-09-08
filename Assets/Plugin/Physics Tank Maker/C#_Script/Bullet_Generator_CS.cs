@@ -73,7 +73,7 @@ namespace ChobiAssets.PTM
                 currentBulletType = 0;
             }      
             Current_Bullet_Velocity = bullets[currentBulletType].initialVelocity;
-            _currentProjectileName.text = bullets[currentBulletType].bulletName;
+            _currentProjectileName.text = bullets[currentBulletType].bulletName + " ( " + bullets[currentBulletType].ammoCount + " )";
         }
 
         public void Fire_Linkage(int direction, Vector3 spread)
@@ -99,6 +99,7 @@ namespace ChobiAssets.PTM
                 Instantiate(MuzzleFire_Object, transform.position, transform.rotation, transform);
             }
             currentBullet.ammoCount--;
+            _currentProjectileName.text = bullets[currentBulletType].bulletName + " ( " + bullets[currentBulletType].ammoCount + " )";
             var bulletObject = Instantiate(currentBullet.prefab, transform.position + (transform.forward * Offset), transform.rotation) as GameObject;
             // Set values of "Bullet_Control_CS" in the bullet.
             Bullet_Control_CS bulletScript = bulletObject.GetComponent<Bullet_Control_CS>();

@@ -14,22 +14,26 @@ namespace ChobiAssets.PTM
 		*/
 
 		// User options >>
+        [Range(0.01f, 60.0f)]
 		public float Reload_Time = 2.0f;
-		public float Recoil_Force = 5000.0f;
-		// << User options
+        [Range(0.0f, 30000.0f)]
+        public float Recoil_Force = 5000.0f;
+        // << User options
+
+        [SerializeField] private GameObject _isReloadingTxt;
 
 
 		// Set by "inputType_Settings_CS".
-		public int inputType = 0;
+		[HideInInspector] public int inputType = 0;
 
-		// Referred to from "UI_Reloading_Circle_CS".
-		public float Loading_Count;
-		public bool Is_Loaded = true;
+        // Referred to from "UI_Reloading_Circle_CS".
+        [HideInInspector] public float Loading_Count;
+        [HideInInspector] public bool Is_Loaded = true;
 
         Rigidbody bodyRigidbody;
         Transform thisTransform;
         int direction = 1; // For twin barrels, 1 = left, 2 = right.
-		public Bullet_Generator_CS[] Bullet_Generator_Scripts; // Referred to from "Cannon_Fire_Input_##_###".
+        [HideInInspector] public Bullet_Generator_CS[] Bullet_Generator_Scripts; // Referred to from "Cannon_Fire_Input_##_###".
         Recoil_Brake_CS[] recoilScripts;
 
         protected Cannon_Fire_Input_00_Base_CS inputScript;
@@ -107,6 +111,8 @@ namespace ChobiAssets.PTM
 
         void Update()
         {
+            _isReloadingTxt.SetActive(Is_Loaded == false);
+
             if (Is_Loaded == false)
             {
                 return;
