@@ -21,8 +21,8 @@ namespace ChobiAssets.PTM
         // << User options
 
         [SerializeField] private GameObject _isReloadingTxt;
-
-
+        [SerializeField] private AudioSource _reloadSound;
+         
 		// Set by "inputType_Settings_CS".
 		[HideInInspector] public int inputType = 0;
 
@@ -159,6 +159,7 @@ namespace ChobiAssets.PTM
 
             // Reload.
             StartCoroutine("Reload");
+            _reloadSound.Play();
         }
 
 

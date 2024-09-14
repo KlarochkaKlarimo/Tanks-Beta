@@ -37,7 +37,8 @@ namespace ChobiAssets.PTM
 		*/
 
         [SerializeField] private Text _currentProjectileName;
-     
+        [SerializeField] private Cannon_Fire_CS _cannonFireScript;
+
         public GameObject MuzzleFire_Object;
 
         public BulletSettings [] bullets;        
@@ -62,18 +63,51 @@ namespace ChobiAssets.PTM
             // Switch the bullet type at the first time.
             bullets = Resources.Load<TanksSettings>("Tanks Settings").settings[0].bullets;
             currentBulletType = Initial_Bullet_Type - 1; // (Note.) The "currentBulletType" value is added by 1 soon in the "Switch_Bullet_Type()".
-            Switch_Bullet_Type();
+            //ChangeAmmoType(0);
+        }
+
+        private void Update()
+        {
+            if (Input.GetKey(KeyCode.Alpha1))
+            {
+                ChangeAmmoType(0);
+            }
+
+            if (Input.GetKey(KeyCode.Alpha2))
+            {
+                ChangeAmmoType(1);
+            }
+
+            if (Input.GetKey(KeyCode.Alpha3))
+            {
+                ChangeAmmoType(2);
+            }
+
+            if (Input.GetKey(KeyCode.Alpha4))
+            {
+                ChangeAmmoType(3);
+            }
+
+            if (Input.GetKey(KeyCode.Alpha5))
+            {
+                ChangeAmmoType(4);
+            }
+        }
+
+        private void ChangeAmmoType(int bulletNumber)
+        {
+            if (bulletNumber >= bullets.Length) return;
+            currentBulletType = bulletNumber;
+            Current_Bullet_Velocity = bullets[currentBulletType].initialVelocity;
+            _currentProjectileName.text = bullets[currentBulletType].bulletName + " ( " + bullets[currentBulletType].ammoCount + " )";
+            _cannonFireScript.StartCoroutine("Reload");
         }
 
         public void Switch_Bullet_Type()
         { // Called from "Cannon_Fire_Input_##_##" scripts.
-            currentBulletType ++;
-            if (currentBulletType > bullets.Length)
-            {
-                currentBulletType = 0;
-            }      
-            Current_Bullet_Velocity = bullets[currentBulletType].initialVelocity;
-            _currentProjectileName.text = bullets[currentBulletType].bulletName + " ( " + bullets[currentBulletType].ammoCount + " )";
+
+            //TODO vipelit k chertu
+
         }
 
         public void Fire_Linkage(int direction, Vector3 spread)
