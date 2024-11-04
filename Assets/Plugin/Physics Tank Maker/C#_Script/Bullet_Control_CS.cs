@@ -15,6 +15,7 @@ namespace ChobiAssets.PTM
 		*/
         public BulletSettings settings;
 
+        //[SerializeField] public int _burningModificator; TODO
         [SerializeField] protected Transform[] fragments;
         [SerializeField] protected int _fragmentsModulDamage;
         [SerializeField] protected Transform _fragmentsParent;

@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ChobiAssets.PTM;
+using UnityEngine.VFX;
 
 public class MineScript : MonoBehaviour
 {
     [SerializeField] private float _radius;
     [SerializeField] private float _explForse;
-    [SerializeField] private DeadCollision _deadCollider;
     [SerializeField] private Collider _vzrivatel;
     [SerializeField] private bool _hasCollided = false;
     [SerializeField] private float _explosionDelay;
-    [SerializeField] private GameObject explosion;
+    [SerializeField] private GameObject _explosionFX;
     [SerializeField] private float _otorvatKotokDistancia;
     [SerializeField] private GameObject _mine;
     
@@ -34,35 +34,24 @@ public class MineScript : MonoBehaviour
 
     private void Explode()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, _radius);
+        var damagedObjects = transform.ExplosionWave<Drive_Wheel_CS>(_radius, _explForse);
 
-        foreach (Collider nearbyObject in colliders)
-        {
-            Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
-            if (rb != null)
+        foreach (var nearbyObject in damagedObjects)
+        {            
+            if (Vector3.Distance(transform.position, nearbyObject.transform.position)<_otorvatKotokDistancia)
             {
-                var wheel = nearbyObject.gameObject.GetComponent<Drive_Wheel_CS>();
-                if (wheel!=null)
+                nearbyObject.transform.SetParent(null);
+                var hitJoint = nearbyObject.gameObject.GetComponent<HingeJoint>();
+                if (hitJoint != null)
                 {
-                    if(Vector3.Distance(transform.position, wheel.transform.position)<_otorvatKotokDistancia)
-                    {
-                        wheel.transform.SetParent(null);
-                        var hitJoint = wheel.gameObject.GetComponent<HingeJoint>();
-                        if(hitJoint != null)
-                        {
-                            Destroy(hitJoint);
-                            wheel.gameObject.GetComponent<Drive_Wheel_CS>().enabled = false;
-                            //wheel.gameObject.GetComponent<Fix_Shaking_Rotation_CS>().enabled = false;
-                            wheel.gameObject.GetComponent<Stabilizer_CS>().enabled = false;
-                        }
-                    }
+                    Destroy(hitJoint);
+                    nearbyObject.gameObject.GetComponent<Drive_Wheel_CS>().enabled = false;                    
+                    nearbyObject.gameObject.GetComponent<Stabilizer_CS>().enabled = false;
                 }
-                rb.AddExplosionForce(_explForse, transform.position, _radius);
-            }
-        }     
-        explosion.transform.SetParent(null);
-        explosion.transform.localScale = Vector3.one;
-        explosion.SetActive(true);
+            }   
+        }
+        var vzriv = Instantiate(_explosionFX, transform.position, transform.rotation);
+        vzriv.GetComponent<VisualEffect>().Play();
         Destroy(_mine);
     }
 }

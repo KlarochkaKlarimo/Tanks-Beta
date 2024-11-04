@@ -1,0 +1,40 @@
+{
+    "name": "Boxophobic.TheVisualEngine.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0169ec9b0d8746d41bf129d2e8c3cebc",
+        "GUID:10f1dd4cfd6afb54da274d7d818bd8f6",
+        "GUID:825ad574da7360d4e8aea558f272972e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [
+        "Android",
+        "Editor",
+        "EmbeddedLinux",
+        "GameCoreScarlett",
+        "GameCoreXboxOne",
+        "iOS",
+        "LinuxStandalone64",
+        "CloudRendering",
+        "macOSStandalone",
+        "PS4",
+        "PS5",
+        "QNX",
+        "Stadia",
+        "Switch",
+        "tvOS",
+        "WSA",
+        "VisionOS",
+        "WebGL",
+        "WindowsStandalone32",
+        "WindowsStandalone64",
+        "XboxOne"
+    ],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

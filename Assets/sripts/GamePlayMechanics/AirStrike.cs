@@ -19,7 +19,6 @@ public class AirStrike : MonoBehaviour
     {
         if (missileRB != null)
         {
-
             missileRB.transform.position=Vector3.MoveTowards(missileRB.transform.position, _coordinates, _missileSpeed * Time.fixedDeltaTime);
             missileRB.transform.LookAt(_coordinates);
             //Vector3 movePosition = Vector3.Slerp(missileRB.position, koordinates, 1f * Time.fixedDeltaTime);
@@ -30,16 +29,15 @@ public class AirStrike : MonoBehaviour
 
     void Update()
     {
-        
-
         if (Input.GetKeyDown(KeyCode.K))
         {
             if (isReloading)
             {
                 return;
             }
-            
-            _coordinates = _startPoint + _uslovnieCoordinates * _distance;
+
+            //_coordinates = _startPoint + _uslovnieCoordinates * _distance;
+            _coordinates = _uslovnieCoordinates; // TODO podvyzat minimapu
             missileRB =  Instantiate(missile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
             StartCoroutine(Reload());
         }

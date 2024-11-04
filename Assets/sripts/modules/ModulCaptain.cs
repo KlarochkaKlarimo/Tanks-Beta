@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class ModulCaptain : CharacterBase
 {
-    [SerializeField] private EnemyVision _enemyVision;
-
     public override void ModulDamaged()
     {
         base.ModulDamaged();
-        //damage komander igrok
+        // TODO damage komander igrok
     }
 
     public override void ModulDestroyed()
@@ -17,7 +15,7 @@ public class ModulCaptain : CharacterBase
         base.ModulDestroyed();
         if (isModelDamaged)
         {
-            // igrok umiraet 
+            // TODO igrok umiraet 
             return;
         }
     }

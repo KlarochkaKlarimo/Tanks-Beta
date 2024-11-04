@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using ChobiAssets.PTM;
 
-public abstract class ModulBase : IPinetrtlbe
+public abstract class ModulBase : PinetrtlbeObjects
 {
     [SerializeField] private int hp;
     [SerializeField] private int _damagedHp;
