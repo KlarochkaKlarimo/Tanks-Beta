@@ -7,7 +7,6 @@ using UnityEngine.VFX;
 
 public class Missile : MonoBehaviour
 {
-    // TODO dodelat
     [SerializeField] private float _radius;
     [SerializeField] private float _explForse;
     [SerializeField] private Collider _deadCollider;

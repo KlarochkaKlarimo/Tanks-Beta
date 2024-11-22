@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TargetLock : MonoBehaviour
 {
+    //TODO podvyazat k teplovizeru 
+
     public float maxDistance;
 
     [SerializeField] private GameObject targetCaptured;

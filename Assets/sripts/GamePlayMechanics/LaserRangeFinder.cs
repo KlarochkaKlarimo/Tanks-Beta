@@ -6,6 +6,8 @@ using ChobiAssets.PTM;
 
 public class LaserRangeFinder : MonoBehaviour
 {
+    // TODO sdelat sho bi rabotalo na odny knopachku
+
     [SerializeField] private Text _rangeFinderDistanceSight;
     [SerializeField] private Text _rangeFinderDistanceSmall;
 

@@ -15,6 +15,6 @@ public class UITankRotation : MonoBehaviour
     private void Update()
     {
         _turretImage.localRotation = Quaternion.Euler(0, 0, _turretReal.localEulerAngles.y * -1);
-        _hullImage.rotation = Quaternion.Euler(0, 0, (_cameraReal.localEulerAngles.y - 90) * -1);
+        _hullImage.rotation = Quaternion.Euler(0, 0, (_cameraReal.localEulerAngles.y - _hullReal.eulerAngles.y));
     }
 }

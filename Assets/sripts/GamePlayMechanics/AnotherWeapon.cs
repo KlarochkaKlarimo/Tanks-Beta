@@ -11,9 +11,15 @@ public class AnotherWeapon : MonoBehaviour
     [SerializeField] private float _recoil_Force;
     [SerializeField] private Rigidbody _bodyRigidbody;
     [SerializeField] private KeyCode _anotherWeaponFire;
+    [SerializeField] private AnotherWeaponType _type;
     private float _reloadTimer;
     private bool _isCannonDamaged;
-    
+
+    private void Awake()
+    {
+        _linkForGenerator.SetWeaponType(_type, true);
+    }
+
     void Update()
     {
         if (_reloadTimer<=_reload_Time)
@@ -48,4 +54,10 @@ public class AnotherWeapon : MonoBehaviour
             _bodyRigidbody.AddForceAtPosition(-transform.forward * _recoil_Force, transform.position, ForceMode.Impulse);
         }      
     }
+}
+
+public  enum AnotherWeaponType
+{
+    machineGun,
+    atgm
 }

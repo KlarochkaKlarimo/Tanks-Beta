@@ -14,7 +14,7 @@ public class HangarMenu : MonoBehaviour
     [SerializeField] private Transform _tankListContent;
     [SerializeField] private TankCartButton _tankCartPrefab;
 
-    private TanksSettings _tanksSettings;
+    private TanksSettingsCollection _tanksSettings;
     private TanksSetting _tank;
 
     public void StartGame()
@@ -27,7 +27,7 @@ public class HangarMenu : MonoBehaviour
 
     private void Start()
     {
-        _tanksSettings = Resources.Load<TanksSettings>("Tanks Settings");  
+        _tanksSettings = Resources.Load<TanksSettingsCollection>("Tanks Settings");  
         foreach (var tank in _tanksSettings.settings)
         {
             var cart = Instantiate(_tankCartPrefab, _tankListContent);

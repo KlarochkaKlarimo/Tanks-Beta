@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HomingMissile : MonoBehaviour
 {
+    // TODO sdelat realistichnuy simulaciuy poleta raketы
     public float speed = 10f;
     [SerializeField] private Transform target;
     [SerializeField] private TargetLock targetLock;
@@ -50,7 +51,5 @@ public class HomingMissile : MonoBehaviour
             // Движение ракеты в направлении цели
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
-    }
-
-    
+    }    
 }

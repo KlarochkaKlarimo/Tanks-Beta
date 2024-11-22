@@ -90,9 +90,28 @@ namespace ChobiAssets.PTM
                 rigibody.AddForce(speed * transform.forward, ForceMode.Impulse);
                 return;
             }
-            var ray = new Ray(_shootPoint.position, _shootPoint.forward);           
-            Debug.DrawRay(ray.origin, ray.direction, Color.cyan, 0f);
-            _destination = ray.origin + ray.direction* 1000f;
+            //_shootPoint.position, _shootPoint.forward
+
+            var _screenCenter = new Vector3();
+
+            _screenCenter.x = Screen.width * 0.5f;
+            _screenCenter.y = Screen.height * 0.5f;
+
+            var ray = Camera.main.ScreenPointToRay(_screenCenter);
+
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray.origin, ray.direction, out hit))
+            {
+                Debug.DrawRay(_shootPoint.position, hit.point, Color.yellow, 10f);
+                _destination = hit.point;
+            }
+            
+            else
+            {               
+                Debug.DrawRay(ray.origin, ray.direction, Color.black, 10f);
+                _destination = ray.origin + ray.direction * _noControlAtgmDistance;
+            }
 
             rigibody.velocity = (_destination - transform.position).normalized * speed;
         }
