@@ -13,6 +13,11 @@ public class PropCollections : ScriptableObject
 [Serializable] 
 public class Prop
 {
+    public Prop(GameObject prefabObject, PropType propType)
+    {
+        prefab = prefabObject;
+        type = propType;
+    }
     public GameObject prefab;
     public PropType type;
 }
