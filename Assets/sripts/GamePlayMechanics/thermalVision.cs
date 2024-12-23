@@ -6,11 +6,23 @@ public class thermalVision : MonoBehaviour
 {
     public static Action<bool> thermalVisionAction;
     [SerializeField] private GameObject _thermalCamera;
+    [SerializeField] private Camera _gunCamera;
     private bool _isOn;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        if (_gunCamera.enabled == false)
+        {
+            if (_isOn)
+            {
+                _isOn = false;
+                _thermalCamera.SetActive(_isOn);
+                thermalVisionAction.Invoke(_isOn);
+                UpdateThermalVision();
+            }            
+        }
+
+        else if (Input.GetKeyDown(KeyCode.C))
         {
             //_normalCamera.enabled = !_normalCamera.enabled;
             _isOn = !_isOn;
@@ -22,6 +34,7 @@ public class thermalVision : MonoBehaviour
 
     void UpdateThermalVision()
     {
+        
         var meshes = GameObject.FindObjectsOfType<MeshRenderer>();
         var lights = GameObject.FindObjectsOfType<Light>();
         if (_isOn) 
