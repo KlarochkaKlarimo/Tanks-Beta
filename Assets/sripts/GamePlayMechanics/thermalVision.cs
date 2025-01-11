@@ -5,28 +5,42 @@ using UnityEngine.Rendering;
 public class thermalVision : MonoBehaviour
 {
     public static Action<bool> thermalVisionAction;
-    [SerializeField] private GameObject _thermalCamera;
+    [SerializeField] private Camera _thermalCamera;
+    //[SerializeField] private GameObject _pixelCanvas;
     [SerializeField] private Camera _gunCamera;
+    private GameObject _thermalCameraGameObject;
+    private GameObject _gunCameraGameObject;
     private bool _isOn;
 
+    private void Awake()
+    {
+        _thermalCameraGameObject = _thermalCamera.gameObject;
+    }
     void Update()
     {
-        if (_gunCamera.enabled == false)
+        if (_isOn)
         {
-            if (_isOn)
+            
+            if (_gunCamera.enabled == false)
             {
                 _isOn = false;
-                _thermalCamera.SetActive(_isOn);
+                _thermalCameraGameObject.SetActive(_isOn);
                 thermalVisionAction.Invoke(_isOn);
                 UpdateThermalVision();
-            }            
-        }
+            }
 
-        else if (Input.GetKeyDown(KeyCode.C))
+            else
+            {
+                _thermalCamera.fieldOfView = _gunCamera.fieldOfView;
+            }
+        }
+        
+
+        if (Input.GetKeyDown(KeyCode.C))
         {
             //_normalCamera.enabled = !_normalCamera.enabled;
             _isOn = !_isOn;
-            _thermalCamera.SetActive(_isOn);
+            _thermalCameraGameObject.SetActive(_isOn);
             thermalVisionAction.Invoke(_isOn);
             UpdateThermalVision();
         }       

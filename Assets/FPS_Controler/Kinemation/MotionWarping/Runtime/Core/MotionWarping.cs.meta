@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: a3164a26014538e45b7dbfa103dabef0
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 100
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 270046
+  packageName: 'Motion Warping: Climb & Interact'
+  packageVersion: 3.1.0
+  assetPath: Assets/KINEMATION/MotionWarping/Runtime/Core/MotionWarping.cs
+  uploadId: 720822

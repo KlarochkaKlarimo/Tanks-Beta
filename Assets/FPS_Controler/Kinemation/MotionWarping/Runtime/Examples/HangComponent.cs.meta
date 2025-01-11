@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 18c8d51c4bfa48c69c050aa993b9b441
+timeCreated: 1705657565
+AssetOrigin:
+  serializedVersion: 1
+  productId: 270046
+  packageName: 'Motion Warping: Climb & Interact'
+  packageVersion: 3.1.0
+  assetPath: Assets/KINEMATION/MotionWarping/Runtime/Examples/HangComponent.cs
+  uploadId: 720822

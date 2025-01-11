@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 6ac99bb1de1ddac4fbefd00ae5306a38
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 270046
+  packageName: 'Motion Warping: Climb & Interact'
+  packageVersion: 3.1.0
+  assetPath: Assets/KINEMATION/MotionWarping/Editor/MotionWarping.Editor.asmdef
+  uploadId: 720822

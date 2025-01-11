@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 9637a7f6138e4e12a4db8b42a5c0738a
+timeCreated: 1708838183
+AssetOrigin:
+  serializedVersion: 1
+  productId: 270046
+  packageName: 'Motion Warping: Climb & Interact'
+  packageVersion: 3.1.0
+  assetPath: Assets/KINEMATION/MotionWarping/Runtime/Core/TwoBoneIk.cs
+  uploadId: 720822

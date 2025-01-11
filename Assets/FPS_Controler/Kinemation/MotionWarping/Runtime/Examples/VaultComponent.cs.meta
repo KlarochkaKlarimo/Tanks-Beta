@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 854419404bdc4b2a9990c6557b00e445
+timeCreated: 1695198460
+AssetOrigin:
+  serializedVersion: 1
+  productId: 270046
+  packageName: 'Motion Warping: Climb & Interact'
+  packageVersion: 3.1.0
+  assetPath: Assets/KINEMATION/MotionWarping/Runtime/Examples/VaultComponent.cs
+  uploadId: 720822
