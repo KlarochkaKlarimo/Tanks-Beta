@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InteractSystem : MonoBehaviour
@@ -12,7 +10,7 @@ public class InteractSystem : MonoBehaviour
             // Does the ray intersect any objects excluding the player layer
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
             {
-                var interactable = hit.transform.GetComponent<Interactable>();
+                var interactable = hit.rigidbody.transform.GetComponent<Interactable>();
                 if (interactable != null)
                 {
                     interactable.Interact(gameObject);

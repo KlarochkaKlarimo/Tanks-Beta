@@ -2,24 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class VehicleInteract : Interactable
 {
-    [SerializeField] private MonoBehaviour[] monoBehaviours;
-
-    private void Awake()
+    [SerializeField] private Transform _playerPoint;
+    private GameObject _player;
+    private void Update()
     {
-        foreach (var monoBehaviour in monoBehaviours)
+        if (_player != null && Input.GetKeyDown(KeyCode.Y))
         {
-            monoBehaviour.enabled = false;
+            _player.SetActive(true);
+            _player.transform.position = _playerPoint.position;
+            _player =null;
         }
     }
-
     public override void Interact(GameObject obj)
     {
-        foreach (var monoBehaviour in monoBehaviours)
-        {
-            monoBehaviour.enabled = true;
-        }
+        _player = obj;
         obj.SetActive(false);
     }
 }
