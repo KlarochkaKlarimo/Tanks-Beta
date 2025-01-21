@@ -25,7 +25,7 @@ MonoBehaviour:
   m_MinSize: {x: 500, y: 100}
   m_MaxSize: {x: 40480, y: 16192}
   vertical: 0
-  controlID: 4228
+  controlID: 10728
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 4229
+  controlID: 10729
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -175,7 +175,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 50}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 4230
+  controlID: 10730
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -240,10 +240,10 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: e864feff
-      m_LastClickedID: -105240
-      m_ExpandedIDs: c4faffffd8ac0000eaaf0000
+      scrollPos: {x: 0, y: 59}
+      m_SelectedIDs: 34030100
+      m_LastClickedID: 66356
+      m_ExpandedIDs: 0e3cffffbefaffffae02010034030100d40e010062100100ec1101001e120100
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -755,9 +755,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 467.4607, y: 159.09485, z: 1621.6908}
+    m_Target: {x: 444.16104, y: 153.78122, z: 1616.1362}
     speed: 2
-    m_Value: {x: 467.4607, y: 159.09485, z: 1621.6908}
+    m_Value: {x: 444.16104, y: 153.78122, z: 1616.1362}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -803,20 +803,20 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.0058800452, y: 0.6706137, z: -0.009209788, w: 0.74226373}
+    m_Target: {x: -0.129822, y: 0.6969762, z: -0.12560849, w: -0.6945741}
     speed: 2
-    m_Value: {x: 0.0058777016, y: 0.6703464, z: -0.009206117, w: 0.74196786}
+    m_Value: {x: -0.1297675, y: 0.6966836, z: -0.12555575, w: -0.69428253}
   m_Size:
-    m_Target: 9.309578
+    m_Target: 10
     speed: 2
-    m_Value: 9.309578
+    m_Value: 10
   m_Ortho:
     m_Target: 0
     speed: 2
     m_Value: 0
   m_CameraSettings:
-    m_Speed: 0.44780087
-    m_SpeedNormalized: 0.22000045
+    m_Speed: 1.1642008
+    m_SpeedNormalized: 0.5800004
     m_SpeedMin: 0.01
     m_SpeedMax: 2
     m_EasingEnabled: 1
@@ -1119,7 +1119,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/FPS_Controler/Demo
+    - Assets/Plugin/Physics Tank Maker/C#_Script/Gun_Camera_Scripts
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -1127,16 +1127,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 89
   m_LastFolders:
-  - Assets/FPS_Controler/Demo
+  - Assets/Plugin/Physics Tank Maker/C#_Script/Gun_Camera_Scripts
   m_LastFoldersGridSize: 89
   m_LastProjectPath: C:\GitHubRepositoryes\Tanks-Beta
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 175}
-    m_SelectedIDs: 76f50000
-    m_LastClickedID: 62838
-    m_ExpandedIDs: 0000000080ec000082ec000084ec000086ec000088ec00008aec00008cec00008eec000090ec000092ec000094ec000096ec000098ec00009aec00009cec00009eec0000a0ec0000a2ec0000a4ec0000a6ec0000a8ec0000aaec0000acec0000aeec0000b0ec0000b2ec0000b4ec0000b6ec0000b8ec0000baec0000c0ec0000c2ec0000c4ec0000c6ec0000c8ec0000ba98010000ca9a3b
+    scrollPos: {x: 0, y: 213}
+    m_SelectedIDs: 0c230400
+    m_LastClickedID: 271116
+    m_ExpandedIDs: 00000000f8f70000faf70000fcf70000fef7000000f8000002f8000004f8000006f8000008f800000af800000cf800000ef8000010f8000012f8000014f8000016f8000018f800001af800001cf800001ef8000020f8000022f8000024f8000026f8000028f800002af800002cf800002ef8000030f8000032f8000034f8000036f8000038f800003af800003cf800003ef8000066000100322304003423040000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1164,7 +1164,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000080ec000082ec000084ec000086ec000088ec00008aec00008cec00008eec000090ec000092ec000094ec000096ec000098ec00009aec00009cec00009eec0000a0ec0000a2ec0000a4ec0000a6ec0000a8ec0000aaec0000acec0000aeec0000b0ec0000b2ec0000b4ec0000b6ec0000b8ec0000baec0000c0ec0000c2ec0000c4ec0000c6ec0000c8ec000000ca9a3b
+    m_ExpandedIDs: 00000000f8f70000faf70000fcf70000fef7000000f8000002f8000004f8000006f8000008f800000af800000cf800000ef8000010f8000012f8000014f8000016f8000018f800001af800001cf800001ef8000020f8000022f8000024f8000026f8000028f800002af800002cf800002ef8000030f8000032f8000034f8000036f8000038f800003af800003cf800003ef8000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1189,9 +1189,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: e864feff
-    m_LastClickedInstanceID: -105240
-    m_HadKeyboardFocusLastEvent: 1
+    m_SelectedInstanceIDs: 34030100
+    m_LastClickedInstanceID: 66356
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c62300001e0d010098ce0000dccb0000d8d60000c0371d00e473010094e0000072de0100d4200300a4fe0000a6d1000086f400000000000036680500
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1575,7 +1575,7 @@ MonoBehaviour:
     m_CachedPref: 151
     m_ControlHash: 1412526313
     m_PrefName: Preview_InspectorPreview
-  m_LastInspectedObjectInstanceID: 44644
+  m_LastInspectedObjectInstanceID: 66356
   m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0

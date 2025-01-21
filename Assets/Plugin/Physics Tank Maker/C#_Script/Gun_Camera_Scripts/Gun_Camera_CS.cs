@@ -26,9 +26,10 @@ namespace ChobiAssets.PTM
         public float Minimum_FOV = 2.0f;
         [Range(0f, 100f)]
         public float Maximum_FOV = 10.0f;
+        public bool isAbleToControl;
 
         [SerializeField] private float[] _zoomPoints;
-        // << User options
+        // << User options zombe
 
         private int _zoomPointIndex;
 
@@ -134,6 +135,10 @@ namespace ChobiAssets.PTM
 
         void Update()
         {
+            if (isAbleToControl == false)
+            {
+                return;
+            }
             if (isSelected == false)
             {
                 return;
