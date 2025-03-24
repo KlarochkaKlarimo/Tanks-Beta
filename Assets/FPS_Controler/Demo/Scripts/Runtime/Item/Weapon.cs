@@ -60,6 +60,10 @@ namespace Demo.Scripts.Runtime.Item
 
         private RecoilAnimation _recoilAnimation;
         private RecoilPattern _recoilPattern;
+
+        // === HASH FIMOZ ===
+
+        private WeaponLogic _logic;
         
         //~ Controller references
         
@@ -121,7 +125,9 @@ namespace Demo.Scripts.Runtime.Item
         public override void OnEquip(GameObject parent)
         {
             if (parent == null) return;
-            
+
+            //?_logic = GetComponent<WeaponLogic>();
+
             _fpsAnimator = parent.GetComponent<FPSAnimator>();
             _fpsAnimatorEntity = GetComponent<FPSAnimatorEntity>();
             
@@ -192,7 +198,7 @@ namespace Demo.Scripts.Runtime.Item
             _lastRecoilTime = Time.unscaledTime;
             _bursts = burstLength;
             
-            OnFire();
+            //OnFire();
             
             return true;
         }
@@ -215,6 +221,8 @@ namespace Demo.Scripts.Runtime.Item
 
         public override bool OnReload()
         {
+            //_logic.Reload();
+
             if (!FPSAnimationAsset.IsValid(reloadClip))
             {
                 return false;
@@ -259,6 +267,13 @@ namespace Demo.Scripts.Runtime.Item
         
         private void OnFire()
         {
+            //if (_logic.AbleToShoot() == false)
+            //{
+            //    return;
+            //}
+
+            //_logic.Shoot();
+
             if (_weaponAnimator != null)
             {
                 _weaponAnimator.Play("Fire", 0, 0f);
