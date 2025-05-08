@@ -64,9 +64,9 @@ namespace Demo.Scripts.Runtime.Item
         // === HASH FIMOZ ===
 
         private WeaponLogic _logic;
-        
+
         //~ Controller references
-        
+
         private Animator _weaponAnimator;
         private int _scopeIndex;
         
@@ -126,7 +126,7 @@ namespace Demo.Scripts.Runtime.Item
         {
             if (parent == null) return;
 
-            //?_logic = GetComponent<WeaponLogic>();
+            _logic = GetComponent<WeaponLogic>();
 
             _fpsAnimator = parent.GetComponent<FPSAnimator>();
             _fpsAnimatorEntity = GetComponent<FPSAnimatorEntity>();
@@ -198,7 +198,7 @@ namespace Demo.Scripts.Runtime.Item
             _lastRecoilTime = Time.unscaledTime;
             _bursts = burstLength;
             
-            //OnFire();
+            OnFire();
             
             return true;
         }
@@ -221,7 +221,7 @@ namespace Demo.Scripts.Runtime.Item
 
         public override bool OnReload()
         {
-            //_logic.Reload();
+            _logic.Reload();
 
             if (!FPSAnimationAsset.IsValid(reloadClip))
             {
@@ -267,12 +267,13 @@ namespace Demo.Scripts.Runtime.Item
         
         private void OnFire()
         {
-            //if (_logic.AbleToShoot() == false)
-            //{
-            //    return;
-            //}
+            if (_logic.AbleToShoot() == false)
+            {
+                OnFireReleased();
+                return;
+            }
 
-            //_logic.Shoot();
+            _logic.Shoot();
 
             if (_weaponAnimator != null)
             {

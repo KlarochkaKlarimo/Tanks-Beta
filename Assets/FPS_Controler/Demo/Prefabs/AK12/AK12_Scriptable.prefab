@@ -248,8 +248,11 @@ MonoBehaviour:
   _shootPoint: {fileID: 3368033717012434444}
   _projectile: {fileID: 2557007635845246670, guid: 7ca70046483e0984a8fcb56368cb226e,
     type: 3}
-  _ammoCapacity: 30
   _initialVelocity: 500
+  _magazines:
+  - ammo: 30
+  - ammo: 30
+  - ammo: 30
 --- !u!1 &3072488125693394169
 GameObject:
   m_ObjectHideFlags: 0
