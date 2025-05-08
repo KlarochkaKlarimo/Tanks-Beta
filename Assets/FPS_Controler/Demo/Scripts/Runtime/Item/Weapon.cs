@@ -221,13 +221,17 @@ namespace Demo.Scripts.Runtime.Item
 
         public override bool OnReload()
         {
-            _logic.Reload();
+            if (_logic.AbleToReload() == false)
+            {
+                return false;
+            }
 
             if (!FPSAnimationAsset.IsValid(reloadClip))
             {
                 return false;
             }
-            
+
+            _logic.Reload();
             _playablesController.PlayAnimation(reloadClip, 0f);
             
             if (_weaponAnimator != null)

@@ -6,5 +6,5 @@ using UnityEngine;
 [Serializable]
 public class Magazine
 {
-    public int ammo = 30;
+    public List<GameObject>  ammo;
 }

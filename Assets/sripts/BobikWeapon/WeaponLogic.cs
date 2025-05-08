@@ -7,7 +7,6 @@ using UnityEngine;
 public abstract class WeaponLogic : MonoBehaviour
 {
     [SerializeField] protected Transform _shootPoint;
-    [SerializeField] protected GameObject _projectile;
     [SerializeField] protected float _initialVelocity = 500f;
     [SerializeField] protected List<Magazine> _magazines;
     private bool _reloaded;
@@ -21,12 +20,12 @@ public abstract class WeaponLogic : MonoBehaviour
 
     public virtual void Shoot()
     {
-        var currentProjectile = Instantiate(_projectile, _shootPoint.position, transform.rotation);
-        _currentMagazine.ammo--;
+        var currentProjectile = Instantiate(_currentMagazine.ammo[0], _shootPoint.position, transform.rotation);
+        _currentMagazine.ammo.RemoveAt(0);
         Rigidbody rigidbody = currentProjectile.GetComponent<Rigidbody>();
         Vector3 currentVelocity = currentProjectile.transform.forward * _initialVelocity;
         rigidbody.velocity = currentVelocity;
-        if (_currentMagazine.ammo <= 0)
+        if (_currentMagazine.ammo.Count <= 0)
         {
             _reloaded = false;
         }
@@ -34,7 +33,7 @@ public abstract class WeaponLogic : MonoBehaviour
 
     public virtual void Reload()
     {
-        if (_currentMagazine.ammo <= 0)
+        if (_currentMagazine.ammo.Count <= 0)
         {
             _magazines.Remove(_currentMagazine);
         }
@@ -44,7 +43,7 @@ public abstract class WeaponLogic : MonoBehaviour
             return;
         }
 
-        _currentMagazine = _magazines.OrderByDescending(p => p.ammo).FirstOrDefault();
+        _currentMagazine = _magazines.OrderByDescending(p => p.ammo.Count).FirstOrDefault();
         _reloaded = true;
         Debug.Log(_currentMagazine.ammo);
     }
@@ -52,10 +51,10 @@ public abstract class WeaponLogic : MonoBehaviour
     public bool AbleToShoot()
     {
         return _reloaded;
-    }
-
-    void Update()
-    {
-        
     }    
+
+    public bool AbleToReload()
+    {
+        return _magazines.Count > 1;
+    }
 }

@@ -249,6 +249,17 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "a2b012e8-59be-4f93-a8b0-714137e82afd",
+                    "path": "t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "WASD",
                     "id": "264568bc-f62c-4850-b57a-b6b822340a5f",
                     "path": "2DVector(mode=1)",
