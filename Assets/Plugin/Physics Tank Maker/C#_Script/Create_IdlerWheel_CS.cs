@@ -144,7 +144,7 @@ namespace ChobiAssets.PTM
             fixScript.This_Transform = wheelObject.transform;
             // Stabilizer_CS
             Stabilizer_CS stabilizerScript = wheelObject.AddComponent<Stabilizer_CS>();
-            stabilizerScript.This_Transform = wheelObject.transform;
+            stabilizerScript.This_Transform = stabilizerScript.transform;
             stabilizerScript.Is_Left = (direction == "L");
             stabilizerScript.Initial_Pos_Y = wheelObject.transform.localPosition.y;
             stabilizerScript.Initial_Angles = wheelObject.transform.localEulerAngles;

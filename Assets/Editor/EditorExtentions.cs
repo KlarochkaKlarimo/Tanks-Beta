@@ -13,5 +13,11 @@ namespace UnityEditor.Tanks
             EditorGUILayout.PropertyField(stringsProperty, true);
             serializedObject.ApplyModifiedProperties();
         }
+        public static T AddOrGetComponent<T>(this GameObject gameObject) where T : Component
+        {
+            return gameObject.TryGetComponent<T>(out var outComponent)
+                ? outComponent
+                : gameObject.AddComponent<T>();
+        }
     }
 }

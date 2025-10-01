@@ -5,13 +5,13 @@ public class ObjectToFind : MonoBehaviour
     public int trackNumber;
     public ObjectToFind wheel;
     [SerializeField] private ObjectType type;
-    
+
     private void Awake()
     {
         //Destroy(this);
     }
     public ObjectType GetType() { return type; }
-    public ObjectResources GetResources(){return new ObjectResources(gameObject, type);}
+    public ObjectResources GetResources() { return new ObjectResources(gameObject, type); }
 }
 public class ObjectResources
 {
@@ -21,13 +21,13 @@ public class ObjectResources
 
     public ObjectResources(GameObject resourceObject, ObjectType _type)
     {
-        try 
+        try
         {
             _mesh = resourceObject.GetComponent<MeshFilter>().mesh;
             _materials = resourceObject.GetComponent<MeshRenderer>().materials;
             type = _type;
         }
-        catch 
+        catch
         {
             Debug.Log(resourceObject.name);
         }
@@ -45,5 +45,6 @@ public enum ObjectType
     suspentionR,
     suspentionL,
     wheel,
-    supportWheel
+    supportWheel,
+    root
 }

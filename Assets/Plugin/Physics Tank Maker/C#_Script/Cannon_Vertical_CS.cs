@@ -35,7 +35,7 @@ namespace ChobiAssets.PTM
         float previousTurnRate;
         float bulletVelocity;
         public bool Is_Ready; // Referred to from "Cannon_Fire".
-
+        public bool _cheak;
 
         void Start()
         {
@@ -82,6 +82,7 @@ namespace ChobiAssets.PTM
 
         void FixedUpdate()
         {
+            if (_cheak) { return; }
             if (aimingScript.Use_Auto_Turn)
             {
                 Auto_Turn();

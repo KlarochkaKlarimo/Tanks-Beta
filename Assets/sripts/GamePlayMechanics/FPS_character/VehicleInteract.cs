@@ -8,6 +8,7 @@ using UnityEngine;
 public class VehicleInteract : Interactable
 {
     [SerializeField] private Transform _playerPoint;
+    [SerializeField] private bool _startState;
     private GameObject _player;
     private Drive_Control_CS _driveControlScript;
     private Aiming_Control_CS _aimControlScript;
@@ -27,7 +28,7 @@ public class VehicleInteract : Interactable
         _anotherWeaponScript = GetComponentsInChildren<AnotherWeapon>();
         _gunCameras = GetComponentsInChildren<Gun_Camera_CS>();
         _canvasScript = GetComponentInChildren<LaserRangeFinder>().gameObject;
-        ChangeVehicleState(false);
+        ChangeVehicleState(_startState);
     }
 
     private void ChangeVehicleState(bool statka)

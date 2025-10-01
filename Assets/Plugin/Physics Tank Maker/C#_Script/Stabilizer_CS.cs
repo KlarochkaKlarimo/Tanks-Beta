@@ -27,15 +27,15 @@ namespace ChobiAssets.PTM
         void Update()
         {
             // Stabilize the position.
-            currentPosition = This_Transform.localPosition;
+            currentPosition = transform.localPosition;
             currentPosition.y = Initial_Pos_Y;
 
             // Stabilize the angle.
-            Initial_Angles.y = This_Transform.localEulerAngles.y;
+            Initial_Angles.y = transform.localEulerAngles.y;
 
             // Set the position and rotation.
-            This_Transform.localPosition = currentPosition;
-            This_Transform.localEulerAngles = Initial_Angles;
+            transform.localPosition = currentPosition;
+            transform.localEulerAngles = Initial_Angles;
         }
 
 
