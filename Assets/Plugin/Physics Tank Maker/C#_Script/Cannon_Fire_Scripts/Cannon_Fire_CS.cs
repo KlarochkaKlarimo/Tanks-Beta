@@ -111,7 +111,7 @@ namespace ChobiAssets.PTM
 
         void Update()
         {
-            _isReloadingTxt.SetActive(Is_Loaded == false);
+           if(_isReloadingTxt!=null) _isReloadingTxt.SetActive(Is_Loaded == false);
 
             if (Is_Loaded == false)
             {
